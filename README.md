@@ -14,6 +14,19 @@ Simple money mask developed with pure JavaScript
     <script>
       let input = document.getElementsByTagName('input')[0];
       
+      // configuration
+
+      let args = {
+        preffix: '',
+        suffix: '',
+        fixed: true,
+        fractionDigits: 2,
+        decimalSeparator: ',',
+        thousandsSeparator: '.'
+      };
+
+      SimpleMaskMoney.args = args;
+      
       input.oninput = () => {
         input.value = SimpleMaskMoney.format(input.value);
       };
