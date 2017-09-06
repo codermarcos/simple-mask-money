@@ -4,29 +4,33 @@
   "description": "Simple money mask developed with pure JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -w",
+    "start": "http-serve --open"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codermarcos/simple-mask-money.git"
   },
   "keywords": [
-    "MaskMoney",
-    "Mask",
+    "Currency",
     "Money",
     "Mask",
-    "To",
-    "Money",
-    "Mascara",
-    "Mascara",
-    "para",
     "Dinheiro",
-    "Dinheiro"
+    "Moeda",
+    "Mascara",
+    "Javascript",
+    "Vanilla",
+    "Puro",
+    "Pure"
   ],
   "author": "codermarcos",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/codermarcos/simple-mask-money/issues"
   },
-  "homepage": "https://github.com/codermarcos/simple-mask-money#readme"
+  "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.5.0"
+  }
 }

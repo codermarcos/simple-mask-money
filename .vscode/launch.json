@@ -1,0 +1,38 @@
+{
+  "version": "0.0.2",
+  "configurations": [
+    {
+      "name": "Run mocha",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "stopOnEntry": false,
+      "args": [
+        "test/*.test.js",
+        "--no-timeouts"
+      ],
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "env": {
+        "NODE_ENV": "testing"
+      }
+    },
+    {
+      "name": "Run exemple web",
+      "type": "firefox",
+      "request": "launch",
+      "firefoxExecutable": "C:\\Program Files\\Nightly\\firefox.exe",
+      "file": "${workspaceRoot}/index.html",
+      "url": "${workspaceRoot}/index.html",
+      "webRoot": "${workspaceRoot}/index.html",
+      "reloadOnChange": {
+        "watch": [
+          "${workspaceRoot}/**/*.js"
+        ],
+        "ignore": [
+          "${workspaceRoot}/node_modules/**"
+        ]
+      }
+    }
+  ]
+}
