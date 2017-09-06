@@ -8,7 +8,7 @@ Simple money mask developed with pure JavaScript
 ```html
     <script src="node_modules/simple-mask-money/simple-mask-money.js"></script>
     <!-- or -->
-    <script src="node_modules/simple-mask-money/simple-mask-money.js"></script>
+    <script src="node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
 ```
 ```javascript 
     <script>
