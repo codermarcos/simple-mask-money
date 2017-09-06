@@ -2,7 +2,7 @@
   "name": "simple-mask-money",
   "version": "0.0.1",
   "description": "Simple money mask developed with pure JavaScript",
-  "main": "index.js",
+  "main": "lib/simple-mask-money.js",
   "scripts": {
     "test": "mocha -w",
     "start": "http-serve --open"
