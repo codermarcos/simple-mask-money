@@ -4,8 +4,8 @@
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {
-    "test": "mocha -w",
-    "start": "http-serve --open"
+    "test": "mocha",
+    "start": "mocha -w"
   },
   "repository": {
     "type": "git",
