@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+ - "iojs"
+ - "7"
+before_script:
+  - npm i -g mocha
+  - npm i
+script: npm test
+jobs:
+  include:
+    - stage: npm release
+      node_js: "7"
+      script: echo "Deploying to npm ..."
+      deploy:
+        provider: npm
+        email: "coder.marcos@gmail.com"
+        api_key: $NPM_API_KEY
+        on: deploy-npm-release

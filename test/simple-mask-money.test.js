@@ -60,6 +60,8 @@ describe('Default', () => {
 
     it('textToNumber', () => {
       assert.equal(lib.SimpleMaskMoney.textToNumber('a'), '0');
+      assert.equal(lib.SimpleMaskMoney.textToNumber('a10a1'), '101');
+      assert.equal(lib.SimpleMaskMoney.textToNumber('0010'), '10');
     });
   });
 });
