@@ -16,7 +16,7 @@ First, install it.
 ```
 Then, use it as follows:
 ```html
-    <script src="./node_modules/simple-mask-money/simple-mask-money.js"></script> 
+    <script src="./node_modules/simple-mask-money/simple-mask-money.js"></script>
     <script>
       // select the element 
       let input = document.getElementsByTagName('input')[0];
