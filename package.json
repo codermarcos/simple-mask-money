@@ -31,7 +31,6 @@
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^3.5.0",
-    "require-new": "^1.1.1"
+    "mocha": "^3.5.0"
   }
 }
