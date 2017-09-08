@@ -8,12 +8,18 @@
 
 Simple money mask developed with pure JavaScript.
 
-
 ## Getting Started
+
 First, install it.
 ```shell
   npm i simple-mask-money --save
 ```
+
+* [Javascript](exemples/javascript/#readme)
+* [AngularX](exemples/angularX#readme)
+* [React](exemples/react#readme)
+* [Vue](exemples/vue#readme)
+
 Then, use it as follows:
 ```html
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
