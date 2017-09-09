@@ -22,12 +22,13 @@
       "type": "firefox",
       "request": "launch",
       "firefoxExecutable": "C:\\Program Files\\Nightly\\firefox.exe",
-      "file": "${workspaceRoot}/index.html",
-      "url": "${workspaceRoot}/index.html",
-      "webRoot": "${workspaceRoot}/index.html",
+      "file": "${workspaceRoot}/exemples/index.html",
+      "url": "${workspaceRoot}/exemples/index.html",
+      "webRoot": "${workspaceRoot}/exemples/index.html",
       "reloadOnChange": {
         "watch": [
-          "${workspaceRoot}/**/*.js"
+          "${workspaceRoot}/**/*.js",
+          "${workspaceRoot}/exemples/*.html"
         ],
         "ignore": [
           "${workspaceRoot}/node_modules/**"
