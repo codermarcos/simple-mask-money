@@ -5,6 +5,12 @@ First, install it.
 ```
 Then, use it as follows:
 ```html
+  <body>
+    <!-- 
+      inner html you put type text and inputmode numeric to mobile show only numbers 
+     -->
+    <input type="text" inputmode="numeric" placeholder="R$0,00">
+
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
       // select the element 
@@ -25,4 +31,5 @@ Then, use it as follows:
         input.value = SimpleMaskMoney.format(input.value);
       };
     </script>
+  </body>
 ```

@@ -10,7 +10,7 @@ Then, use it as follows:
 
     @Component({
       selector: 'app-root',
-      template: `<input (ngModelChange)="model=SimpleMaskMoney.format($event)" [ngModel]="model" />`
+      template: `<input type="text" inputmode="numeric" (ngModelChange)="model=SimpleMaskMoney.format($event)" [ngModel]="model" />`
     })
     export class AppComponent {
       

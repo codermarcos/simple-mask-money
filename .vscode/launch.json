@@ -34,6 +34,17 @@
           "${workspaceRoot}/node_modules/**"
         ]
       }
+    },
+    {
+      "name": "Run local",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/http-serve/bin/http-serve",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "env": {
+        "NODE_ENV": "testing"
+      }
     }
   ]
 }

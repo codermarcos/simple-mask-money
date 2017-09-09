@@ -31,6 +31,7 @@
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
   "dependencies": {},
   "devDependencies": {
+    "http-serve": "^1.0.1",
     "mocha": "^3.5.0"
   }
 }
