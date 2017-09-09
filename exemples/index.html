@@ -85,7 +85,7 @@
         </svg>
       </a>
       <a href="https://www.npmjs.com/package/simple-mask-money" title="link para o npm">
-        <svg viewBox="0 0 900 315" style="height: 4vw; width: 10vw;">
+        <svg viewbox="0 0 900 315" style="height: 4vw; width: 10vw;">
           <path d="M18 18v240h200v40h160v-40h360V18H18zm200 200h-40V98h-40v120H58V58h160v160zm200 0h-80v40h-80V58h160v160zm280 0h-40V98h-40v120h-40V98h-40v120h-80V58h240v160z"
             fill="#FFFFFF" />
         </svg>
@@ -145,8 +145,8 @@
             reset();
           } else {
             SimpleMaskMoney.args = object;
-            format();
           }
+          format();
 
           textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
         } catch (error) {
