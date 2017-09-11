@@ -24,7 +24,7 @@ Then, use it as follows:
 ```html
   <body>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show only numbers 
+      inner html you put type text and inputmode numeric to mobile show numeric keyboard 
      -->
     <input type="text" inputmode="numeric" placeholder="R$0,00">
 
