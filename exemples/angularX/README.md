@@ -5,21 +5,38 @@ First, install it.
 ```
 Then, use it as follows:
 ```javascript
-    import { SimpleMaskMoney } from 'simple-mask-money';
-    import { Component } from '@angular/core';
+    import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
+    import { Component, OnInit } from '@angular/core';
 
     @Component({
       selector: 'app-root',
-      template: `<input type="text" inputmode="numeric" (ngModelChange)="model=SimpleMaskMoney.format($event)" [ngModel]="model" />`
+      template: `
+      <!-- 
+        inner html you put type text and inputmode numeric to mobile show numeric keyboard 
+      -->
+      <input [(ngModel)]="val" (input)="val=SimpleMaskMoney.format(val)" />
+      `
     })
-    export class AppComponent {
-      
-      SimpleMaskMoney: SimpleMaskMoney;
+    export class AppComponent OnInit {
 
-      model = '';
+      // declare mask in your local
+      SimpleMaskMoney: SimpleMaskMoney = SimpleMaskMoney;
 
-      constructor() { 
-        this.SimpleMaskMoney = SimpleMaskMoney;
+      // Your value
+      val: string = '0,00';
+
+      constructor() {}
+
+      ngOnInit() {
+        // configuration       
+        SimpleMaskMoney.args = {
+          preffix: '',
+          suffix: '',
+          fixed: true,
+          fractionDigits: 2,
+          decimalSeparator: ',',
+          thousandsSeparator: '.'
+        };
       }
     }
 

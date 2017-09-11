@@ -16,8 +16,11 @@
 .strong-pm
 .gitignore
 .vscode
+.yml
+.md
 vscode
 test
 coverage
+exemples
 node_modules
 npm-debug.log
