@@ -17,7 +17,7 @@ Then, use it as follows:
       <input [(ngModel)]="val" (input)="val=SimpleMaskMoney.format(val)" />
       `
     })
-    export class AppComponent OnInit {
+    export class AppComponent implements OnInit {
 
       // declare mask in your local
       SimpleMaskMoney: SimpleMaskMoney = SimpleMaskMoney;
