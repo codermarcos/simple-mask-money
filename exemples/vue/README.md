@@ -10,7 +10,7 @@ Then, use it as follows:
     <!-- 
       inner html you put type text and inputmode numeric to mobile show only numbers 
      -->
-    <input type="text" inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)">
+    <input type="text" inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send()">
   </div>
 </template>
 
@@ -35,6 +35,14 @@ export default {
       decimalSeparator: ',',
       thousandsSeparator: '.'
     };
+  },
+  methods: {
+    // Your send method 
+    send() {
+      
+      // This method return value of your input in format number to save in your database
+      SimpleMaskMoney.formatToNumber(this.val);
+    }
   }
 }
 </script>

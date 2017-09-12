@@ -9,14 +9,14 @@ Then, use it as follows:
     <!-- 
       inner html you put type text and inputmode numeric to mobile show only numbers 
      -->
-    <input type="text" inputmode="numeric" placeholder="R$0,00">
+    <input type="text" inputmode="numeric" placeholder="R$0,00" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()"><br>
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
       // select the element 
       let input = document.getElementsByTagName('input')[0];
-      
-      // configuration
+
+      // configuration  
       SimpleMaskMoney.args = {
         preffix: '',
         suffix: '',
@@ -25,11 +25,13 @@ Then, use it as follows:
         decimalSeparator: ',',
         thousandsSeparator: '.'
       };
-      
-      // Call the method on event listeners of your input
-      input.oninput = () => {
-        input.value = SimpleMaskMoney.format(input.value);
-      };
+
+      // Your send method 
+      send = () => {
+
+        // This method return value of your input in format number to save in your database
+        SimpleMaskMoney.formatToNumber(input.value);
+      }
     </script>
   </body>
 ```

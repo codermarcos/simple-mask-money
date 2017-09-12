@@ -14,16 +14,16 @@ Then, use it as follows:
       <!-- 
         inner html you put type text and inputmode numeric to mobile show numeric keyboard 
       -->
-      <input [(ngModel)]="val" (input)="val=SimpleMaskMoney.format(val)" />
+      <input [(ngModel)]="val" (input)="val=SimpleMaskMoney.format(val)" (keyup)="send()"/>
       `
     })
-    export class AppComponent OnInit {
+    export class AppComponent implements OnInit {
 
-      // declare mask in your local
-      SimpleMaskMoney: SimpleMaskMoney = SimpleMaskMoney;
+      // declare mask in your class to use in html templete
+      SimpleMaskMoney = SimpleMaskMoney; // if you prefer use only in class this line is not necessary
 
       // Your value
-      val: string = '0,00';
+      val = '0,00';
 
       constructor() {}
 
@@ -37,6 +37,13 @@ Then, use it as follows:
           decimalSeparator: ',',
           thousandsSeparator: '.'
         };
+      }
+
+      // Your send method 
+      send() {
+        
+        // This method return value of your input in format number to save in your database
+        this.SimpleMaskMoney.formatToNumber(this.val);
       }
     }
 
