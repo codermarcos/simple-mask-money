@@ -9,7 +9,7 @@ Then, use it as follows:
     <!-- 
       inner html you put type text and inputmode numeric to mobile show only numbers 
      -->
-    <input type="text" inputmode="numeric" placeholder="R$0,00" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()"><br>
+    <input inputmode="numeric" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()" value="0,00"><br>
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
