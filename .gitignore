@@ -15,5 +15,6 @@
 .project
 .strong-pm
 coverage
+implementing
 node_modules
 npm-debug.log
