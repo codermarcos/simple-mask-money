@@ -1,6 +1,6 @@
 # SimpleMaskMoney
-[![Build Status](https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master)](https://travis-ci.org/codermarcos/simple-mask-money)
-[![Version npm](https://img.shields.io/npm/v/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money) 
+[![build Status](https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master)](https://travis-ci.org/codermarcos/simple-mask-money)
+[![npm version](https://badge.fury.io/js/simple-mask-money.svg)](https://badge.fury.io/js/simple-mask-money)
 [![npm Downloads](https://img.shields.io/npm/dm/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money)
 [![dependencies Status](https://david-dm.org/codermarcos/simple-mask-money/status.svg)](https://david-dm.org/codermarcos/simple-mask-money)
 
@@ -15,10 +15,10 @@ First, install it.
   npm i simple-mask-money --save
 ```
 
-* [Javascript](exemples/javascript/#readme)
-* [AngularX](exemples/angularX#readme)
-* [React](exemples/react#readme)
-* [Vue](exemples/vue#readme)
+* [Javascript](examples/javascript/#readme)
+* [AngularX](examples/angularX#readme)
+* [React](examples/react#readme)
+* [Vue](examples/vue#readme)
 
 Then, use it as follows:
 ```html
