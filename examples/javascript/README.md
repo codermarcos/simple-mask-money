@@ -7,7 +7,7 @@ Then, use it as follows:
 ```html
   <body>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show only numbers 
+      inner html you put type text and inputmode numeric to mobile show numeric keyboard
      -->
     <input inputmode="numeric" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()" value="0,00"><br>
 

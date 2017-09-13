@@ -8,7 +8,7 @@ Then, use it as follows:
 <template>
   <div>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show only numbers 
+      inner html you put type text and inputmode numeric to mobile show numeric keyboard 
      -->
     <input type="text" inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send()">
   </div>
