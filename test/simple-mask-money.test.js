@@ -91,6 +91,13 @@ describe('Default', () => {
             assert.equal(lib.SimpleMaskMoney.formatToNumber('a1a.5b0-0.0*25+10'), 1500025.10);
             assert.equal(lib.SimpleMaskMoney.formatToNumber('1.500.025,10'), 1500025.10);
         });
+
+        it('toCents', () => {
+            assert.equal(lib.SimpleMaskMoney.toCents('0.10'), 10);
+            assert.equal(lib.SimpleMaskMoney.toCents('1.01'), 101);
+            assert.equal(lib.SimpleMaskMoney.toCents('2500025.10'), 250002510);
+            assert.equal(lib.SimpleMaskMoney.toCents('1500025.10'), 150002510);
+        });
     });
 
 });
@@ -178,6 +185,13 @@ describe('Custom', () => {
             assert.equal(lib.SimpleMaskMoney.formatToNumber('R$_.101.'), 0.101);
             assert.equal(lib.SimpleMaskMoney.formatToNumber('R$250,002.510.'), 250002.510);
             assert.equal(lib.SimpleMaskMoney.formatToNumber('R$150,002.510.'), 150002.510);
+        });
+
+        it('toCents', () => {
+            assert.equal(lib.SimpleMaskMoney.toCents('0.001'), 0);
+            assert.equal(lib.SimpleMaskMoney.toCents('0.101'), 10);
+            assert.equal(lib.SimpleMaskMoney.toCents('250002.510'), 25000251);
+            assert.equal(lib.SimpleMaskMoney.toCents('150002.510'), 15000251);
         });
     });
 
