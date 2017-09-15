@@ -40,7 +40,8 @@ Then, use it as follows:
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        autoCompleteDecimal: false
       };
 
       // Your send method 

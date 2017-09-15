@@ -10,10 +10,10 @@
     <title>SimpleMaskMoney</title>
     <script>
       (function (i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date(); a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
       })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
       ga('create', 'UA-106429071-1', 'auto');
@@ -69,8 +69,9 @@
         display: inline-block;
         font-size: 3vw;
         opacity: 0;
+        overflow-y: hidden;
         text-align: left;
-        width: 35vw;
+        width: 40vw;
       }
 
       .invalid {
@@ -103,7 +104,7 @@
         }
 
         textarea {
-          font-size: 7vw;
+          font-size: 6vw;
           width: 80vw;
         }
       }
@@ -128,7 +129,7 @@
     </div>
     <input type="text" inputmode="numeric" placeholder="R$0,00"><br>
     <button type="button" title="click to open configutation">see configuration</button><br>
-    <textarea cols="35" rows="8"></textarea>
+    <textarea cols="35" rows="9"></textarea>
 
     <script>
       let textarea = document.getElementsByTagName('textarea')[0];
@@ -140,7 +141,8 @@
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        autoCompleteDecimal: false
       });
 
       format = () => {

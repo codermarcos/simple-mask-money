@@ -33,7 +33,8 @@ export default {
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.'
+      thousandsSeparator: '.',
+        autoCompleteDecimal: false
     };
   },
   methods: {
