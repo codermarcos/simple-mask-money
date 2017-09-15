@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SimpleMaskMoney</title>
+    <meta name="description" content="Simple money mask developed with pure JavaScript">
+    <meta name="keywords" content="SimpleMaskMoney, MaskMoney, MaskJs, Mascara Javascript, Vanilla, Puro, Pure">
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+      * {
+        border: 0 none;
+        color: #fff;
+        font-family: 'Slabo 27px', serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      body {
+        background-color: #222;
+        height: 100vh;
+      }
+
+      input {
+        background-color: transparent;
+        color: red;
+        font-size: 10vw;
+        text-shadow: 0px 0px 0px #fff;
+        width: 80vw;
+        -webkit-text-fill-color: transparent;
+      }
+
+      input::-webkit-input-placeholder {
+        text-shadow: none;
+        -webkit-text-fill-color: initial;
+      }
+
+      div {
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 
+      inner html you put type text and inputmode numeric to mobile show only numbers 
+     -->
+    <input inputmode="numeric" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()" value="0,00"><br>
+
+    <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
+    <script>
+      // select the element 
+      let input = document.getElementsByTagName('input')[0];
+
+      // configuration  
+      SimpleMaskMoney.args = {
+        preffix: '',
+        suffix: '',
+        fixed: true,
+        fractionDigits: 2,
+        decimalSeparator: ',',
+        thousandsSeparator: '.',
+        autoCompleteDecimal: true
+      };
+
+      // Your send method 
+      send = () => {
+
+        // This method return value of your input in format number to save in your database
+        SimpleMaskMoney.formatToNumber(input.value);
+      }
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "html-test-simple-mask-money",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "http-serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "simple-mask-money": "0.0.6"
+  }
+}
