@@ -14,7 +14,8 @@ import { Component, OnInit } from '@angular/core';
   <!-- 
     Put inputmode numeric to mobile show only numbers 
   -->
-  <input #input inputmode="numeric" [(ngModel)]="val" (keyup)="send($event)" (input)="input.value=SimpleMaskMoney.format(val)"/>
+  <input #input inputmode="numeric" [(ngModel)]="val" (keyup)="send($event)" 
+    (input)="input.value=SimpleMaskMoney.format(val)"/>
   `
 })
 export class AppComponent implements OnInit {

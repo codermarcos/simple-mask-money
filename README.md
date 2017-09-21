@@ -27,7 +27,7 @@ Then, use it as follows:
       Put inputmode numeric to mobile show only numbers 
     -->
     <input inputmode="numeric" onkeyup="send(event)" value="0,00"
-    oninput="this.value = SimpleMaskMoney.format(this.value)">
+      oninput="this.value = SimpleMaskMoney.format(this.value)">
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
