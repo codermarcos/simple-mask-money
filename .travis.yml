@@ -10,6 +10,6 @@ deploy:
   api_key:
     secure: JzGk6FP9H9rHYs49ByEyAX25GuOVMwp+7ZWmiCrVA/kWLDONtcUMelC5WYD3arjUPJOcbsr+ZjEXITUTQO8/2sw7FQelWCvmWmyNTpqTmwFt4nTdlbEgsP+YZ3pYjTa6Gz5EmWK15fcYDoNVaIFGJXL7yK11e+4wBIuY7M0CJ+7k0NvEVtQAMWizIWTfhUDUuamjvGvpfi0dcaEfTJyERtsW+YrygcTF6mI3A83NZMcIb6rqmSGX7edFVlpgNcFeRUErVo+Su0dkcvAMrEKYCwPdlO5jsYpdtLDQrcrUU4La1OdhgGIs1ahAg+y+PqVbh6NUtxjO9Zl4W3sjt3PYErNTgowLiO4+UpeXeiEfPfXryrPJaIa/8Jzd8YAUe8+sh+H7NCoSZI0wtsaWUiCkQXzy4foIoN9SXKbNkpKAU262vWBc9FGd6S39SFc8jE8tV3u5tfwtqqVZEfQJ2tqRegFd9EmUhyTaXxSgx0NNaVCgnOjUv07vkc1e9KNAqtblDn3XE5Db90U+3DHFSXxcIgB7kXB7EItsZg6T7vrROaucLnorAFRSc8/WvEJcOw90zajd+jprexIRTXEIaNO5IiAvDRBtI21XDtq494faiXbR0hPSe3wy2Tx1ssJmiUiRDZu5+1deVs7lir1Vjk69QhVkWPiWTerstKN84XAuwD0=
   on:
-    tags: true
+    tags: next
     repo: codermarcos/simple-mask-money
     branch: master
