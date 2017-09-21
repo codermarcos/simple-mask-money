@@ -5,37 +5,37 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-root',
   template: `
   <!-- 
-    inner html you put type text and inputmode numeric to mobile show numeric keyboard 
+    Put inputmode numeric to mobile show only numbers 
   -->
-  <input [(ngModel)]="val" (input)="val=SimpleMaskMoney.format(val)" (keyup)="send()"/>
+  <input #input inputmode="numeric" [(ngModel)]="val" (keyup)="send($event)" (input)="input.value=SimpleMaskMoney.format(val)"/>
   `
 })
 export class AppComponent implements OnInit {
-
   // declare mask in your class to use in html templete
   SimpleMaskMoney = SimpleMaskMoney; // if you prefer use only in class this line is not necessary
 
   // Your value
   val = '0,00';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    // configuration       
+    // configuration
     SimpleMaskMoney.args = {
       preffix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.'
+      thousandsSeparator: '.',
+      autoCompleteDecimal: false
     };
   }
 
-  // Your send method 
-  send() {
-
+  // Your send method
+  send(e) {
+    if (e.key !== 'Enter') return;
     // This method return value of your input in format number to save in your database
-    SimpleMaskMoney.formatToNumber(this.val);
+    console.log( SimpleMaskMoney.formatToNumber(this.val) );
   }
 }

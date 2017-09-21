@@ -26,7 +26,8 @@ Then, use it as follows:
     <!-- 
       inner html you put type text and inputmode numeric to mobile show numeric keyboard 
      -->
-    <input inputmode="numeric" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()" value="0,00"><br>
+    <input inputmode="numeric" onkeyup="send(event)" value="0,00"
+    oninput="this.value = SimpleMaskMoney.format(this.value)">
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
@@ -45,8 +46,8 @@ Then, use it as follows:
       };
 
       // Your send method 
-      send = () => {
-
+      send = (e) => {
+        if (e.key !== "Enter") return;
         // This method return value of your input in format number to save in your database
         SimpleMaskMoney.formatToNumber(input.value);
       }

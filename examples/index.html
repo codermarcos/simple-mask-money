@@ -43,6 +43,20 @@
         height: 100vh;
       }
 
+      h1 {
+        font-size: 5vw;
+        -webkit-transition: margin-top 1s ease-in-out;
+        -moz-transition: margin-top 1s ease-in-out;
+        transition: margin-top 1s ease-in-out;
+      }
+
+      h1.invisible {
+        margin-top: -6vw;
+        -webkit-transition: margin-top 1s ease-in-out;
+        -moz-transition: margin-top 1s ease-in-out;
+        transition: margin-top 1s ease-in-out;
+      }
+
       input {
         background-color: transparent;
         color: red;
@@ -67,7 +81,8 @@
       textarea {
         background-color: #666;
         display: inline-block;
-        font-size: 3vw;
+        line-height: 2.5vw;
+        font-size: 2vw;
         opacity: 0;
         overflow-y: hidden;
         text-align: left;
@@ -85,10 +100,6 @@
         transition: opacity 2s linear;
       }
 
-      div {
-        padding-top: 20px;
-      }
-
       a {
         word-spacing: -0.188em;
       }
@@ -104,6 +115,7 @@
         }
 
         textarea {
+          line-height: 6.5vw;
           font-size: 6vw;
           width: 80vw;
         }
@@ -113,6 +125,9 @@
   </head>
 
   <body>
+    <header>
+      <h1>SimpleMaskMoney</h1>
+    </header>
     <div>
       <a href="https://github.com/codermarcos/simple-mask-money" title="link para o github">
         <svg viewbox="0 0 438.549 438.549" style="height: 4vw; width: 6vw;">
@@ -127,14 +142,17 @@
         </svg>
       </a>
     </div>
-    <input type="text" inputmode="numeric" placeholder="R$0,00"><br>
-    <button type="button" title="click to open configutation">see configuration</button><br>
+    <input type="text" inputmode="numeric" placeholder="0,00">
+    <br>
+    <button type="button" title="click to open configutation">see configuration</button>
+    <br>
     <textarea cols="35" rows="9"></textarea>
 
     <script>
       let textarea = document.getElementsByTagName('textarea')[0];
       let button = document.getElementsByTagName('button')[0];
       let input = document.getElementsByTagName('input')[0];
+      let title = document.getElementsByTagName('h1')[0];
       const configuration = Object.freeze({
         preffix: '',
         suffix: '',
@@ -161,10 +179,12 @@
       button.onclick = () => {
         if (textarea.classList.contains('visible')) {
           textarea.classList.remove('visible');
+          title.classList.remove('invisible');
           input.focus();
           reset();
         } else {
           textarea.classList.add('visible');
+          title.classList.add('invisible');
           textarea.focus();
         }
       };
@@ -178,7 +198,7 @@
           textarea.classList.remove('invalid');
           let object = Object.assign({}, SimpleMaskMoney.args, JSON.parse(textarea.value));
 
-          if (Object.keys(object).length !== 7) {
+          if (Object.keys(object).length !== 8) {
             reset();
           } else {
             SimpleMaskMoney.args = object;

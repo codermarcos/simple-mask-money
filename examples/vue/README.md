@@ -8,9 +8,9 @@ Then, use it as follows:
 <template>
   <div>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show numeric keyboard 
+      Put inputmode numeric to mobile show numeric keyboard
      -->
-    <input type="text" inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send()">
+    <input type="text" inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send($event)">
   </div>
 </template>
 
@@ -34,13 +34,13 @@ export default {
       fractionDigits: 2,
       decimalSeparator: ',',
       thousandsSeparator: '.',
-        autoCompleteDecimal: false
+      autoCompleteDecimal: false
     };
   },
   methods: {
     // Your send method 
-    send() {
-      
+    send(e) {
+        if (e.key !== "Enter") return;
       // This method return value of your input in format number to save in your database
       SimpleMaskMoney.formatToNumber(this.val);
     }

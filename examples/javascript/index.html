@@ -46,7 +46,7 @@
 
   <body>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show only numbers 
+      Put inputmode numeric to mobile show only numbers 
      -->
     <input inputmode="numeric" oninput="this.value = SimpleMaskMoney.format(this.value)" onkeyup="send()" value="0,00"><br>
 
@@ -67,10 +67,10 @@
       };
 
       // Your send method 
-      send = () => {
-
+      send = (e) => {
+        if (e.key !== 'Enter') return;
         // This method return value of your input in format number to save in your database
-        SimpleMaskMoney.formatToNumber(input.value);
+        console.log( SimpleMaskMoney.formatToNumber(input.value) );
       }
     </script>
   </body>
