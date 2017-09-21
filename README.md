@@ -16,7 +16,7 @@ First, install it.
 ```
 
 * [Javascript](examples/javascript/#readme)
-* [AngularX](examples/angularX#readme)
+* [Angular](examples/angular#readme)
 * [React](examples/react#readme)
 * [Vue](examples/vue#readme)
 
