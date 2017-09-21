@@ -114,7 +114,7 @@ describe('Default', () => {
 
 });
 
-describe.only('Custom', () => {
+describe('Custom', () => {
     describe('setGlobal', () => {
         it('preffix', () => {
             lib.SimpleMaskMoney.args = {

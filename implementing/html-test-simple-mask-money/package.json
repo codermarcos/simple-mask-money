@@ -8,6 +8,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "simple-mask-money": "0.0.6"
+    "simple-mask-money": "0.0.8"
   }
 }

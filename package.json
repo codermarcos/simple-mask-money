@@ -20,8 +20,8 @@
     "Mascara",
     "Javascript",
     "Vanilla",
-    "Puro",
-    "Pure"
+    "ng-mask",
+    "v-maks"
   ],
   "author": "codermarcos",
   "license": "ISC",
@@ -32,6 +32,6 @@
   "dependencies": {},
   "devDependencies": {
     "http-serve": "^1.0.1",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.3"
   }
 }

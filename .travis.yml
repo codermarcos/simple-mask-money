@@ -6,9 +6,10 @@ before_script:
 script: npm test
 deploy:
   provider: npm
-  email: coder.marcos@gmail.com
+  email: "coder.marcos@gmail.com"
   api_key:
     secure: Tf/a+2isXIuJaFBjeL7VCmQQeGWq3e+cTcF81LIfwAP7uCygPTx4kA/jBgxvAelIZqNgcoLthOAoMrlXwmwSqqrk5gzWMKR4/KXspJhN9Hl0pQRZ/18QV3EPNqtlNsN1ZFfaHWvqjZFiKniH7OXHnrZLmTyBjM7wzZ5oaWFW63uqtW8jTv7Td5Dci3SHVoi8EInAenkgnMqxORl9M+SA40c/2xgJAveLqAUn5V/CgZ7Qhzj94cqT5LMMO0q+99QyLx4t54VjsgoNJ5tyb2eUHgtaxt15gBu/SRLvXh9WXcdxfAznWhs44ZXtxopl+STAoRn7x0lbLvGp2iWHliYvduyFylFVe3/JIVzXDL9n3vgDLWPOy1vzS+pLt2BknuVfNu8KrDDAHT+Ar1EkKVLvxRFJktO4zzFtEcA8YToLP1gd6LZqAxF+NliP+cS2+Hr6wARj1GfbG9z3TzgiZJVX+mzmpqAcIbpaxixygSPbwteIqzFske2QuMIIVit3IDhtssCevmmioiedc4Sti9STZQ5yV2RHSwZtk7VRs0ZFlGF2ChQnY06rqXsQ8KpxVySxpySa2T2qrxeDOkxn7OH5Y4GYFVBF80Bn4e5lA3iWqLkly/6W0Syrq8agSAHLm/LCfDx0U6h+/0ps4uCkilYJgvYFrAcDx1tKCgA+6tGdbMw=
   on:
     tags: true
     repo: codermarcos/simple-mask-money
+    branch: master
