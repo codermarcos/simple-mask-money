@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "http-serve": "^1.0.1",
     "simple-mask-money": "0.0.8"
   }
 }

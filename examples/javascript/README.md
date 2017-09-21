@@ -58,5 +58,5 @@ To see an example of the code running, follow these steps:
 ```
 5. open browser 
 ```shell
-  start "http://localhost:4200"
+  start "http://localhost:8080"
 ```
