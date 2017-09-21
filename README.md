@@ -24,8 +24,8 @@ Then, use it as follows:
 ```html
   <body>
     <!-- 
-      inner html you put type text and inputmode numeric to mobile show numeric keyboard 
-     -->
+      Put inputmode numeric to mobile show only numbers 
+    -->
     <input inputmode="numeric" onkeyup="send(event)" value="0,00"
     oninput="this.value = SimpleMaskMoney.format(this.value)">
 
