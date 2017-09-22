@@ -46,7 +46,7 @@ To see an example of the code running, follow these steps:
 ```
 2. Enter on repository
 ```shell
-  cd implementing/exemples/javascript
+  cd simple-mask-money/exemples/javascript
 ```
 3. Install dependencies 
 ```shell
