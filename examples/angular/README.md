@@ -58,7 +58,7 @@ To see an example of the code running, follow these steps:
 ```
 2. Enter on repository
 ```shell
-  cd implementing/exemples/angular
+  cd simple-mask-money/exemples/angular
 ```
 3. Install dependencies 
 ```shell
