@@ -2,7 +2,7 @@
 [![build Status](https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master)](https://travis-ci.org/codermarcos/simple-mask-money)
 [![npm version](https://badge.fury.io/js/simple-mask-money.svg)](https://badge.fury.io/js/simple-mask-money)
 [![npm Downloads](https://img.shields.io/npm/dm/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money)
-[![dependencies Status](https://david-dm.org/codermarcos/simple-mask-money/status.svg)](https://david-dm.org/codermarcos/simple-mask-money)
+[![bitHound Dependencies](https://www.bithound.io/github/codermarcos/simple-mask-money/badges/dependencies.svg)](https://www.bithound.io/github/codermarcos/simple-mask-money/master/dependencies/npm)
 
 [![NPM](https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true)](https://nodei.co/npm/simple-mask-money/)
 
