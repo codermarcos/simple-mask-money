@@ -163,9 +163,7 @@
         autoCompleteDecimal: false
       });
 
-      format = () => {
-        input.value = SimpleMaskMoney.format(input.value);
-      }
+      SimpleMaskMoney.setMask('input');
 
       reset = () => {
         textarea.value = JSON.stringify(configuration, undefined, 4);
@@ -187,10 +185,6 @@
           title.classList.add('invisible');
           textarea.focus();
         }
-      };
-
-      input.oninput = () => {
-        format();
       };
 
       textarea.oninput = () => {

@@ -26,8 +26,39 @@ Then, use it as follows:
     <!-- 
       Put inputmode numeric to mobile show only numbers 
     -->
-    <input inputmode="numeric" onkeyup="send(event)" value="0,00"
-      oninput="this.value = SimpleMaskMoney.format(this.value)">
+    <input id="myInput" inputmode="numeric" value="0,00">
+
+    <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
+    <script>
+
+      // configuration  
+      let args = {
+        preffix: '',
+        suffix: '',
+        fixed: true,
+        fractionDigits: 2,
+        decimalSeparator: ',',
+        thousandsSeparator: '.',
+        autoCompleteDecimal: false
+      };
+
+      // select the element 
+      let input = SimpleMaskMoney.setMask('#myInput', args);
+
+      // This method return value of your input in format number to save in your database
+      input.formatToNumber();
+      
+    </script>
+  </body>
+```
+
+Or if you prefer use the methods in your events
+```html
+  <body>
+    <!-- 
+      Put inputmode numeric to mobile show only numbers 
+    -->
+    <input inputmode="numeric" value="0,00">
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
@@ -45,8 +76,12 @@ Then, use it as follows:
         autoCompleteDecimal: false
       };
 
+      input.oninput = () => {
+        input.value = SimpleMaskMoney.format(input.value);
+      }
+
       // Your send method 
-      send = (e) => {
+      input.onkeyup = (e) => {
         if (e.key !== "Enter") return;
         // This method return value of your input in format number to save in your database
         SimpleMaskMoney.formatToNumber(input.value);

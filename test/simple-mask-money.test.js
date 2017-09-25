@@ -73,6 +73,13 @@ describe('Default', () => {
             assert.equal(lib.SimpleMaskMoney.addingDecimalSeparator('0', completer, separator), '0');
             assert.equal(lib.SimpleMaskMoney.addingDecimalSeparator('00', completer, separator), '0,00');
         });
+        it('addingHundredsSeparator', () => {
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('0'), ',0');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('000'), '0,00');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('0000'), '00,00');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('00000'), '000,00');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('000000'), '0.000,00');
+        });
         it('removeSeparator', () => {
             assert.equal(lib.SimpleMaskMoney.removeSeparator('00.000.000.000,00', lib.SimpleMaskMoney.args.thousandsSeparator), '00000000000,00');
             assert.equal(lib.SimpleMaskMoney.removeSeparator('00.000.000.000,00', lib.SimpleMaskMoney.args.decimalSeparator), '00.000.000.00000');
@@ -174,6 +181,14 @@ describe('Custom', () => {
         it('addingDecimalSeparator', () => {
             assert.equal(lib.SimpleMaskMoney.addingDecimalSeparator('_', completer, separator), '_');
             assert.equal(lib.SimpleMaskMoney.addingDecimalSeparator('___', completer, separator), '_.___');
+        });
+        it('addingHundredsSeparator', () => {
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('0'), '.0');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('000'), '.000');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('0000'), '0.000');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('00000'), '00.000');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('000000'), '000.000');
+            assert.equal(lib.SimpleMaskMoney.addingHundredsSeparator('0000000'), '0,000.000');
         });
         it('removeSeparator', () => {
             assert.equal(lib.SimpleMaskMoney.removeSeparator('_.___.___.___,___', lib.SimpleMaskMoney.args.thousandsSeparator), '_.___.___.______');
