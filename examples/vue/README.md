@@ -1,9 +1,59 @@
-# SimpleMaskMoney Exemple Vue
+# SimpleMaskMoney Example Vue
 First, install it.
 ```shell
   npm i simple-mask-money --save
 ```
+
 Then, use it as follows:
+```html
+<template>
+  <div>
+    <!-- 
+      Put inputmode numeric to mobile show numeric keyboard
+     -->
+    <input type="text" inputmode="numeric" v-model="val" v-on:keyup="send($event)">
+  </div>
+</template>
+
+<script>
+import { 
+  SimpleMaskMoney 
+} from 'simple-mask-money/lib/simple-mask-money'; // import mask
+
+export default {
+  data() {
+    return {
+      val: '0,00'
+    }
+  },
+  mounted() {
+    // configuration 
+    const options = {
+      preffix: '',
+      suffix: '',
+      fixed: true,
+      fractionDigits: 2,
+      decimalSeparator: ',',
+      thousandsSeparator: '.',
+      autoCompleteDecimal: false
+    };
+
+    // set mask on your input you can pass a querySelector or your input element and options
+    SimpleMaskMoney.setMask('#myInput', options);
+  },
+  methods: {
+    // Your send method 
+    send(e) {
+      if (e.key !== "Enter") return;
+      // This method return value of your input in format number to save in your database
+      console.log( SimpleMaskMoney.formatToNumber(this.val) );
+    }
+  }
+}
+</script>
+```
+
+Or if you prefer use the methods in your events
 ```html
 <template>
   <div>
@@ -18,7 +68,7 @@ Then, use it as follows:
 <script>
 import { 
   SimpleMaskMoney 
-} from '../node_modules/simple-mask-money/lib/simple-mask-money'; // import mask
+} from 'simple-mask-money/lib/simple-mask-money'; // import mask
 
 export default {
   data() {

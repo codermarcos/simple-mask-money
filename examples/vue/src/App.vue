@@ -1,9 +1,9 @@
 <template>
-  <div>      
+  <div id="app">      
     <!-- 
       Put inputmode numeric to mobile show only numbers 
     -->
-    <input inputmode="numeric" v-model="val" v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send($event)">
+    <input inputmode="numeric" id="myInput" v-model="val" v-on:keyup="send($event)">
   </div>
 </template>
 
@@ -12,22 +12,24 @@
 
   export default {
     data() {
-      // declare mask in your local
       return {
-        SimpleMaskMoney: SimpleMaskMoney,
         val: '0,00'
       }
     },
-    created() {
+    mounted() {
       // configuration   
-      SimpleMaskMoney.args = {
+      const options = {
         preffix: '',
         suffix: '',
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        autoCompleteDecimal: false
       };
+
+      // set mask on your input you can pass a querySelector or your input element and options
+      SimpleMaskMoney.setMask('#myInput', options);
     },
     methods: {
       // Your send method 

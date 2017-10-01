@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "http-serve"
+    "start": "http-serve ../../"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "http-serve": "^1.0.1",
-    "simple-mask-money": "0.0.8"
+    "http-serve": "^1.0.1"
   }
 }
