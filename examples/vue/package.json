@@ -1,9 +1,8 @@
 {
   "name": "v-test-simple-mask-money",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "marcoosbmx <marcosbmx.jr@gmail.com>",
-  "private": true,
+  "version": "0.1.1",
+  "description": "Exemple with vue",
+  "author": "codermarcos <coder.marcos@gmail.com>",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",

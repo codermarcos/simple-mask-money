@@ -27,7 +27,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     // configuration
     const options = {
-      preffix: '',
+      prefix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
@@ -50,7 +50,7 @@ export class AppComponent implements AfterViewInit {
 ```
 
 Or if you prefer use the methods in your events
-```html
+```javascript
 import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
 import { Component, OnInit } from '@angular/core';
 
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // configuration
     SimpleMaskMoney.args = {
-      preffix: '',
+      prefix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
