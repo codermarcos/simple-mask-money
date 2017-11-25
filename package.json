@@ -1,6 +1,6 @@
 {
   "name": "simple-mask-money",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "v-mask"
   ],
   "author": "codermarcos",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/codermarcos/simple-mask-money/issues"
   },
@@ -32,6 +32,6 @@
   "dependencies": {},
   "devDependencies": {
     "http-serve": "^1.0.1",
-    "mocha": "^3.5.3"
+    "mocha": "^4.0.1"
   }
 }

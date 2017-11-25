@@ -3,6 +3,7 @@
 [![npm version](https://badge.fury.io/js/simple-mask-money.svg)](https://badge.fury.io/js/simple-mask-money)
 [![npm Downloads](https://img.shields.io/npm/dm/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money)
 [![bitHound Dependencies](https://www.bithound.io/github/codermarcos/simple-mask-money/badges/dependencies.svg)](https://www.bithound.io/github/codermarcos/simple-mask-money/master/dependencies/npm)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 [![NPM](https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true)](https://nodei.co/npm/simple-mask-money/)
 

@@ -1,12 +1,11 @@
 {
   "name": "html-test-simple-mask-money",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.1",
+  "description": "Exemple with vanilla javascript",
   "scripts": {
     "start": "http-serve ../../"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "codermarcos <coder.marcos@gmail.com>",
   "dependencies": {
     "http-serve": "^1.0.1"
   }
