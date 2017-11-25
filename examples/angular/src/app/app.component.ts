@@ -19,7 +19,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     // configuration
     const options = {
-      preffix: '',
+      prefix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
