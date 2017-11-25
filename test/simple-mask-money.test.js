@@ -6,8 +6,8 @@ let separator;
 
 describe('Default', () => {
     describe('Config', () => {
-        it('preffix', () => {
-            assert.equal(lib.SimpleMaskMoney.args.preffix, '');
+        it('prefix', () => {
+            assert.equal(lib.SimpleMaskMoney.args.prefix, '');
         });
         it('suffix', () => {
             assert.equal(lib.SimpleMaskMoney.args.suffix, '');
@@ -62,11 +62,11 @@ describe('Default', () => {
             assert.equal(lib.SimpleMaskMoney.removingCompleterFromEnd('10', completer), '1');
         });
 
-        it('addingPreffix', () => {
-            assert.equal(lib.SimpleMaskMoney.addingPreffix('0,00'), '0,00');
+        it('addingPrefix', () => {
+            assert.equal(lib.SimpleMaskMoney.addingPrefix('0,00'), '0,00');
         });
-        it('removingPreffix', () => {
-            assert.equal(lib.SimpleMaskMoney.removingPreffix('0,00'), '0,00');
+        it('removingPrefix', () => {
+            assert.equal(lib.SimpleMaskMoney.removingPrefix('0,00'), '0,00');
         });
 
         it('addingDecimalSeparator', () => {
@@ -123,9 +123,9 @@ describe('Default', () => {
 
 describe('Custom', () => {
     describe('setGlobal', () => {
-        it('preffix', () => {
+        it('prefix', () => {
             lib.SimpleMaskMoney.args = {
-                preffix: 'R$',
+                prefix: 'R$',
                 fixed: false,
                 decimalSeparator: '.'
             };
@@ -135,7 +135,7 @@ describe('Custom', () => {
             lib.SimpleMaskMoney.args.thousandsSeparator = ',';
             lib.SimpleMaskMoney.args.autoCompleteDecimal = true;
 
-            assert.equal(lib.SimpleMaskMoney.args.preffix, 'R$');
+            assert.equal(lib.SimpleMaskMoney.args.prefix, 'R$');
             assert.equal(lib.SimpleMaskMoney.args.suffix, '.');
             assert.equal(lib.SimpleMaskMoney.args.fixed, false);
             assert.equal(lib.SimpleMaskMoney.args.fractionDigits, 3);
@@ -171,11 +171,11 @@ describe('Custom', () => {
         it('removingCompleterFromEnd', () => {
             assert.equal(lib.SimpleMaskMoney.removingCompleterFromEnd('1_', completer), '1');
         });
-        it('addingPreffix', () => {
-            assert.equal(lib.SimpleMaskMoney.addingPreffix('_.___'), 'R$_.___');
+        it('addingPrefix', () => {
+            assert.equal(lib.SimpleMaskMoney.addingPrefix('_.___'), 'R$_.___');
         });
-        it('removingPreffix', () => {
-            assert.equal(lib.SimpleMaskMoney.removingPreffix('R$_.___'), '_.___');
+        it('removingPrefix', () => {
+            assert.equal(lib.SimpleMaskMoney.removingPrefix('R$_.___'), '_.___');
         });
 
         it('addingDecimalSeparator', () => {
