@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "mocha": true,
+        "node": true,
+        "es6": true
+    },
+    "plugins": ["mocha"],
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "mocha/no-exclusive-tests": "error"
+    }
+}
