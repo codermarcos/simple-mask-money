@@ -5,7 +5,8 @@
   "main": "lib/simple-mask-money.js",
   "scripts": {
     "test": "mocha",
-    "start": "mocha -w"
+    "start": "mocha -w",
+    "lint": "eslint ./lib/simple-mask-money.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,8 @@
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-plugin-mocha": "^4.12.1",
     "http-serve": "^1.0.1",
     "mocha": "^4.0.1"
   }
