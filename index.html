@@ -142,17 +142,19 @@
         </svg>
       </a>
     </div>
-    <input type="text" inputmode="numeric" placeholder="0,00" value="0,00" onfocus="this.value = this.value;">
+    <input type="text" inputmode="numeric" placeholder="0,00" value="0,00">
     <br>
     <button type="button" title="click to open configutation">see configuration</button>
     <br>
     <textarea cols="35" rows="9"></textarea>
 
     <script>
-      let textarea = document.getElementsByTagName('textarea')[0];
-      let button = document.getElementsByTagName('button')[0];
-      let input = document.getElementsByTagName('input')[0];
-      let title = document.getElementsByTagName('h1')[0];
+      const qs = (args) => document.querySelector(args)
+      let textarea = qs('textarea')
+        , button = qs('button')
+        , input = qs('input')
+        , title = qs('h1');
+        
       const configuration = Object.freeze({
         prefix: '',
         suffix: '',
@@ -169,6 +171,8 @@
         textarea.value = JSON.stringify(configuration, undefined, 4);
         SimpleMaskMoney.args = configuration;
       }
+      
+      input.onfocus = (e) => e.target.selectionStart = e.target.selectionEnd = 10000;
 
       input.focus();
       reset();
