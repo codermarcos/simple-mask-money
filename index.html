@@ -165,13 +165,12 @@
 
       SimpleMaskMoney.setMask('input');
 
-      reset = () => {
+      const reset = () => {
         textarea.value = JSON.stringify(configuration, undefined, 4);
         SimpleMaskMoney.args = configuration;
       }
 
       input.focus();
-      format();
       reset();
 
       button.onclick = () => {
@@ -197,7 +196,6 @@
           } else {
             SimpleMaskMoney.args = object;
           }
-          format();
 
           textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
         } catch (error) {
