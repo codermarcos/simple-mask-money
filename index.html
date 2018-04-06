@@ -62,6 +62,7 @@
         color: red;
         font-size: 10vw;
         text-shadow: 0px 0px 0px #fff;
+        outline: none;
         width: 80vw;
         -webkit-text-fill-color: transparent;
       }
@@ -156,7 +157,7 @@
         , title = qs('h1');
         
       const configuration = Object.freeze({
-        prefix: '',
+        preffix: '',
         suffix: '',
         fixed: true,
         fractionDigits: 2,
@@ -170,7 +171,10 @@
       const reset = () => {
         textarea.value = JSON.stringify(configuration, undefined, 4);
         SimpleMaskMoney.args = configuration;
+        make();
       }
+
+      const make = () => input.value = SimpleMaskMoney.format(input.value);
       
       input.onfocus = (e) => e.target.selectionStart = e.target.selectionEnd = 10000;
 
@@ -200,6 +204,8 @@
           } else {
             SimpleMaskMoney.args = object;
           }
+
+          make();
 
           textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
         } catch (error) {
