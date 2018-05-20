@@ -1,10 +1,13 @@
 # SimpleMaskMoney Exemple AngularX
+
 First, install it.
+
 ```shell
   npm i simple-mask-money --save
 ```
 
 Then, use it as follows:
+
 ```javascript
 import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -50,6 +53,7 @@ export class AppComponent implements AfterViewInit {
 ```
 
 Or if you prefer use the methods in your events
+
 ```javascript
 import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
 import { Component, OnInit } from '@angular/core';
@@ -98,23 +102,33 @@ export class AppComponent implements OnInit {
 ### Get the exemple
 
 To see an example of the code running, follow these steps:
+
 1. Clone the repository
+
 ```shell
   git clone https://github.com/codermarcos/simple-mask-money.git
 ```
+
 2. Enter on repository
+
 ```shell
   cd simple-mask-money/exemples/angular
 ```
-3. Install dependencies 
+
+3. Install dependencies
+
 ```shell
-  npm i 
+  npm i
 ```
-4. start project 
+
+4. start project
+
 ```shell
   npm start
 ```
-5. open browser 
+
+5. open browser in [http://localhost:4200](http://localhost:4200)
+
 ```shell
   start "http://localhost:4200"
 ```

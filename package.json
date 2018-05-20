@@ -1,11 +1,13 @@
 {
   "name": "simple-mask-money",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {
-    "test": "mocha",
-    "start": "mocha -w"
+    "test": "npx mocha tests/**/*.test.js --require babel-register",
+    "start": "npx webpack --config build/webpack.dev.js -w",
+    "build": "npx webpack --config build/webpack.prod.js -p",
+    "lint": "npx eslint ./src/simple-mask-money.js"
   },
   "repository": {
     "type": "git",
@@ -31,7 +33,20 @@
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "eslint": "^4.19.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-mocha": "^4.12.1",
     "http-serve": "^1.0.1",
-    "mocha": "^4.0.1"
+    "jsdom": "^11.10.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^4.1.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-merge": "^4.1.2"
   }
 }

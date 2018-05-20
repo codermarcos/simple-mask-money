@@ -1,4 +1,4 @@
-import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
+import SimpleMaskMoney from '../../../../lib/simple-mask-money.js'; // import mask
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
@@ -27,7 +27,7 @@ export class AppComponent implements AfterViewInit {
       thousandsSeparator: '.',
       autoCompleteDecimal: false
     };
-
+    console.log(SimpleMaskMoney)
     // set mask on your input you can pass a querySelector or your input element and options
     SimpleMaskMoney.setMask('#myInput', options);
   }
