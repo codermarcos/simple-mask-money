@@ -9,13 +9,14 @@
 </template>
 
 <script>
-import { SimpleMaskMoney } from '../../../lib/simple-mask-money'; // import mask
+import SimpleMaskMoney from '../../../lib/simple-mask-money'; // import mask
 
 export default {
   data() {
+    console.log(SimpleMaskMoney);
     // declare mask in your local
     return {
-      SimpleMaskMoney: SimpleMaskMoney,
+      SimpleMaskMoney,
       val: '0,00'
     }
   },
@@ -34,7 +35,8 @@ export default {
   methods: {
     // Your send method 
     send(e) {
-        if (e.key !== "Enter") return;
+      console.log(SimpleMaskMoney);
+      if (e.key !== "Enter") return;
       // This method return value of your input in format number to save in your database
       SimpleMaskMoney.formatToNumber(this.val);
     }
