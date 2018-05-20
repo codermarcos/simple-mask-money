@@ -19,8 +19,12 @@
 .strong-pm
 .gitignore
 .vscode
+.babelrc
+.editorconfig
+.eslintrc.json
+.travis.yml
 vscode
-test
+tests
 coverage
 examples
 angularX
