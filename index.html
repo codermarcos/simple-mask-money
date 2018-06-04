@@ -186,13 +186,12 @@
           textarea.classList.remove('visible');
           title.classList.remove('invisible');
           input.focus();
-          reset();
         } else {
           textarea.classList.add('visible');
           title.classList.add('invisible');
           textarea.focus();
-          reset();
         }
+        reset();
       };
 
       textarea.oninput = () => {
