@@ -199,11 +199,7 @@
           textarea.classList.remove('invalid');
           let object = Object.assign({}, SimpleMaskMoney.args, JSON.parse(textarea.value));
 
-          if (Object.keys(object).length !== 6) {
-            reset();
-          } else {
-            SimpleMaskMoney.args = object;
-          }
+          SimpleMaskMoney.args = object;
 
           make();
 
