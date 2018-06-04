@@ -35,13 +35,12 @@ export default {
   created() {
     // configuration
     SimpleMaskMoney.args = {
-      preffix: '',
+      prefix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.',
-      autoCompleteDecimal: false
+      thousandsSeparator: '.'
     };
   },
   methods: {

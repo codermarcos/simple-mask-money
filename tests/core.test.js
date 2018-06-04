@@ -17,11 +17,6 @@ describe('Core', () => {
       assert.equal(core.onlyNumber('@-,.1a0a'), '10');
     });
 
-    it('addingAutoComplete', () => {
-      assert.equal(core.addingAutoComplete('01,'), '01,00');
-      assert.equal(core.addingAutoComplete('01,2,'), '01,2,00');
-    });
-
     it('autoComplete', () => {
       assert.equal(core.autoComplete('01,'), '01,');
       assert.equal(core.autoComplete('01,2,'), '01,2,00');
@@ -33,10 +28,6 @@ describe('Core', () => {
 
     it('removingCompleterFromStart', () => {
       assert.equal(core.removingCompleterFromStart('01', core.completer()), '1');
-    });
-
-    it('addingCompleterFromEnd', () => {
-      assert.equal(core.addingCompleterFromEnd('1', core.completer()), '10');
     });
 
     it('removingCompleterFromEnd', () => {
@@ -99,14 +90,8 @@ describe('Core', () => {
       args.suffix = '.';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
-      args.autoCompleteDecimal = true;
 
       core = new Core(args);
-    });
-
-    it('addingAutoComplete', () => {
-      assert.equal(core.addingAutoComplete('01.'), '01.000');
-      assert.equal(core.addingAutoComplete('01.2.'), '01.2.000');
     });
 
     it('autoComplete', () => {
@@ -120,14 +105,6 @@ describe('Core', () => {
 
     it('removingCompleterFromStart', () => {
       assert.equal(core.removingCompleterFromStart('__1', core.completer()), '1');
-    });
-
-    it('addingCompleterFromEnd', () => {
-      assert.equal(core.addingCompleterFromEnd('1', core.completer()), '1__');
-    });
-
-    it('removingCompleterFromEnd', () => {
-      assert.equal(core.removingCompleterFromEnd('1_', core.completer()), '1');
     });
 
     it('addingPrefix', () => {
@@ -167,7 +144,7 @@ describe('Core', () => {
       assert.equal(core.textToNumber('a10a1'), '10');
       assert.equal(core.textToNumber('a10a1.'), '101');
       assert.equal(core.textToNumber('__10.'), '10');
-      assert.equal(core.textToNumber('_.__1..'), '1000');
+      assert.equal(core.textToNumber('_.__1..'), '1');
     });
 
     it('numberToText', () => {

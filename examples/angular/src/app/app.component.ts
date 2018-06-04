@@ -24,8 +24,7 @@ export class AppComponent implements AfterViewInit {
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.',
-      autoCompleteDecimal: false
+      thousandsSeparator: '.'
     };
     console.log(SimpleMaskMoney)
     // set mask on your input you can pass a querySelector or your input element and options

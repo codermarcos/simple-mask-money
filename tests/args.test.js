@@ -32,10 +32,6 @@ describe('Args', () => {
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, '.');
     });
-
-    it('autoCompleteDecimal', () => {
-      assert.equal(args.autoCompleteDecimal, false);
-    });
   });
 
   describe('Custom', () => {
@@ -49,7 +45,6 @@ describe('Args', () => {
       args.suffix = '.';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
-      args.autoCompleteDecimal = true;
     });
 
     it('prefix', () => {
@@ -74,10 +69,6 @@ describe('Args', () => {
 
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, ',');
-    });
-
-    it('autoCompleteDecimal', () => {
-      assert.equal(args.autoCompleteDecimal, true);
     });
   });
 });
