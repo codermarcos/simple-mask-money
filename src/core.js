@@ -154,10 +154,6 @@ export default class {
       retorno = this.removingSuffix(retorno);
     }
 
-    if (this.args.autoCompleteDecimal) {
-      retorno = this.autoComplete(retorno);
-    }
-
     retorno = this.removeSeparator(retorno, this.args.thousandsSeparator);
     retorno = this.removeSeparator(retorno, this.args.decimalSeparator);
 

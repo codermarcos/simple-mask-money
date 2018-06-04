@@ -1,6 +1,5 @@
 export default class {
   constructor(args) {
-    this.autoCompleteDecimal = false;
     this.decimalSeparator    = ',';
     this.fixed               = true;
     this.fractionDigits      = 2;
@@ -15,7 +14,6 @@ export default class {
 
     this.fixed               = typeof args.fixed === 'boolean' ? args.fixed : this.fixed;
 
-    this.autoCompleteDecimal = args.autoCompleteDecimal || this.autoCompleteDecimal;
     this.decimalSeparator    = args.decimalSeparator    || this.decimalSeparator;
     this.fractionDigits      = args.fractionDigits      || this.fractionDigits;
     this.prefix              = args.prefix              || args.preffix || this.prefix;

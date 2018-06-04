@@ -42,8 +42,7 @@ Then, use it as follows:
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.',
-        autoCompleteDecimal: false
+        thousandsSeparator: '.'
       };
 
       // select the element
@@ -77,8 +76,7 @@ Or if you prefer use the methods in your events
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.',
-        autoCompleteDecimal: false
+        thousandsSeparator: '.'
       };
 
       input.oninput = () => {

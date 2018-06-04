@@ -46,7 +46,7 @@ export class SimpleMaskMoney {
     this.setMask = (element, args) => {
       let input = typeof element == 'string' ? document.querySelector(element) : element;
 
-      if (args) _args = new Args(args);
+      if (args) this.args = args;
 
       input.addEventListener('keypress', () => {
         input.value = this.format(input.value);

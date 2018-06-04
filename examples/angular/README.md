@@ -35,8 +35,7 @@ export class AppComponent implements AfterViewInit {
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.',
-      autoCompleteDecimal: false
+      thousandsSeparator: '.'
     };
 
     // set mask on your input you can pass a querySelector or your input element and options
@@ -85,8 +84,7 @@ export class AppComponent implements OnInit {
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.',
-      autoCompleteDecimal: false
+      thousandsSeparator: '.'
     };
   }
 
