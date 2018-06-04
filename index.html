@@ -122,7 +122,7 @@
         }
       }
     </style>
-    <script src="https://github.com/codermarcos/simple-mask-money/releases/download/v0.2.0/simple-mask-money.js"></script>
+    <script src="https://github.com/codermarcos/simple-mask-money/releases/download/v1.0.0/simple-mask-money.js"></script>
   </head>
 
   <body>
@@ -162,8 +162,7 @@
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.',
-        autoCompleteDecimal: false
+        thousandsSeparator: '.'
       });
 
       SimpleMaskMoney.setMask('input');
@@ -200,7 +199,7 @@
           textarea.classList.remove('invalid');
           let object = Object.assign({}, SimpleMaskMoney.args, JSON.parse(textarea.value));
 
-          if (Object.keys(object).length !== 7) {
+          if (Object.keys(object).length !== 6) {
             reset();
           } else {
             SimpleMaskMoney.args = object;
