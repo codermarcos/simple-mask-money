@@ -182,16 +182,17 @@
       reset();
 
       button.onclick = () => {
+        textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
         if (textarea.classList.contains('visible')) {
           textarea.classList.remove('visible');
           title.classList.remove('invisible');
           input.focus();
+          reset();
         } else {
           textarea.classList.add('visible');
           title.classList.add('invisible');
           textarea.focus();
         }
-        reset();
       };
 
       textarea.oninput = () => {
