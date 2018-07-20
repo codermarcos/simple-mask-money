@@ -9,7 +9,7 @@ First, install it.
 Then, use it as follows:
 
 ```javascript
-import { SimpleMaskMoney } from 'simple-mask-money'; // import mask
+import SimpleMaskMoney from 'simple-mask-money'; // import mask
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
