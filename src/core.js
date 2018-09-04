@@ -1,5 +1,5 @@
-import Args from './args';
-export default class {
+const Args = require('./args');
+module.exports = class Core {
   constructor(args) {
     this.args = new Args(args);
   }
@@ -191,4 +191,4 @@ export default class {
 
     return retorno;
   }
-}
+};

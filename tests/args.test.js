@@ -1,5 +1,5 @@
-import Args from '../src/args';
 const assert = require('assert');
+const Args = require('../src/args');
 
 describe('Args', () => {
   let args;
