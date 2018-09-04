@@ -76,11 +76,12 @@ module.exports = class SimpleMaskMoney {
 
     if (args) SimpleMaskMoney.args = args;
 
-    input.addEventListener('input', () => {
+    input.addEventListener('input', e => {
       const position = input.selectionStart;
       const oldValue = input.value;
       const newValue = SimpleMaskMoney.format(oldValue);
       input.value = newValue;
+      input._value = newValue;
       let remove;
 
       switch (true) {
@@ -94,8 +95,10 @@ module.exports = class SimpleMaskMoney {
           remove = 0;
           break;
       }
-
+      
       setCaretPosition(position - remove);
+
+      e instanceof InputEvent && input.dispatchEvent(new Event('input'));
     });
 
     input['formatToNumber'] = () => SimpleMaskMoney.formatToNumber(input.value);
