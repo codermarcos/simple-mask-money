@@ -1,11 +1,14 @@
-import Args from './args';
-import Core from './core';
+const Args = require('./args');
+const Core = require('./core');
 
-export class SimpleMaskMoney {
+let _args = new Args();
+let _core = new Core(_args);
+
+module.exports = class SimpleMaskMoney {
+
   constructor() {
-    let _args = new Args();
-    let _core = new Core(_args);
-
+    _args = new Args();
+    _core = new Core(_args);
     Object.defineProperty(this, 'args', {
       get() {
         return _args;
@@ -15,52 +18,88 @@ export class SimpleMaskMoney {
         _core = new Core(_args);
       }
     });
+    this.formatToNumber = SimpleMaskMoney.formatToNumber;
+    this.format = SimpleMaskMoney.format;
+    this.setMask = SimpleMaskMoney.setMask;
+  }
 
-    this.format = (value) => {
-      return _core.numberToText(_core.textToNumber(value));
-    };
+  static get args() {
+    return _args;
+  }
 
-    this.formatToNumber = (input) => {
-      let retorno = '0';
-      let value = _core.textToNumber(input);
+  static set args(value) {
+    _args = new Args(value);
+    _core = new Core(_args);
+  }
 
-      if (parseFloat(value) !== 'NaN') {
-        if (value.length <= _args.fractionDigits) {
-          value = _core.formatDecimal(value, '0', '.');
-        } else {
-          let lengthWithoutDecimals = value.length - _args.fractionDigits;
-          value = value.replace(
-            new RegExp(
-              `(\\d{${lengthWithoutDecimals}})(\\d{${_args.fractionDigits}})`
-            ),
-            '$1.$2'
-          );
-        }
+  static format(value) {
+    return _core.numberToText(_core.textToNumber(value));
+  }
 
-        retorno = value;
+  static formatToNumber(input) {
+    let retorno = '0';
+    let value = _core.textToNumber(input);
+
+    if (parseFloat(value) !== 'NaN') {
+      if (value.length <= _args.fractionDigits) {
+        value = _core.formatDecimal(value, '0', '.');
+      } else {
+        let lengthWithoutDecimals = value.length - _args.fractionDigits;
+        value = value.replace(
+          new RegExp(
+            `(\\d{${lengthWithoutDecimals}})(\\d{${_args.fractionDigits}})`
+          ),
+          '$1.$2'
+        );
       }
 
-      return parseFloat(retorno);
-    };
+      retorno = value;
+    }
 
-    this.setMask = (element, args) => {
-      let input = typeof element == 'string' ? document.querySelector(element) : element;
-
-      if (args) this.args = args;
-
-      input.addEventListener('keypress', () => {
-        input.value = this.format(input.value);
-      });
-      input.addEventListener('input', () => {
-        input.value = this.format(input.value);
-      });
-      input['formatToNumber'] = () => {
-        return this.formatToNumber(input.value);
-      };
-
-      return input;
-    };
+    return parseFloat(retorno);
   }
-}
 
-module.exports = new SimpleMaskMoney();
+  static setMask(element, args) {
+    const input = typeof element == 'string' ? document.querySelector(element) : element;
+    const setCaretPosition = index => {
+      if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(index, index);
+      } else if (input.createTextRange) {
+        const range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', index);
+        range.moveStart('character', index);
+        range.select();
+      }
+    };
+
+    if (args) SimpleMaskMoney.args = args;
+
+    input.addEventListener('input', () => {
+      const position = input.selectionStart;
+      const oldValue = input.value;
+      const newValue = SimpleMaskMoney.format(oldValue);
+      input.value = newValue;
+      let remove;
+
+      switch (true) {
+        case oldValue.length < newValue.length:
+          remove = - 1;
+          break;
+        case oldValue.length > newValue.length:
+          remove = 1;
+          break;
+        default:
+          remove = 0;
+          break;
+      }
+
+      setCaretPosition(position - remove);
+    });
+
+    input['formatToNumber'] = () => SimpleMaskMoney.formatToNumber(input.value);
+
+    return input;
+  }
+};
