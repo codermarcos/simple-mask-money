@@ -19,7 +19,7 @@ export default {
   },
   mounted() {
     // configuration
-    const options = {
+    const args = {
       prefix: '',
       suffix: '',
       fixed: true,
@@ -28,7 +28,7 @@ export default {
       thousandsSeparator: '.'
     };
     // set mask on your input you can pass a querySelector or your input element and options
-    SimpleMaskMoney.setMask('#myInput', options);
+    SimpleMaskMoney.setMask('#myInput', args);
   },
   methods: {
     // Your send method
