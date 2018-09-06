@@ -8,7 +8,8 @@
     "test": "npx mocha tests/**/*.test.js --require babel-register",
     "start": "npx rollup -c -w",
     "build": "npx rollup -c --environment NODE_ENV:production",
-    "lint": "npx eslint ./src/**/*.js"
+    "lint": "npx eslint ./src/**/*.js",
+    "postinstall": "node -e \"console.log('\\x1b[36m%s\\x1b[0m', 'Thanks for your download ❤️')\""
   },
   "repository": {
     "type": "git",
