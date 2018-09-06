@@ -8,7 +8,7 @@
 
 [![NPM](https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true)](https://nodei.co/npm/simple-mask-money/)
 
-Simple money mask developed with pure JavaScript. [Try **live demo**](http://simple-mask-money.codermarcos.com/)
+Simple money mask developed with pure JavaScript. To run on **Client Side** and **Server Side**. [Try **live demo**](http://simple-mask-money.codermarcos.com/)
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ First, install it.
 * [React](examples/react#readme)
 * [Vue](examples/vue#readme)
 
-Then, use it as follows:
+Then, follow the example to use in your browser:
 
 ```html
   <body>
@@ -36,7 +36,7 @@ Then, use it as follows:
     <script>
 
       // configuration
-      let args = {
+      const args = {
         prefix: '',
         suffix: '',
         fixed: true,
@@ -46,7 +46,7 @@ Then, use it as follows:
       };
 
       // select the element
-      let input = SimpleMaskMoney.setMask('#myInput', args);
+      const input = SimpleMaskMoney.setMask('#myInput', args);
 
       // This method return value of your input in format number to save in your database
       input.formatToNumber();
