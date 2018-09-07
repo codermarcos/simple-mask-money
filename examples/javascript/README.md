@@ -17,8 +17,10 @@ Then, use it as follows:
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
-      // configuration
+      // Default configuration  
       const options = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,
@@ -57,6 +59,8 @@ Or if you prefer use the methods in your events
 
       // configuration
       SimpleMaskMoney.args = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,

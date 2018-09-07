@@ -1,4 +1,4 @@
-<h2 align="center">SimpleMaskMoney</h2>
+<h1 align="center">SimpleMaskMoney</h1>
 <p align="center">
   <a class="badge-align" href="https://travis-ci.org/codermarcos/simple-mask-money"><img  src="https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master" alt="build Status"/></a>
 
