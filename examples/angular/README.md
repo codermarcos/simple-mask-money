@@ -28,8 +28,10 @@ export class AppComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    // configuration
+    // Default configuration  
     const args = {
+      allowNegative: false,
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,

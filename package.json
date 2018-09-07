@@ -1,6 +1,6 @@
 {
   "name": "simple-mask-money",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {

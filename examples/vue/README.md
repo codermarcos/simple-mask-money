@@ -32,7 +32,7 @@ export default {
   },
   mounted() {
     // Default configuration  
-    const options = {
+    const args = {
       allowNegative: false,
       negativeSignAfter: false,
       prefix: '',
@@ -43,7 +43,7 @@ export default {
       thousandsSeparator: '.'
     };
     // set mask on your input you can pass a querySelector or your input element and options
-    SimpleMaskMoney.setMask('#myInput', options);
+    SimpleMaskMoney.setMask('#myInput', args);
   },
   methods: {
     // Your send method
