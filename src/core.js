@@ -170,7 +170,7 @@ module.exports = class Core {
   numberToText(input) {
     let retorno = this.emptyOrInvalid();
 
-    if (parseFloat(input) !== 'NaN') {
+    if (isNaN(parseFloat(value))) {
       if (input.length <= this.args.fractionDigits) {
         retorno = this.formatDecimal(
           input,
