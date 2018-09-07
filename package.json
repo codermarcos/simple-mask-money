@@ -1,14 +1,15 @@
 {
   "name": "simple-mask-money",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {
     "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w",
     "test": "npx mocha tests/**/*.test.js --require babel-register",
-    "start": "npx webpack --config build/webpack.dev.js -w",
-    "build": "npx webpack --config build/webpack.prod.js -p",
-    "lint": "npx eslint ./src/simple-mask-money.js"
+    "start": "npx rollup -c -w",
+    "build": "npx rollup -c --environment NODE_ENV:production",
+    "lint": "npx eslint ./src/**/*.js",
+    "postinstall": "node -e \"console.log('\\x1b[36m', 'Look at the documentation:', '\\x1b[0m', '\\x1b[33m', 'https://github.com/codermarcos/simple-mask-money', '\\x1b[0m', '\\x1b[36m', '\\nThanks for your download! ❤️', '\\x1b[0m')\""
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,17 @@
     "Moeda",
     "Mascara",
     "Javascript",
+    "Hybrid-Mask",
+    "Node-Mask",
     "Vanilla",
     "ng-mask",
     "v-mask"
   ],
-  "author": "codermarcos",
+  "author": {
+    "name": "codermarcos",
+    "email": "coder.marcos@gmail.com",
+    "url": "https://github.com/codermarcos"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/codermarcos/simple-mask-money/issues"
@@ -36,18 +43,29 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-helpers": "^6.24.1",
     "babel-loader": "^7.1.4",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.7.0",
-    "clean-webpack-plugin": "^0.1.19",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "chai": "^4.1.2",
+    "chai-spies": "^1.0.0",
     "eslint": "^4.19.1",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-mocha": "^5.1.0",
     "http-serve": "^1.0.1",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.2.0",
-    "webpack": "^4.10.2",
-    "webpack-cli": "^3.0.1",
-    "webpack-merge": "^4.1.2"
+    "rollup": "^0.63.5",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^4.0.0"
   }
 }
