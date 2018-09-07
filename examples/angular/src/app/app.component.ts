@@ -1,5 +1,5 @@
 import SimpleMaskMoney from '../../../../lib/simple-mask-money.js'; // import mask
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',

@@ -49,7 +49,7 @@ module.exports = class SimpleMaskMoney {
       value.replace('-', '');
     }
 
-    if (parseFloat(value) !== 'NaN') {
+    if (isNaN(parseFloat(value))) {
       if (value.length <= _args.fractionDigits) {
         value = _core.formatDecimal(value, '0', '.');
       } else {
