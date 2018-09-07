@@ -34,15 +34,16 @@ module.exports = class SimpleMaskMoney {
   }
 
   static format(value) {
-    const negative = this.args.allowNegative && value.indexOf('-') !== -1;    
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;    
     const formatation = _core.numberToText(_core.textToNumber(value));
-    return `${negative ? '-': ''}${formatation}`;
+
+    return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
   }
 
   static formatToNumber(input) {
     let retorno = '0';
     let value = _core.textToNumber(input);
-    const negative = this.args.allowNegative && input.indexOf('-') !== -1;   
+    const negative = _args.allowNegative && input.indexOf('-') !== -1;   
     
     if (negative) {
       value.replace('-', '');
