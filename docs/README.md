@@ -69,4 +69,3 @@ const element = document.getElementById('#myInput');
 
 SimpleMaskMoney.setMask(element, args); // 1.234.567,89
 ```
-
