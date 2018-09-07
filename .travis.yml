@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - '9'
-before_script:
+before_script: 
 script: npm test
 deploy:
   provider: npm
@@ -12,3 +12,5 @@ deploy:
     tags: next
     repo: codermarcos/simple-mask-money
     branch: master
+  key:
+    secure: yIEdn/U0KT6i30puKhJKxDNa8QIbYPfl6OJZKJr5YyrNy1WQIMF0Fv6AN1PW+lFl1h0MeqADMrXMPaZnbpKjfb2Ceny/loJGU8f39XYMJvbLSe2NjvPBYGR78+q+WftkqV/veNMSaOIZNZb2W9n00GQxZX+nkeTCojRNtfy/2nkPlOonzlL9IoWWlYUR/HwObr2I3c+GAK0/WWha57ONudo71HyGUAnh9zGQ7OKZH5WBi9/X++vsrYeCU+VJz/dGwhQJon+eLTQhBiS9Ra7pu7FpSUT8LmwGWz4F3t1UXGjdpsN5bf8cSGaPlh4GXntP5YDXLrJnNh+A2BlP/sEQ5kzbH8zc2h0rV/ES1Wso8+iLuGCk7S+T16FmzECXcpuHK8yqsKfVXMSNlXzp9GyNSiaW6uHaVKK7UG86F3R3rmiGnEDivUyzQZtby1K1ntXzmcuLd9LopecmD+usCQK/buimZZotqza6XZmEtOHDC8chyRnJ3ZdMTQsjMMEmWr1qTBDV8DbGRmbV9SnI6wXA4gSbG8tHPqUS9EZhU23rsSVwR/7DottK8K6yW56n8UA9Xwx1LKzM18PkjdE37O9F9AsVD3MjsXIaJOxRSUhuVbI/s8hceugzHswblXivdWcaW4EyP67/0EPWXPgABa1ZmFwpF6L1CpQ682nVCn3Q82Q=
