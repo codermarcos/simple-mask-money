@@ -18,7 +18,9 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // configuration
-    const options = {
+    const options = {        
+      allowNegative: false,
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,
