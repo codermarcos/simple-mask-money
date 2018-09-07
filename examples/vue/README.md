@@ -14,8 +14,7 @@ Then, use it as follows:
     <!-- 
       Put inputmode numeric to mobile show numeric keyboard
      -->
-    <input type="text" inputmode="numeric" v-model="val"
-      v-on:input="val = SimpleMaskMoney.format(val)" v-on:keyup="send($event)">
+    <input type="text" id="myInput" inputmode="numeric" v-model="val" @keyup="send($event)">
   </div>
 </template>
 
@@ -26,15 +25,14 @@ import {
 
 export default {
   data() {
-    // declare mask in your local
+    // Your value
     return {
-      SimpleMaskMoney: SimpleMaskMoney,
       val: '0,00'
     }
   },
-  created() {
+  mounted() {
     // configuration
-    SimpleMaskMoney.args = {
+    const options = {
       prefix: '',
       suffix: '',
       fixed: true,
@@ -42,6 +40,8 @@ export default {
       decimalSeparator: ',',
       thousandsSeparator: '.'
     };
+    // set mask on your input you can pass a querySelector or your input element and options
+    SimpleMaskMoney.setMask('#myInput', options);
   },
   methods: {
     // Your send method

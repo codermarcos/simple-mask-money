@@ -1,16 +1,21 @@
-import 'jsdom-global/register';
-import index from '../src/index';
+require('jsdom-global')();
 const assert = require('assert');
+const Index = require('../src/index');
+
+let index;
 
 function write(input, value) {  
   const event = document.createEvent('HTMLEvents');
-  event.initEvent('keypress', false, true);
+  event.initEvent('input', false, true);
   input.value = value;
   input.dispatchEvent(event);        
 }
 
 describe('Index', () => {
   describe('Default', () => {
+    before(() => {
+      index = new Index();
+    });
 
     it('format', () => {
       assert.equal(index.format('a'), '0,00');
@@ -61,6 +66,7 @@ describe('Index', () => {
 
   describe('Custom', () => {
     before(() => {
+      index = new Index();
       index.args = {
         suffix: '.',
         prefix: 'R$',

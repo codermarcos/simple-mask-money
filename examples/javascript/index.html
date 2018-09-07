@@ -55,7 +55,7 @@
       console.log(SimpleMaskMoney);
       
       // configuration  
-      const options = {
+      const args = {
         prefix: '',
         suffix: '',
         fixed: true,
@@ -65,7 +65,7 @@
       };
 
       // set mask on your input you can pass a querySelector or your input element and options
-      let input = SimpleMaskMoney.setMask('#myInput', options);
+      let input = SimpleMaskMoney.setMask('#myInput', args);
 
       // Your send method 
       send = (e) => {
