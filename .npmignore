@@ -23,10 +23,14 @@
 .editorconfig
 .eslintrc.json
 .travis.yml
+rollup.config.js
+LICENSE
 vscode
 tests
 coverage
 examples
+docs
+src
 angularX
 javascript
 react
