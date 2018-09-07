@@ -56,8 +56,8 @@ module.exports = class SimpleMaskMoney {
 
       retorno = value;
     }
-
-    return parseFloat(retorno);
+      
+    return (input < 0) ? (parseFloat(retorno) * -1) : parseFloat(retorno);
   }
 
   static setMask(element, args) {
