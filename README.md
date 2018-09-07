@@ -41,6 +41,8 @@ Or use direct of github release
 
 > remember change RELEASE_VERSION_HERE by the [last version](https://github.com/codermarcos/simple-mask-money/releases/latest)
 
+Read the [docs](docs/#readme) or chose your implementation:
+
 * [Javascript](examples/javascript/#readme)
 * [Angular](examples/angular#readme)
 * [React](examples/react#readme)
