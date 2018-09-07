@@ -1,5 +1,6 @@
 const Args = require('./args');
 const Core = require('./core');
+const implanter = require('./implanter');
 
 let _args = new Args();
 let _core = new Core(_args);
@@ -60,45 +61,24 @@ module.exports = class SimpleMaskMoney {
   }
 
   static setMask(element, args) {
-    const input = typeof element == 'string' ? document.querySelector(element) : element;
-    const setCaretPosition = index => {
-      if (input.setSelectionRange) {
-        input.focus();
-        input.setSelectionRange(index, index);
-      } else if (input.createTextRange) {
-        const range = input.createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', index);
-        range.moveStart('character', index);
-        range.select();
-      }
-    };
+    if (typeof document === 'undefined') throw 'This function only works on client side';
+
+    const input = typeof element == 'string' ? document.querySelector(element) : element;    
 
     if (args) SimpleMaskMoney.args = args;
 
     input.addEventListener('input', e => {
-      const position = input.selectionStart;
       const oldValue = input.value;
       const newValue = SimpleMaskMoney.format(oldValue);
+      const position = implanter.getCaretPosition(input);
+      const move = implanter.indexMove(newValue, oldValue);
+      
       input.value = newValue;
       input._value = newValue;
-      let remove;
-
-      switch (true) {
-        case oldValue.length < newValue.length:
-          remove = - 1;
-          break;
-        case oldValue.length > newValue.length:
-          remove = 1;
-          break;
-        default:
-          remove = 0;
-          break;
-      }
       
-      setCaretPosition(position - remove);
+      implanter.setCaretPosition(input, position - move);
 
-      e instanceof InputEvent && input.dispatchEvent(new Event('input'));
+      !(e instanceof Event) && input.dispatchEvent(new Event('input'));
     });
 
     input['formatToNumber'] = () => SimpleMaskMoney.formatToNumber(input.value);
