@@ -1,5 +1,6 @@
 module.exports = class Args {
   constructor(args) {
+    this.allowNegative       = false;
     this.decimalSeparator    = ',';
     this.fixed               = true;
     this.fractionDigits      = 2;
@@ -14,6 +15,7 @@ module.exports = class Args {
 
     this.fixed               = typeof args.fixed === 'boolean' ? args.fixed : this.fixed;
 
+    this.allowNegative       = args.allowNegative       || this.allowNegative;
     this.decimalSeparator    = args.decimalSeparator    || this.decimalSeparator;
     this.fractionDigits      = args.fractionDigits      || this.fractionDigits;
     this.prefix              = args.prefix              || args.preffix || this.prefix;
