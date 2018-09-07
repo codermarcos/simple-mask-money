@@ -1,4 +1,4 @@
-export default class {
+module.exports = class Args {
   constructor(args) {
     this.decimalSeparator    = ',';
     this.fixed               = true;
@@ -20,4 +20,4 @@ export default class {
     this.suffix              = args.suffix              || this.suffix;
     this.thousandsSeparator  = args.thousandsSeparator  || this.thousandsSeparator;
   }
-}
+};

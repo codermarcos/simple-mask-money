@@ -1,6 +1,6 @@
-import Core from '../src/core';
-import Args from '../src/args';
 const assert = require('assert');
+const Core = require('../src/core');
+const Args = require('../src/args');
 
 describe('Core', () => {
   let core;
