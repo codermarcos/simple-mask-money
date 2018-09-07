@@ -44,6 +44,7 @@ Or use direct of github release
 * [Javascript](examples/javascript/#readme)
 * [Angular](examples/angular#readme)
 * [React](examples/react#readme)
+* [Node](examples/node#readme)
 * [Vue](examples/vue#readme)
 
 Then, follow the example to use in your browser:
