@@ -17,9 +17,11 @@ export default {
       val: "0,00"
     };
   },
-  mounted() {
-    // configuration
-    const args = {
+  mounted() {      
+    // Default configuration  
+    const args = {        
+      allowNegative: false,
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,

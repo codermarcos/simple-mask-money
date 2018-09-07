@@ -31,8 +31,10 @@ export default {
     }
   },
   mounted() {
-    // configuration
+    // Default configuration  
     const options = {
+      allowNegative: false,
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,
