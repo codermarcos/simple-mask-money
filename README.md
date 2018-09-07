@@ -1,5 +1,6 @@
 # SimpleMaskMoney
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/85a1c72bdbab46e7b9eca22acbcce031)](https://app.codacy.com/app/codermarcos/simple-mask-money?utm_source=github.com&utm_medium=referral&utm_content=codermarcos/simple-mask-money&utm_campaign=Badge_Grade_Settings)
 [![build Status](https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master)](https://travis-ci.org/codermarcos/simple-mask-money)
 [![npm version](https://badge.fury.io/js/simple-mask-money.svg)](https://badge.fury.io/js/simple-mask-money)
 [![npm Downloads](https://img.shields.io/npm/dm/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money)
