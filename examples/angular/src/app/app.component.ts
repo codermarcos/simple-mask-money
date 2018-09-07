@@ -17,8 +17,8 @@ export class AppComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    // configuration
-    const options = {        
+    // Default configuration  
+    const args = {
       allowNegative: false,
       negativeSignAfter: false,
       prefix: '',
@@ -29,7 +29,7 @@ export class AppComponent implements AfterViewInit {
       thousandsSeparator: '.'
     };
     // set mask on your input you can pass a querySelector or your input element and options
-    SimpleMaskMoney.setMask('#myInput', options);
+    SimpleMaskMoney.setMask('#myInput', args);
   }
 
   // Your send method
