@@ -8,7 +8,7 @@
 
 [![NPM](https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true)](https://nodei.co/npm/simple-mask-money/)
 
-Simple money mask developed with pure JavaScript. To run on **Client Side** and **Server Side**. [Try **live demo**](http://simple-mask-money.codermarcos.com/)
+Simple money mask developed with pure JavaScript. To run on **Client Side** and **Server Side**. [Try **live demo**](https://codermarcos.github.io/simple-mask-money/)
 
 ## Getting Started
 
