@@ -34,7 +34,7 @@ module.exports = class SimpleMaskMoney {
   }
 
   static format(value) {
-    const negative = _args.allowNegative && value.indexOf('-') !== -1;    
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;  
     const formatation = _core.numberToText(_core.textToNumber(value));
 
     return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
@@ -49,7 +49,7 @@ module.exports = class SimpleMaskMoney {
       value.replace('-', '');
     }
 
-    if (isNaN(parseFloat(value))) {
+    if (!isNaN(parseFloat(value))) {
       if (value.length <= _args.fractionDigits) {
         value = _core.formatDecimal(value, '0', '.');
       } else {
