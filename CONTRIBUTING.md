@@ -30,7 +30,7 @@ This section guides you through submitting an enhancement tip to SimpleMaskMoney
 * Document new code the best way possible.
 * End all files with a newline
 
-### Git Commit Messages
+#### Git Commit Messages
 
 * When only changing documentation, include `[ci skip]` in the commit title
 * Consider starting the commit message with an applicable emoji:
