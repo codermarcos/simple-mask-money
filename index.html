@@ -122,7 +122,7 @@
         }
       }
     </style>
-    <script src="https://github.com/codermarcos/simple-mask-money/releases/download/v1.1.1/simple-mask-money.js"></script>
+    <script src="https://github.com/codermarcos/simple-mask-money/releases/download/v1.2.1/simple-mask-money.js"></script>
   </head>
 
   <body>
@@ -156,14 +156,7 @@
         , input = qs('input')
         , title = qs('h1');
         
-      const configuration = Object.freeze({
-        prefix: '',
-        suffix: '',
-        fixed: true,
-        fractionDigits: 2,
-        decimalSeparator: ',',
-        thousandsSeparator: '.'
-      });
+      const configuration = Object.freeze(SimpleMaskMoney.args);
 
       SimpleMaskMoney.setMask('input');
 
@@ -178,7 +171,6 @@
       input.onfocus = (e) => e.target.selectionStart = e.target.selectionEnd = 10000;
 
       input.focus();
-      reset();
 
       button.onclick = () => {
         textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
@@ -186,25 +178,35 @@
           textarea.classList.remove('visible');
           title.classList.remove('invisible');
           input.focus();
-          reset();
         } else {
           textarea.classList.add('visible');
           title.classList.add('invisible');
           textarea.focus();
         }
       };
+      
+
+      const isValid = () => {
+        try {
+          SimpleMaskMoney.args = JSON.parse(textarea.value);
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      textarea.onblur = () => { 
+        if (!isValid()) {
+          reset();
+        }
+      }
 
       textarea.oninput = () => {
-        try {
-          textarea.classList.remove('invalid');
-          let object = Object.assign({}, SimpleMaskMoney.args, JSON.parse(textarea.value));
-
-          SimpleMaskMoney.args = object;
-
+        if (isValid()) {
+          textarea.classList.remove('invalid');            
           make();
-
           textarea.value = JSON.stringify(SimpleMaskMoney.args, undefined, 4);
-        } catch (error) {
+        } else {
           textarea.classList.add('invalid');
         }
       }
