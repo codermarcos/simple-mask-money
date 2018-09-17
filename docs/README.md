@@ -16,7 +16,8 @@ SimpleMaskMoney.args = {
     fixed: true,
     fractionDigits: 2,
     decimalSeparator: ',',
-    thousandsSeparator: '.'
+    thousandsSeparator: '.',
+    cursor: 'move'
 };
 ```
 
@@ -30,6 +31,7 @@ The **args** they are:
 - **fractionDigits**: number > *This number define the quantity of decimals digits*
 - **decimalSeparator**: string > *This string define the separator of decimals digits*
 - **thousandsSeparator**: string > *This string define the separator of thousands digits*
+- **cursor**: string > *This string define how the cursor will move. Can be `move`, `end`, or `start`.*
 
 ## SimpleMaskMoney.format(...)
 
@@ -51,7 +53,7 @@ SimpleMaskMoney.format('$ 1.234.567,89'); // 1234567.89
 
 ## SimpleMaskMoney.setMask(...)
 
-**.setMask(...)** have two arguments, the ```input``` or ```input selector``` and ```args```. 
+**.setMask(...)** have two arguments, the ```input``` or ```input selector``` and ```args```.
 This method get the input and implements the mask with this args:
 
 ```html
