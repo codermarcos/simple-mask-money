@@ -12,6 +12,7 @@ module.exports = {
     }
     return position;
   },
+
   setCaretPosition(input, index) {
     if (input.setSelectionRange) {
       input.focus();
@@ -24,6 +25,7 @@ module.exports = {
       range.select();
     }
   },
+
   indexMove(newValue, oldValue) {
     let move;
     switch (true) {
