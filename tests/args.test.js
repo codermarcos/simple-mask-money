@@ -34,7 +34,7 @@ describe('Args', () => {
     });
 
     it('cursor', () => {
-      assert.equal(args.cursor, 'original');
+      assert.equal(args.cursor, 'move');
     });
   });
 

@@ -24,7 +24,8 @@ export class AppComponent implements AfterViewInit {
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.'
+      thousandsSeparator: '.',
+      cursor: 'move'
     };
     // set mask on your input you can pass a querySelector or your input element and options
     SimpleMaskMoney.setMask('#myInput', options);

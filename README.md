@@ -42,7 +42,8 @@ Then, follow the example to use in your browser:
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        cursor: 'move'
       };
 
       // select the element
@@ -76,7 +77,8 @@ Or if you prefer use the methods in your events
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        cursor: 'move'
       };
 
       input.oninput = () => {
