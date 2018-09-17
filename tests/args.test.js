@@ -32,6 +32,10 @@ describe('Args', () => {
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, '.');
     });
+
+    it('cursor', () => {
+      assert.equal(args.cursor, 'original');
+    });
   });
 
   describe('Custom', () => {
@@ -39,9 +43,10 @@ describe('Args', () => {
       args = new Args({
         prefix: 'R$',
         fixed: false,
-        decimalSeparator: '.'
+        decimalSeparator: '.',
+        cursor: 'end'
       });
-      
+
       args.suffix = '.';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
@@ -69,6 +74,10 @@ describe('Args', () => {
 
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, ',');
+    });
+
+    it('cursor', () => {
+      assert.equal(args.cursor, 'end');
     });
   });
 });
