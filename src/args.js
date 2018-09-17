@@ -6,10 +6,7 @@ module.exports = class Args {
     this.prefix              = '';
     this.suffix              = '';
     this.thousandsSeparator  = '.';
-
-    // After adding number, move the
-    // cursor to start|end|move.
-    this.cursor              = 'move';
+    this.cursor              = 'original';
 
     this.merge(args);
   }
