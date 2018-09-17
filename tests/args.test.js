@@ -40,6 +40,10 @@ describe('Args', () => {
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, '.');
     });
+
+    it('cursor', () => {
+      assert.equal(args.cursor, 'original');
+    });
   });
 
   describe('Custom', () => {
@@ -48,7 +52,8 @@ describe('Args', () => {
         prefix: 'R$',
         fixed: false,
         negativeSignAfter: true,
-        decimalSeparator: '.'
+        decimalSeparator: '.',
+        cursor: 'end'
       });
       
       args.allowNegative = true;
@@ -87,6 +92,10 @@ describe('Args', () => {
 
     it('thousandsSeparator', () => {
       assert.equal(args.thousandsSeparator, ',');
+    });
+
+    it('cursor', () => {
+      assert.equal(args.cursor, 'end');
     });
   });
 });
