@@ -16,15 +16,15 @@ module.exports = class Args {
   merge(args) {
     if (!args || typeof args !== 'object') return;
 
-    this.fixed               = typeof args.fixed === 'boolean' ? args.fixed : this.fixed;
-    this.allowNegative       = typeof args.allowNegative === 'boolean' ? args.allowNegative : this.allowNegative;    
+    this.fixed               = typeof args.fixed             === 'boolean' ? args.fixed             : this.fixed;
+    this.allowNegative       = typeof args.allowNegative     === 'boolean' ? args.allowNegative     : this.allowNegative;    
     this.negativeSignAfter   = typeof args.negativeSignAfter === 'boolean' ? args.negativeSignAfter : this.negativeSignAfter;
 
-    this.decimalSeparator    = args.decimalSeparator    || this.decimalSeparator;
-    this.fractionDigits      = args.fractionDigits      || this.fractionDigits;
-    this.prefix              = args.prefix              || args.preffix || this.prefix;
-    this.suffix              = args.suffix              || this.suffix;
-    this.thousandsSeparator  = args.thousandsSeparator  || this.thousandsSeparator;
-    this.cursor              = args.cursor              || this.cursor;
+    this.decimalSeparator    = typeof args.decimalSeparator   === 'undefined' ? this.decimalSeparator   : args.decimalSeparator;
+    this.fractionDigits      = typeof args.fractionDigits     === 'undefined' ? this.fractionDigits     : args.fractionDigits;
+    this.prefix              = typeof args.prefix             === 'undefined' ? this.prefix             : args.prefix;
+    this.suffix              = typeof args.suffix             === 'undefined' ? this.suffix             : args.suffix;
+    this.thousandsSeparator  = typeof args.thousandsSeparator === 'undefined' ? this.thousandsSeparator : args.thousandsSeparator;
+    this.cursor              = typeof args.cursor             === 'undefined' ? this.cursor             : args.cursor;
   }
 };
