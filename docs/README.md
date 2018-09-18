@@ -9,6 +9,8 @@ The ```SimpleMaskMoney``` class hosts three methods for formatting the values an
 ```javascript
 // Default args
 SimpleMaskMoney.args = {
+    allowNegative: false,
+    negativeSignAfter: false,
     prefix: '',
     suffix: '',
     fixed: true,
@@ -21,6 +23,8 @@ SimpleMaskMoney.args = {
 
 The **args** they are:
 
+- **allowNegative**: boolean > *This boolean define if allow values ​​below zero*
+- **negativeSignAfter**: boolean > *This boolean define if negative sign stay after the number*
 - **prefix**: string > *This string always precedes its value*
 - **suffix**: string > *This string always procedes its value*
 - **fixed**: boolean > *This boolean define if your value can be empty or always should have value*

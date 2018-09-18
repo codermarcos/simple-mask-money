@@ -33,14 +33,22 @@ module.exports = class SimpleMaskMoney {
   }
 
   static format(value) {
-    return _core.numberToText(_core.textToNumber(value));
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;  
+    const formatation = _core.numberToText(_core.textToNumber(value));
+
+    return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
   }
 
   static formatToNumber(input) {
     let retorno = '0';
     let value = _core.textToNumber(input);
+    const negative = _args.allowNegative && input.indexOf('-') !== -1;   
+    
+    if (negative) {
+      value.replace('-', '');
+    }
 
-    if (parseFloat(value) !== 'NaN') {
+    if (!isNaN(parseFloat(value))) {
       if (value.length <= _args.fractionDigits) {
         value = _core.formatDecimal(value, '0', '.');
       } else {
@@ -55,8 +63,8 @@ module.exports = class SimpleMaskMoney {
 
       retorno = value;
     }
-
-    return parseFloat(retorno);
+      
+    return parseFloat(negative ? retorno * -1 : retorno);
   }
 
   static setMask(element, args) {

@@ -1,14 +1,29 @@
-# SimpleMaskMoney
+<h1 align="center">SimpleMaskMoney</h1>
+<p align="center">
+  <a class="badge-align" href="https://travis-ci.org/codermarcos/simple-mask-money"><img  src="https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master" alt="build Status"/></a>
 
-[![build Status](https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master)](https://travis-ci.org/codermarcos/simple-mask-money)
-[![npm version](https://badge.fury.io/js/simple-mask-money.svg)](https://badge.fury.io/js/simple-mask-money)
-[![npm Downloads](https://img.shields.io/npm/dm/simple-mask-money.svg)](https://www.npmjs.com/package/simple-mask-money)
-[![bitHound Dependencies](https://www.bithound.io/github/codermarcos/simple-mask-money/badges/dependencies.svg)](https://www.bithound.io/github/codermarcos/simple-mask-money/master/dependencies/npm)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+  <a class="badge-align" href="https://badge.fury.io/js/simple-mask-money">
+  <img src="https://badge.fury.io/js/simple-mask-money.svg" alt="npm version"></a>
+  
+  <a class="badge-align" href="https://www.npmjs.com/package/simple-mask-money">
+  <img src="https://img.shields.io/npm/dm/simple-mask-money.svg" alt="npm Downloads"></a>
+  
+  <a class="badge-align" href="https://www.codacy.com/app/codermarcos/simple-mask-money?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codermarcos/simple-mask-money&amp;utm_campaign=Badge_Grade">
+  <img src="https://api.codacy.com/project/badge/Grade/ee8f87689ae749b1822499995ef8d1d2" alt="Codacy Badge"></a>
 
-[![NPM](https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true)](https://nodei.co/npm/simple-mask-money/)
+  <a class="badge-align" href="https://opensource.org/licenses/Apache-2.0">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
+</p>
 
-Simple money mask developed with pure JavaScript. To run on **Client Side** and **Server Side**. [Try **live demo**](https://codermarcos.github.io/simple-mask-money/)
+<p align="center">
+  <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
+  <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
+</p>
+
+<p align="center">
+  Simple money mask developed with pure JavaScript. To run on <b>Client Side</b> and <b>Server Side</b>.
+  <a href="https://codermarcos.github.io/simple-mask-money/">Try <b>live demo</b></a> 
+</p>
 
 ## Getting Started
 
@@ -18,9 +33,20 @@ First, install it.
   npm i simple-mask-money --save
 ```
 
+Or use direct of github release
+
+```html
+<script src="https://github.com/codermarcos/simple-mask-money/releases/download/<RELEASE_VERSION_HERE>/simple-mask-money.js"></script>
+```
+
+> remember change <RELEASE_VERSION_HERE> by the [last version](https://github.com/codermarcos/simple-mask-money/releases/latest)
+
+Read the [docs](docs/#readme) or chose your implementation:
+
 * [Javascript](examples/javascript/#readme)
 * [Angular](examples/angular#readme)
 * [React](examples/react#readme)
+* [Node](examples/node#readme)
 * [Vue](examples/vue#readme)
 
 Then, follow the example to use in your browser:
@@ -37,6 +63,8 @@ Then, follow the example to use in your browser:
 
       // configuration
       const args = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,
@@ -72,6 +100,8 @@ Or if you prefer use the methods in your events
 
       // configuration
       SimpleMaskMoney.args = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,
