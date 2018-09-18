@@ -1,6 +1,6 @@
 {
   "name": "simple-mask-money",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Simple money mask developed with pure JavaScript",
   "main": "lib/simple-mask-money.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "npx rollup -c -w",
     "build": "npx rollup -c --environment NODE_ENV:production",
     "lint": "npx eslint ./src/**/*.js",
-    "postinstall": "node -e \"console.log('\\x1b[36m', 'Look at the documentation:', '\\x1b[0m', '\\x1b[33m', 'https://github.com/codermarcos/simple-mask-money', '\\x1b[0m', '\\x1b[36m', '\\nThanks for your download! ❤️', '\\x1b[0m')\""
+    "postinstall": "node -e \"console.log('\\x1b[36m','Look at the documentation:','\\x1b[0m','\\x1b[33m','https://github.com/codermarcos/simple-mask-money','\\x1b[0m','\\x1b[36m','\\nThanks for your download! ❤️','\\x1b[0m')\""
   },
   "repository": {
     "type": "git",

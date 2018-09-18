@@ -17,14 +17,17 @@ Then, use it as follows:
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
-      // configuration
+      // Default configuration  
       const options = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,
         fractionDigits: 2,
         decimalSeparator: ',',
-        thousandsSeparator: '.'
+        thousandsSeparator: '.',
+        cursor: 'move'
       };
 
       // set mask on your input you can pass a querySelector or your input element and options
@@ -57,6 +60,8 @@ Or if you prefer use the methods in your events
 
       // configuration
       SimpleMaskMoney.args = {
+        allowNegative: false,
+        negativeSignAfter: false,
         prefix: '',
         suffix: '',
         fixed: true,
