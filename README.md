@@ -1,4 +1,10 @@
 <h1 align="center">SimpleMaskMoney</h1>
+
+<p align="center">
+  <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
+  <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
+</p>
+
 <p align="center">
   <a class="badge-align" href="https://travis-ci.org/codermarcos/simple-mask-money"><img  src="https://travis-ci.org/codermarcos/simple-mask-money.svg?branch=master" alt="build Status"/></a>
 
@@ -13,11 +19,6 @@
 
   <a class="badge-align" href="https://opensource.org/licenses/Apache-2.0">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
-</p>
-
-<p align="center">
-  <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
-  <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
 </p>
 
 <p align="center">
