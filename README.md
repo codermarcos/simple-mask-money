@@ -40,7 +40,7 @@ Or use direct of github release
 <script src="https://github.com/codermarcos/simple-mask-money/releases/download/<RELEASE_VERSION_HERE>/simple-mask-money.js"></script>
 ```
 
-> remember change <RELEASE_VERSION_HERE> by the [last version](https://github.com/codermarcos/simple-mask-money/releases/latest)
+> remember change **<RELEASE_VERSION_HERE>** by the [last version](https://github.com/codermarcos/simple-mask-money/releases/latest)
 
 Read the [docs](docs/#readme) or chose your implementation:
 
