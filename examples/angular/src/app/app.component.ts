@@ -1,5 +1,5 @@
 import SimpleMaskMoney from '../../../../lib/simple-mask-money.js'; // import mask
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,10 @@ export class AppComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    // configuration
-    const options = {
+    // Default configuration  
+    const args = {
+      allowNegative: false,
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,
@@ -28,7 +30,7 @@ export class AppComponent implements AfterViewInit {
       cursor: 'move'
     };
     // set mask on your input you can pass a querySelector or your input element and options
-    SimpleMaskMoney.setMask('#myInput', options);
+    SimpleMaskMoney.setMask('#myInput', args);
   }
 
   // Your send method

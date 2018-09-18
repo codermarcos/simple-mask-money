@@ -9,7 +9,7 @@ module.exports = class Core {
   }
 
   emptyOrInvalid() {
-    return `${this.completer()}${this.args.decimalSeparator}${this.completer(2)}`;
+    return `${this.completer()}${this.args.decimalSeparator}${this.completer(this.args.fractionDigits)}`;
   }
 
   onlyNumber(value) {
@@ -170,7 +170,7 @@ module.exports = class Core {
   numberToText(input) {
     let retorno = this.emptyOrInvalid();
 
-    if (parseFloat(input) !== 'NaN') {
+    if (!isNaN(parseFloat(input))) {
       if (input.length <= this.args.fractionDigits) {
         retorno = this.formatDecimal(
           input,

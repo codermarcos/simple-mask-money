@@ -5,8 +5,16 @@ describe('Args', () => {
   let args;
 
   describe('Default', () => {
-    before(() => {
+    beforeEach(() => {
       args = new Args();
+    });
+
+    it('allowNegative', () => {
+      assert.equal(args.allowNegative, false);
+    });    
+    
+    it('negativeSignAfter', () => {
+      assert.equal(args.negativeSignAfter, false);
     });
 
     it('prefix', () => {
@@ -39,17 +47,27 @@ describe('Args', () => {
   });
 
   describe('Custom', () => {
-    before(() => {
+    beforeEach(() => {
       args = new Args({
         prefix: 'R$',
         fixed: false,
+        negativeSignAfter: true,
         decimalSeparator: '.',
         cursor: 'end'
       });
-
+      
+      args.allowNegative = true;
       args.suffix = '.';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
+    });
+    
+    it('allowNegative', () => {
+      assert.equal(args.allowNegative, true);
+    });    
+    
+    it('negativeSignAfter', () => {
+      assert.equal(args.negativeSignAfter, true);
     });
 
     it('prefix', () => {
