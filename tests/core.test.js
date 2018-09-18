@@ -8,7 +8,7 @@ describe('Core', () => {
 
   describe('Default', () => {
 
-    before(() => {
+    beforeEach(() => {
       args = new Args();
       core = new Core(args);
     });
@@ -80,7 +80,7 @@ describe('Core', () => {
 
   describe('Custom', () => {
 
-    before(() => {
+    beforeEach(() => {
       args = new Args({
         prefix: 'R$',
         fixed: false,
