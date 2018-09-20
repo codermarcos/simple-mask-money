@@ -13,8 +13,17 @@ describe('Core', () => {
       core = new Core(args);
     });
 
+    it('isFloat', () => {
+      assert.equal(core.isFloat(1.20), true);
+      assert.equal(core.isFloat('1.20'), true);
+    });
+
     it('onlyNumber', () => {
-      assert.equal(core.onlyNumber('@-,.1a0a'), '10');
+      assert.equal(core.onlyNumber('@-,.1a0a'), '.10');
+      assert.equal(core.onlyNumber('0,12'), '0.12');
+      assert.equal(core.onlyNumber('1.20'), '120');
+      assert.equal(core.onlyNumber('12,0'), '12.0');
+      assert.equal(core.onlyNumber('1,2,0'), '1.20');
     });
 
     it('autoComplete', () => {
@@ -68,7 +77,11 @@ describe('Core', () => {
     it('textToNumber', () => {
       assert.equal(core.textToNumber('a'), '0');
       assert.equal(core.textToNumber('a10a1'), '101');
-      assert.equal(core.textToNumber('0010'), '10');
+      assert.equal(core.textToNumber('0010'), '10');      
+      assert.equal(core.textToNumber('1.2'), '12');
+      assert.equal(core.textToNumber('1,20'), '1.20');
+      assert.equal(core.textToNumber('0,11'), '0.11');
+      assert.equal(core.textToNumber('0,9'), '0.9');
     });
 
     it('numberToText', () => {
@@ -92,6 +105,19 @@ describe('Core', () => {
       args.thousandsSeparator = ',';
 
       core = new Core(args);
+    });
+    
+    it('isFloat', () => {
+      assert.equal(core.isFloat(1.20), true);
+      assert.equal(core.isFloat('1.20'), true);
+    });
+    
+    it('onlyNumber', () => {
+      assert.equal(core.onlyNumber('@-,.1a0a'), '.10');
+      assert.equal(core.onlyNumber('0,12'), '012');
+      assert.equal(core.onlyNumber('1.20'), '1.20');
+      assert.equal(core.onlyNumber('12,0'), '120');
+      assert.equal(core.onlyNumber('1,2,0'), '120');
     });
 
     it('autoComplete', () => {
@@ -141,10 +167,15 @@ describe('Core', () => {
 
     it('textToNumber', () => {
       assert.equal(core.textToNumber('a'), '');
-      assert.equal(core.textToNumber('a10a1'), '10');
+      assert.equal(core.textToNumber('a10a1'), '101');
       assert.equal(core.textToNumber('a10a1.'), '101');
       assert.equal(core.textToNumber('__10.'), '10');
-      assert.equal(core.textToNumber('_.__1..'), '1');
+      assert.equal(core.textToNumber('_.__1.'), '.1');
+      assert.equal(core.textToNumber('_.__1.0.'), '.10'); 
+      assert.equal(core.textToNumber('1.20'), '1.20');       
+      assert.equal(core.textToNumber('1.2'), '1.2');
+      assert.equal(core.textToNumber('0.11'), '0.11');
+      assert.equal(core.textToNumber('0.9'), '0.9');
     });
 
     it('numberToText', () => {
