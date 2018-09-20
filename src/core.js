@@ -4,6 +4,10 @@ module.exports = class Core {
     this.args = new Args(args);
   }
 
+  isFloat(number) {
+    return number % 1 !== 0;
+  }
+
   completer(size = 1) {
     return this.args.fixed ? ''.padEnd(size, '0') : ''.padEnd(size, '_');
   }
@@ -13,10 +17,15 @@ module.exports = class Core {
   }
 
   onlyNumber(value) {
+    let hasDecimalSeparator = false;
     let retorno = '';
 
     for (let i = 0; i < value.length; i++) {
       if (isFinite(value[i])) retorno += value[i];
+      if (!hasDecimalSeparator && value[i] === this.args.decimalSeparator) {
+        retorno += value[i].replace(this.args.decimalSeparator, '.');
+        hasDecimalSeparator = true;
+      }
     }
 
     return retorno;
@@ -27,7 +36,13 @@ module.exports = class Core {
   }
 
   removingPrefix(value) {
-    return value.replace(this.args.prefix, '');
+    const position = value.indexOf(this.args.prefix, 0);
+
+    if (position !== -1) {
+      value = value.substring(this.args.prefix.length, value.length);
+    }
+
+    return value;
   }
 
   addingSuffix(value) {
@@ -35,11 +50,13 @@ module.exports = class Core {
   }
 
   removingSuffix(value) {
-    if (value.includes(this.args.suffix, value.length - this.args.fractionDigits)) {
-      value = value.replace(this.args.suffix, '');
-    } else {
-      value = value.substring(0, value.length - 1);
+    const position = value.indexOf(this.args.suffix, value.length - this.args.suffix.length);
+
+    if (position !== -1) {
+      const start = value.substring(0, position);
+      value = start + value.substring(start.length + this.args.suffix.length - 1, value.length - 1);
     }
+
     return value;
   }
 
@@ -93,13 +110,18 @@ module.exports = class Core {
     let dezenas = completer;
     let character = isFinite(completer) ? 'd' : 'w';
 
-    regexpFraction = `(\\${character}{${this.args.fractionDigits}})`;
+    regexpFraction = `${this.isFloat(value) ? '.' : ''}(\\${character}{${this.args.fractionDigits}})`;
 
     if (length > 0) {
       regexpFraction = `(\\${character}{${length}})${regexpFraction}`;
       dezenas = decimals;
       decimals = '$2';
     }
+    
+    console.log(value.replace(
+      new RegExp(regexpFraction),
+      `${dezenas}${separator}${decimals}`
+    ));
 
     return value.replace(
       new RegExp(regexpFraction),
@@ -110,7 +132,7 @@ module.exports = class Core {
   addingHundredsSeparator(value) {
     let size = value.length - this.args.fractionDigits;
     let hundreds = Math.ceil(size / 3);
-    let regexpHundreds = '(\\d)';
+    let regexpHundreds = this.isFloat(value) ? '.(\\d)' : '(\\d)';
 
     let replacement = `${this.args.decimalSeparator}$${hundreds + 1}`;
 
@@ -145,24 +167,23 @@ module.exports = class Core {
   textToNumber(input) {
     let retorno = input.toString();
     let completer = this.completer();
-
+    
     if (this.args.prefix) {
       retorno = this.removingPrefix(retorno);
     }
-
+    
     if (this.args.suffix) {
       retorno = this.removingSuffix(retorno);
     }
-
-    retorno = this.removeSeparator(retorno, this.args.thousandsSeparator);
-    retorno = this.removeSeparator(retorno, this.args.decimalSeparator);
-
+    
     retorno = this.onlyNumber(retorno);
 
-    retorno = this.removingCompleterFromStart(
-      retorno,
-      completer
-    );
+    if (retorno.indexOf('.') === -1) {
+      retorno = this.removingCompleterFromStart(
+        retorno,
+        completer
+      );
+    }
 
     return retorno || (this.args.fixed ? '0' : '');
   }
@@ -171,7 +192,7 @@ module.exports = class Core {
     let retorno = this.emptyOrInvalid();
 
     if (!isNaN(parseFloat(input))) {
-      if (input.length <= this.args.fractionDigits) {
+      if (input.length - 1 <= this.args.fractionDigits) {
         retorno = this.formatDecimal(
           input,
           this.completer(),

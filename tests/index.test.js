@@ -17,7 +17,10 @@ describe('Index', () => {
       index = new Index();
     });
 
-    it('format', () => {
+    it.only('format', () => {
+      assert.equal(index.format('1,2'), '1,20');
+      assert.equal(index.format(0.11), '0,11');
+      assert.equal(index.format(0.9), '0,90');
       assert.equal(index.format('a'), '0,00');
       assert.equal(index.format('-10'), '0,10');
       assert.equal(index.format('0010'), '0,10');
