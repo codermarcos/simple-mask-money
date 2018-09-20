@@ -88,6 +88,7 @@
         overflow-y: hidden;
         text-align: left;
         width: 40vw;
+        height: 0;
       }
 
       .invalid {
@@ -95,10 +96,11 @@
       }
 
       .visible {
+        height: 13.8em;
         opacity: 1;
-        -webkit-transition: opacity 2s linear;
-        -moz-transition: opacity 2s linear;
-        transition: opacity 2s linear;
+        -webkit-transition: opacity 2s linear, height 2.5s ease-in-out;
+        -moz-transition: opacity 2s linear, height 2.5s ease-in-out;
+        transition: opacity 2s linear, height 2.5s ease-in-out;
       }
 
       a {
