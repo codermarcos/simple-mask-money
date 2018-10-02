@@ -19,11 +19,12 @@ describe('Core', () => {
     });
 
     it('onlyNumber', () => {
-      assert.equal(core.onlyNumber('@-,.1a0a'), '.10');
+      assert.equal(core.onlyNumber('a'), '');
+      assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
       assert.equal(core.onlyNumber('0,12'), '0.12');
-      assert.equal(core.onlyNumber('3.40'), '340');
+      assert.equal(core.onlyNumber('3.40'), '3.40');
       assert.equal(core.onlyNumber('56,0'), '56.0');
-      assert.equal(core.onlyNumber('7,8,0'), '7.80');
+      assert.equal(core.onlyNumber('7,8,0'), '78.0');
     });
 
     it('addingCompleter', () => {
@@ -56,16 +57,18 @@ describe('Core', () => {
       assert.equal(core.addingSeparators('000000'), '0.000,00');
     });
 
-    it('removeSeparator', () => {
-      assert.equal(core.removeSeparator('00.000.000.000,00', args.thousandsSeparator), '00000000000,00');
-      assert.equal(core.removeSeparator('00.000.000.000,00', args.decimalSeparator), '00.000.000.00000');
+    it('replaceSeparator', () => {
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator), '00000000000,00');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator), '00.000.000.00000');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator, '.'), '00.000.000.000.00');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator, ','), '00,000,000,000,00');
     });
 
     it('textToNumber', () => {
       assert.equal(core.textToNumber('a'), '0');
       assert.equal(core.textToNumber('a10a1'), '101');
       assert.equal(core.textToNumber('0010'), '10');      
-      assert.equal(core.textToNumber('1.2'), '12');
+      assert.equal(core.textToNumber('1.2'), '1.2');
       assert.equal(core.textToNumber('1,20'), '1.20');
       assert.equal(core.textToNumber('0,11'), '0.11');
       assert.equal(core.textToNumber('0,9'), '0.9');
@@ -103,7 +106,7 @@ describe('Core', () => {
     });
     
     it('onlyNumber', () => {
-      assert.equal(core.onlyNumber('@-,.1a0a'), '.10');
+      assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
       assert.equal(core.onlyNumber('0,12'), '012');
       assert.equal(core.onlyNumber('1.20'), '1.20');
       assert.equal(core.onlyNumber('12,0'), '120');
@@ -136,9 +139,11 @@ describe('Core', () => {
       assert.equal(core.addingSeparators('0000000'), '0,000.000');
     });
 
-    it('removeSeparator', () => {
-      assert.equal(core.removeSeparator('_.___.___.___,___', args.thousandsSeparator), '_.___.___.______');
-      assert.equal(core.removeSeparator('_.___.___.___,___', args.decimalSeparator), '__________,___');
+    it('replaceSeparator', () => {
+      assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator), '_.___.___.______');
+      assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator), '__________,___');
+      assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator, ','), '_,___,___,___,___');
+      assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator, '.'), '_.___.___.___.___');
     });
 
     it('textToNumber', () => {
@@ -146,15 +151,15 @@ describe('Core', () => {
       assert.equal(core.textToNumber('a10a1'), '101');
       assert.equal(core.textToNumber('a10a1.'), '101');
       assert.equal(core.textToNumber('__10.'), '10');
-      assert.equal(core.textToNumber('_.__1.'), '.1');
-      assert.equal(core.textToNumber('_.__1.0.'), '.10'); 
+      assert.equal(core.textToNumber('_.__1.'), '0.1');
+      assert.equal(core.textToNumber('_.__1.0.'), '1.0'); 
       assert.equal(core.textToNumber('1.20'), '1.20');       
       assert.equal(core.textToNumber('1.2'), '1.2');
       assert.equal(core.textToNumber('0.11'), '0.11');
       assert.equal(core.textToNumber('0.9'), '0.9');
     });
 
-    it.only('numberToText', () => {
+    it('numberToText', () => {
       assert.equal(core.numberToText('0'), 'R$_.__0.');
       assert.equal(core.numberToText('101'), 'R$_.101.');
       assert.equal(core.numberToText('0010'), 'R$0.010.');      
@@ -162,7 +167,7 @@ describe('Core', () => {
       assert.equal(core.numberToText('0.11'), 'R$0.11_.');
       assert.equal(core.numberToText('0.988'), 'R$0.988.');
       assert.equal(core.numberToText('a'), 'R$_.___.');
-      assert.equal(core.numberToText('a10a1'), '1,01');
+      assert.equal(core.numberToText('101'), 'R$_.101.');
     });
   });
 });
