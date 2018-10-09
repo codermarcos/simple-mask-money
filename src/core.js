@@ -17,21 +17,25 @@ module.exports = class Core {
   }
 
   onlyNumber(value) {
-    let hasDecimalSeparator = false;
+    const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
+    let putDecimalSeparator = false;
     let retorno = '';
 
     for (let i = value.length - 1; i >= 0; i--) {
-      if (isFinite(value[i])) {
-        retorno = value[i] + retorno;
-      } else {
-        if (!hasDecimalSeparator) {
-          if (value[i] === this.args.decimalSeparator) {
+
+      if (hasDecimalSeparator) {
+        if (isFinite(value[i])) {
+          retorno = value[i] + retorno;
+        } else {
+          if (!putDecimalSeparator && value[i] === this.args.decimalSeparator) {
             retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
-            hasDecimalSeparator = true;
-          } else if (value[i] === '.') {
-            retorno = (retorno.length > 0 ? '.' : '0') + retorno;
-            hasDecimalSeparator = !(retorno.length === 1);
+            putDecimalSeparator = true;
           }
+        }
+      } else {
+        if (retorno.length !== this.args.fractionDigits) {
+          retorno = `${isFinite(value[i]) ? value[i] : ''}.${retorno}`;
+          putDecimalSeparator = true;
         }
       }
     }
@@ -116,6 +120,34 @@ module.exports = class Core {
     return value.replace(new RegExp(`\\${separator}`, 'g'), replacer);
   }
 
+  adjustDotPosition(value) {
+    let fractionDigits;
+    let retorno = value.toString();
+    const dotPostion = retorno.indexOf('.');
+    const decimalLength = retorno.substring(dotPostion).length - 1;
+
+    retorno = retorno.replace('.', '');
+
+    console.log('', retorno);
+    switch (true) {
+      case decimalLength > this.args.fractionDigits:
+        fractionDigits = retorno.length - this.args.fractionDigits;
+        break;
+      case decimalLength < this.args.fractionDigits:
+        fractionDigits = retorno.length - this.args.fractionDigits;
+        break;
+    }
+
+    retorno = `${retorno.substring(0, fractionDigits)}.${retorno.substring(fractionDigits)}`;
+
+    return retorno;
+  }
+
+  checkNumberStart(value) {
+    const retorno = value.toString();
+    return retorno[0] === '.' ? `0${retorno}` : retorno;
+  }
+
   textToNumber(input) {
     let retorno = input.toString();
     let completer = this.completer();
@@ -129,13 +161,15 @@ module.exports = class Core {
     }
 
     retorno = this.onlyNumber(retorno);
-    
-    if (retorno.indexOf('.') === -1) {
-      retorno = this.removingCompleter(
-        retorno,
-        completer
-      );
-    }
+
+    retorno = this.adjustDotPosition(retorno);
+    console.log(retorno);
+
+    retorno = this.removingCompleter(retorno, completer);
+    console.log(retorno);
+
+    retorno = this.checkNumberStart(retorno);
+    console.log(retorno);
 
     return retorno || (this.args.fixed ? '0' : '');
   }
