@@ -4,11 +4,27 @@ const Index = require('../src/index');
 
 let index;
 
-function write(input, value) {  
+function writeAll(input, value) {  
   const event = document.createEvent('HTMLEvents');
   event.initEvent('input', false, true);
   input.value = value;
   input.dispatchEvent(event);        
+}
+
+function writeOnePerOne(input, value) {  
+  const event = document.createEvent('HTMLEvents');
+  for (let i = 0; i < value.length; i++) {
+    event.initEvent('input', false, true);
+    input.value = input.value + value[i];
+    input.dispatchEvent(event);            
+  }
+}
+
+function eraseOne(input) {  
+  const event = document.createEvent('HTMLEvents');
+  event.initEvent('input', false, true);
+  input.value = input.value.substring(0, input.value.length - 1);
+  input.dispatchEvent(event);     
 }
 
 describe('Index', () => {
@@ -16,14 +32,45 @@ describe('Index', () => {
     beforeEach(() => {
       index = new Index();
     });
+    
+    it('writing', () => {
+      let input = document.createElement('input');
+      input = index.setMask(input);      
+      
+      writeOnePerOne(input, 'a');
+      assert.equal(input.value, '0,00');
+      assert.equal(input.formatToNumber(), 0); 
+
+      writeOnePerOne(input, '1');
+      assert.equal(input.value, '0,01');
+      assert.equal(input.formatToNumber(), 0.01);     
+
+      writeOnePerOne(input, '58');
+      assert.equal(input.value, '1,58');
+      assert.equal(input.formatToNumber(), 1.58);     
+    });
+
+    
+    it.only('erasing', () => {
+      let input = document.createElement('input');
+      input.value = '0,58';
+      input = index.setMask(input);      
+
+      eraseOne(input);
+      assert.equal(input.value, '0,05');
+      assert.equal(input.formatToNumber(), 0.05);     
+    });
 
     it('format', () => {
+      assert.equal(index.format('0,01'), '0,01');
+      assert.equal(index.format('5,678'), '56,78');
       assert.equal(index.format('1,2'), '1,20');
-      assert.equal(index.format(0.11), '0,11');
-      assert.equal(index.format(0.9), '0,90');
+      assert.equal(index.format('0,11'), '0,11');
+      assert.equal(index.format('0,9'), '0,90');
       assert.equal(index.format('a'), '0,00');
       assert.equal(index.format('-10'), '0,10');
-      assert.equal(index.format('0010'), '0,10');
+      assert.equal(index.format('0,02'), '0,02');
+      assert.equal(index.format('0030'), '0,30');
       assert.equal(index.format('a10a1'), '1,01');
       assert.equal(index.format('2.500.02.510'), '2.500.025,10');
       assert.equal(index.format('a1a.5b0-0.0*25+10'), '1.500.025,10');
@@ -32,10 +79,10 @@ describe('Index', () => {
     it('formatToNumber', () => {
       assert.equal(index.formatToNumber('a'), 0);
       assert.equal(index.formatToNumber('-10'), 10);
-      assert.equal(index.formatToNumber('0010'), 10);
+      assert.equal(index.formatToNumber('0010'), 0.10);
       assert.equal(index.formatToNumber('a10a1'), 101);
       assert.equal(index.formatToNumber('2.500.025,10'), 2500025.1);
-      assert.equal(index.formatToNumber('a3a.5b0-8.0*25+10'), 3508.0251);
+      assert.equal(index.formatToNumber('a3a.5b0-8.0*25+10'), 3508025.10);
       assert.equal(index.formatToNumber('1.500.025,10'), 1500025.1);
     });    
     
@@ -43,31 +90,31 @@ describe('Index', () => {
       let input = document.createElement('input');
       input = index.setMask(input);      
       
-      write(input, 'a');
+      writeAll(input, 'a');
       assert.equal(input.value, '0,00');
       assert.equal(input.formatToNumber(), 0);     
       
-      write(input, '-10');
+      writeAll(input, '-10');
       assert.equal(input.value, '0,10');
       assert.equal(input.formatToNumber(), 0.1);   
       
-      write(input, '0010');
+      writeAll(input, '0010');
       assert.equal(input.value, '0,10');
       assert.equal(input.formatToNumber(), 0.10);      
       
-      write(input, 'a10a1');
+      writeAll(input, 'a10a1');
       assert.equal(input.value, '1,01');
       assert.equal(input.formatToNumber(), 1.01);      
 
-      write(input, '2.500.02.510');
+      writeAll(input, '2.500.02.510');
       assert.equal(input.value, '2.500.025,10');
       assert.equal(input.formatToNumber(), 2500025.1);      
 
-      write(input, 'a1a.5b0-0.0*25+10');
+      writeAll(input, 'a1a.5b0-0.0*25+10');
       assert.equal(input.value, '1.500.025,10');
       assert.equal(input.formatToNumber(), 1500025.1);
 
-      write(input, '1.500.025,10');
+      writeAll(input, '1.500.025,10');
       assert.equal(input.value, '1.500.025,10');
       assert.equal(input.formatToNumber(), 1500025.10);
     });
@@ -111,37 +158,37 @@ describe('Index', () => {
       let input = document.createElement('input');
       input = index.setMask(input);      
       
-      write(input, 'a');
+      writeAll(input, 'a');
       assert.equal(input.value, 'R$_.___.');
       assert.equal(input.formatToNumber(), 0);      
       
-      write(input, '0010');
+      writeAll(input, '0010');
       assert.equal(input.value, 'R$0.010.');
       assert.equal(input.formatToNumber(), 0.01);      
       
-      write(input, 'a10a1');
+      writeAll(input, 'a10a1');
       assert.equal(input.value, 'R$_.101.');
       assert.equal(input.formatToNumber(), 0.101);      
 
-      write(input, '2.500.02.510');
+      writeAll(input, '2.500.02.510');
       assert.equal(input.value, 'R$250,002.510.');
       assert.equal(input.formatToNumber(), 250002.510);      
 
-      write(input, 'a1a.5b0-0.0*25+10');
+      writeAll(input, 'a1a.5b0-0.0*25+10');
       assert.equal(input.value, '-R$150,002.510.');
       assert.equal(input.formatToNumber(), -150002.51);
 
-      write(input, '1.500.025,10');
+      writeAll(input, '1.500.025,10');
       assert.equal(input.value, 'R$150,002.510.');
       assert.equal(input.formatToNumber(), 150002.51);
 
-      write(input, '1.500.025,10-');
+      writeAll(input, '1.500.025,10-');
       assert.equal(input.value, '-R$150,002.510.');
       assert.equal(input.formatToNumber(), -150002.51);
       
       index.args.negativeSignAfter = true;
 
-      write(input, '1.500.025,10-');
+      writeAll(input, '1.500.025,10-');
       assert.equal(input.value, 'R$150,002.510.-');
       assert.equal(input.formatToNumber(), -150002.51);
     });
