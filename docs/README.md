@@ -35,20 +35,30 @@ The **args** they are:
 
 ## SimpleMaskMoney.format(...)
 
-**.format(...)** have one argument, the ```value``` that will be formatted to your settings:
+**.format(...)** have three arguments, the ```value```, ```args```(optional), ```ìsInput```(optional) that will be formatted to your settings:
 
 ```javascript
 // With default args
 SimpleMaskMoney.format('123456789'); // 1.234.567,89
+// With custom args
+SimpleMaskMoney.format('123456789', { prefix: 'R$' }); // R$1.234.567,89
 ```
+
+The **arguments** they are:
+
+- **value**: string > *The value of your input or value that will be formatted*
+- **args**: object > *This is the configurations of the formattation. If this argument is omitted the arguments defined in ```SimpleMaskMoney.args = {}``` will be used*
+- **isInput**: boolean > *This boolean is to inform if your value comes from an input*
+
+> **isInput** affects the return of the format function in fractional numbers. Example if isInput is true when you call **.format ('12,3')** you get **1.23** when isInput is false receives **12.30**
 
 ## SimpleMaskMoney.formatToNumber(...)
 
-**.formatToNumber(...)** have one argument, the ```value``` that will be formatted to number:
+**.formatToNumber(...)** have one argument, the ```value```, ```args```(optional) that will be formatted to number:
 
 ```javascript
 // With default args
-SimpleMaskMoney.format('$ 1.234.567,89'); // 1234567.89
+SimpleMaskMoney.formatToNumber('$ 1.234.567,89'); // 1234567.89
 ```
 
 ## SimpleMaskMoney.setMask(...)
