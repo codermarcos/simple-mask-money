@@ -19,10 +19,11 @@ describe('Core', () => {
     });
 
     it('onlyNumber', () => {
+      assert.equal(core.onlyNumber('3.40'), '340');
+      assert.equal(core.onlyNumber(',23'), '0.23');
       assert.equal(core.onlyNumber('a'), '');
       assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
       assert.equal(core.onlyNumber('0,12'), '0.12');
-      assert.equal(core.onlyNumber('3.40'), '340');
       assert.equal(core.onlyNumber('56,0'), '56.0');
       assert.equal(core.onlyNumber('7,8,0'), '78.0');
     });
@@ -64,10 +65,23 @@ describe('Core', () => {
       assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator, ','), '00,000,000,000,00');
     });
 
+    it('adjustDotPosition', () => {
+      assert.equal(core.adjustDotPosition('.0'), '.0');
+      assert.equal(core.adjustDotPosition('1.0'), '.10');
+      assert.equal(core.adjustDotPosition('10.'), '.10');
+      assert.equal(core.adjustDotPosition('10.0'), '1.00');
+    });
+
+    it('checkNumberStart', () => {
+      assert.equal(core.checkNumberStart('.0'), '0.0');
+      assert.equal(core.checkNumberStart('1.0'), '1.0');
+      assert.equal(core.checkNumberStart('.10'), '0.10');
+    });
+
     it('textToNumber', () => {
       assert.equal(core.textToNumber('a'), '0');
       assert.equal(core.textToNumber('a10a1'), '101');
-      assert.equal(core.textToNumber('0010'), '0.10');
+      assert.equal(core.textToNumber('0010'), '10');
       assert.equal(core.textToNumber('1.2'), '12');
       assert.equal(core.textToNumber('1,20'), '1.20');
       assert.equal(core.textToNumber('0,11'), '0.11');
@@ -144,6 +158,19 @@ describe('Core', () => {
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator), '__________,___');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator, ','), '_,___,___,___,___');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator, '.'), '_.___.___.___.___');
+    });
+
+    it('adjustDotPosition', () => {
+      assert.equal(core.adjustDotPosition('.0'), '.0');
+      assert.equal(core.adjustDotPosition('1.0'), '.10');
+      assert.equal(core.adjustDotPosition('10.'), '.10');
+      assert.equal(core.adjustDotPosition('10.0'), '.100');
+    });
+
+    it('checkNumberStart', () => {
+      assert.equal(core.checkNumberStart('.0'), '0.0');
+      assert.equal(core.checkNumberStart('1.0'), '1.0');
+      assert.equal(core.checkNumberStart('.10'), '0.10');
     });
 
     it('textToNumber', () => {

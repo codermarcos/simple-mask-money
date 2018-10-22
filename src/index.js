@@ -32,9 +32,9 @@ module.exports = class SimpleMaskMoney {
     _core = new Core(_args);
   }
 
-  static format(value) {
+  static format(value, input = false) {
     const negative = _args.allowNegative && value.indexOf('-') !== -1;  
-    const formatation = _core.numberToText(_core.textToNumber(value));
+    const formatation = _core.numberToText(_core.textToNumber(value, input));
 
     return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
   }
@@ -67,7 +67,7 @@ module.exports = class SimpleMaskMoney {
 
     input.addEventListener('input', e => {
       const oldValue = input.value;
-      const newValue = SimpleMaskMoney.format(oldValue);
+      const newValue = SimpleMaskMoney.format(oldValue, true);
       const caretPosition = implanter.getCaretPosition(input);
       const move = implanter.indexMove(newValue, oldValue);
       let newCaretPosition = caretPosition - move;
