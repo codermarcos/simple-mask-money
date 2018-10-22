@@ -22,21 +22,11 @@ module.exports = class Core {
     let retorno = '';
 
     for (let i = value.length - 1; i >= 0; i--) {
-
-      if (hasDecimalSeparator) {
-        if (isFinite(value[i])) {
-          retorno = value[i] + retorno;
-        } else {
-          if (!putDecimalSeparator && value[i] === this.args.decimalSeparator) {
-            retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
-            putDecimalSeparator = true;
-          }
-        }
-      } else {
-        if (retorno.length !== this.args.fractionDigits) {
-          retorno = `${isFinite(value[i]) ? value[i] : ''}.${retorno}`;
-          putDecimalSeparator = true;
-        }
+      if (isFinite(value[i])) {
+        retorno = value[i] + retorno;
+      } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator) {
+        retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
+        putDecimalSeparator = true;
       }
     }
 
@@ -123,21 +113,9 @@ module.exports = class Core {
   adjustDotPosition(value) {
     let fractionDigits;
     let retorno = value.toString();
-    const dotPostion = retorno.indexOf('.');
-    const decimalLength = retorno.substring(dotPostion).length - 1;
 
     retorno = retorno.replace('.', '');
-
-    console.log('', retorno);
-    switch (true) {
-      case decimalLength > this.args.fractionDigits:
-        fractionDigits = retorno.length - this.args.fractionDigits;
-        break;
-      case decimalLength < this.args.fractionDigits:
-        fractionDigits = retorno.length - this.args.fractionDigits;
-        break;
-    }
-
+    fractionDigits = retorno.length - this.args.fractionDigits;
     retorno = `${retorno.substring(0, fractionDigits)}.${retorno.substring(fractionDigits)}`;
 
     return retorno;
@@ -148,8 +126,8 @@ module.exports = class Core {
     return retorno[0] === '.' ? `0${retorno}` : retorno;
   }
 
-  textToNumber(input) {
-    let retorno = input.toString();
+  textToNumber(value, input) {
+    let retorno = value.toString();
     let completer = this.completer();
 
     if (this.args.prefix) {
@@ -162,25 +140,26 @@ module.exports = class Core {
 
     retorno = this.onlyNumber(retorno);
 
-    retorno = this.adjustDotPosition(retorno);
-    console.log(retorno);
+    if (retorno) {
+      if (input) {
+        retorno = this.adjustDotPosition(retorno);
+      }
 
-    retorno = this.removingCompleter(retorno, completer);
-    console.log(retorno);
+      retorno = this.removingCompleter(retorno, completer);
 
-    retorno = this.checkNumberStart(retorno);
-    console.log(retorno);
+      retorno = this.checkNumberStart(retorno);
+    }
 
     return retorno || (this.args.fixed ? '0' : '');
   }
 
-  numberToText(input) {
+  numberToText(value, input) {
     let retorno = this.emptyOrInvalid();
-    input = this.replaceSeparator(input.toString(), this.args.decimalSeparator, '.');
+    value = this.replaceSeparator(value.toString(), this.args.decimalSeparator, '.');
 
-    if (!isNaN(parseFloat(input))) {
-      if (this.isFloat(input)) {
-        const number = input.split('.');
+    if (!isNaN(parseFloat(value))) {
+      if (this.isFloat(value)) {
+        const number = value.split('.');
         let hundreds = number[0];
         let decimals = number[1];
 
@@ -188,8 +167,9 @@ module.exports = class Core {
 
         retorno = `${hundreds}${decimals}`;
       } else {
-        retorno = this.addingCompleter(input || '', this.completer(), this.args.fractionDigits);
-        retorno = this.args.fractionDigits >= input.length ? `${this.completer()}${retorno}` : retorno;
+        retorno = this.replaceSeparator(value, '.');
+        retorno = this.addingCompleter(retorno || '', this.completer(), this.args.fractionDigits);
+        retorno = this.args.fractionDigits >= retorno.length ? `${this.completer()}${retorno}` : retorno;
       }
 
       retorno = this.addingSeparators(retorno);
