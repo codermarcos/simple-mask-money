@@ -30,7 +30,7 @@ function eraseOne(input) {
 describe('Index', () => {
   describe('Default', () => {
     beforeEach(() => {
-      index = new Index();
+      index = Index;
     });
     
     it('writing', () => {
@@ -99,6 +99,8 @@ describe('Index', () => {
       let input = document.createElement('input');
       input = index.setMask(input);      
       
+      assert.equal(typeof input.maskArgs, 'object');
+      
       writeAll(input, 'a');
       assert.equal(input.value, '0,00');
       assert.equal(input.formatToNumber(), 0);     
@@ -131,7 +133,7 @@ describe('Index', () => {
 
   describe('Custom', () => {
     beforeEach(() => {
-      index = new Index();
+      index = Index;
       index.args = {
         allowNegative: true,
         suffix: '.',
@@ -165,7 +167,8 @@ describe('Index', () => {
     
     it('setMask', () => {
       let input = document.createElement('input');
-      input = index.setMask(input);      
+      input = index.setMask(input);   
+      assert.equal(typeof input.maskArgs, 'object');   
       
       writeAll(input, 'a');
       assert.equal(input.value, 'R$_.___.');
