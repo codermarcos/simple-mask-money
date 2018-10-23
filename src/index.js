@@ -32,35 +32,24 @@ module.exports = class SimpleMaskMoney {
     _core = new Core(_args);
   }
 
-  static format(value) {
+  static format(value, input = false) {
     const negative = _args.allowNegative && value.indexOf('-') !== -1;  
-    const formatation = _core.numberToText(_core.textToNumber(value));
+    const formatation = _core.numberToText(_core.textToNumber(value, input));
 
     return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
   }
 
   static formatToNumber(input) {
+    let value = input.toString(); 
     let retorno = '0';
-    let value = _core.textToNumber(input);
-    const negative = _args.allowNegative && input.indexOf('-') !== -1;   
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;   
     
     if (negative) {
-      value.replace('-', '');
+      value = value.replace('-', '');
     }
 
+    value = _core.textToNumber(value);
     if (!isNaN(parseFloat(value))) {
-      if (value.length <= _args.fractionDigits) {
-        value = _core.formatDecimal(value, '0', '.');
-      } else {
-        let lengthWithoutDecimals = value.length - _args.fractionDigits;
-        value = value.replace(
-          new RegExp(
-            `(\\d{${lengthWithoutDecimals}})(\\d{${_args.fractionDigits}})`
-          ),
-          '$1.$2'
-        );
-      }
-
       retorno = value;
     }
       
@@ -78,7 +67,7 @@ module.exports = class SimpleMaskMoney {
 
     input.addEventListener('input', e => {
       const oldValue = input.value;
-      const newValue = SimpleMaskMoney.format(oldValue);
+      const newValue = SimpleMaskMoney.format(oldValue, true);
       const caretPosition = implanter.getCaretPosition(input);
       const move = implanter.indexMove(newValue, oldValue);
       let newCaretPosition = caretPosition - move;
