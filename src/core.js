@@ -153,7 +153,7 @@ module.exports = class Core {
     return retorno || (this.args.fixed ? '0' : '');
   }
 
-  numberToText(value, input) {
+  numberToText(value) {
     let retorno = this.emptyOrInvalid();
     value = this.replaceSeparator(value.toString(), this.args.decimalSeparator, '.');
 
