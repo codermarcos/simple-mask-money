@@ -4,7 +4,7 @@
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
   "main": "lib/simple-mask-money.js",
   "scripts": {
-    "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w",
+    "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w -b",
     "test": "npx mocha tests/**/*.test.js --require babel-register",
     "start": "npx rollup -c -w",
     "build": "npx rollup -c --environment NODE_ENV:production",

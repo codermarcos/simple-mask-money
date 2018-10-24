@@ -16,21 +16,28 @@ module.exports = class Core {
     return `${this.completer()}${this.args.decimalSeparator}${this.completer(this.args.fractionDigits)}`;
   }
 
-  onlyNumber(value) {
+  onlyNumber(value, permitNonFixed = true) {
     const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
+    const completer = this.completer();
     let putDecimalSeparator = false;
     let retorno = '';
 
     for (let i = value.length - 1; i >= 0; i--) {
-      if (isFinite(value[i])) {
-        retorno = value[i] + retorno;
+      if (isFinite(value[i]) || (!this.args.fixed && value[i] === completer)) {
+        retorno = (isFinite(value[i]) ? value[i] : (permitNonFixed ? value[i] : '0')) + retorno;
       } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator) {
         retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
         putDecimalSeparator = true;
       }
     }
 
-    return retorno[0] === '.' ? `0${retorno}` : retorno;
+    retorno = this.checkNumberStart(retorno);
+
+    return retorno;
+  }
+
+  isNumberNonFixed(value) {
+    return !isNaN(value.replace(new RegExp('\\_', 'g'), ''));
   }
 
   addingPrefix(value) {
@@ -71,13 +78,15 @@ module.exports = class Core {
   }
 
   removingCompleter(value, completer, start = true) {
-    const position = start ? 0 : value.length - 1;
+    let retorno = value.toString();
+    let position = start ? 0 : retorno.length - 1;
 
-    while (value[position] === completer) {
-      value = value.substring(0, position - 1) + value.substring(position + 1, value.length);
+    while (retorno[position] === completer) {
+      retorno = retorno.substring(0, position - 1) + retorno.substring(position + 1);
+      position = start ? 0 : retorno.length - 1;
     }
 
-    return value;
+    return retorno;
   }
 
   addingSeparators(value) {
@@ -122,11 +131,24 @@ module.exports = class Core {
   }
 
   checkNumberStart(value) {
-    const retorno = value.toString();
-    return retorno[0] === '.' ? `0${retorno}` : retorno;
+    let retorno = value.toString();
+    const completer = this.completer();
+
+    switch (retorno[0]) {
+      case '.':
+        retorno = `${completer}${retorno}`;
+        break;
+
+      case completer:
+        retorno = this.removingCompleter(retorno, this.completer());
+        retorno = `${completer}${retorno}`;
+        break;
+    }
+
+    return retorno;
   }
 
-  textToNumber(value, input) {
+  textToNumber(value, input, permitNonFixed = true) {
     let retorno = value.toString();
     let completer = this.completer();
 
@@ -138,10 +160,10 @@ module.exports = class Core {
       retorno = this.removingSuffix(retorno);
     }
 
-    retorno = this.onlyNumber(retorno);
+    retorno = this.onlyNumber(retorno, permitNonFixed);
 
     if (retorno) {
-      if (input) {
+      if (input && permitNonFixed && retorno.indexOf('.') !== -1) {
         retorno = this.adjustDotPosition(retorno);
       }
 
@@ -157,7 +179,7 @@ module.exports = class Core {
     let retorno = this.emptyOrInvalid();
     value = this.replaceSeparator(value.toString(), this.args.decimalSeparator, '.');
 
-    if (!isNaN(parseFloat(value))) {
+    if (!isNaN(value) || (!this.args.fixed && this.isNumberNonFixed(value))) {
       if (this.isFloat(value)) {
         const number = value.split('.');
         let hundreds = number[0];
@@ -173,6 +195,7 @@ module.exports = class Core {
       }
 
       retorno = this.addingSeparators(retorno);
+      retorno = this.checkNumberStart(retorno);
     }
 
     if (this.args.prefix) {

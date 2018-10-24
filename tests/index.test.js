@@ -30,12 +30,13 @@ function eraseOne(input) {
 describe('Index', () => {
   describe('Default', () => {
     beforeEach(() => {
-      index = new Index();
+      index = Index;
     });
     
     it('writing', () => {
       let input = document.createElement('input');
-      input = index.setMask(input);      
+      input = index.setMask(input);  
+      input.value = '';    
       
       writeOnePerOne(input, 'a');
       assert.equal(input.value, '0,00');
@@ -47,7 +48,19 @@ describe('Index', () => {
 
       writeOnePerOne(input, '58');
       assert.equal(input.value, '1,58');
-      assert.equal(input.formatToNumber(), 1.58);     
+      assert.equal(input.formatToNumber(), 1.58);      
+      
+      input.value = '';
+
+      writeOnePerOne(input, 'a1a.5b0-0.0*25+10');
+      assert.equal(input.value, '1.500.025,10');
+      assert.equal(input.formatToNumber(), 1500025.1);
+
+      input.value = '';
+
+      writeOnePerOne(input, '1.500.025,10');
+      assert.equal(input.value, '1.500.025,10');
+      assert.equal(input.formatToNumber(), 1500025.10);
     });
 
     it('erasing', () => {
@@ -102,7 +115,15 @@ describe('Index', () => {
       writeAll(input, 'a');
       assert.equal(input.value, '0,00');
       assert.equal(input.formatToNumber(), 0);     
+
+      input.value = '';
+
+      writeOnePerOne(input, '1');
+      assert.equal(input.value, '0,01');
+      assert.equal(input.formatToNumber(), 0.01);     
       
+      input.value = '';
+
       writeAll(input, '-10');
       assert.equal(input.value, '0,10');
       assert.equal(input.formatToNumber(), 0.1);   
@@ -117,36 +138,110 @@ describe('Index', () => {
 
       writeAll(input, '2.500.02.510');
       assert.equal(input.value, '2.500.025,10');
-      assert.equal(input.formatToNumber(), 2500025.1);      
-
-      writeAll(input, 'a1a.5b0-0.0*25+10');
-      assert.equal(input.value, '1.500.025,10');
-      assert.equal(input.formatToNumber(), 1500025.1);
-
-      writeAll(input, '1.500.025,10');
-      assert.equal(input.value, '1.500.025,10');
-      assert.equal(input.formatToNumber(), 1500025.10);
+      assert.equal(input.formatToNumber(), 2500025.1);     
     });
   });
 
-  describe('Custom', () => {
+  describe('Case 1', () => {
     beforeEach(() => {
-      index = new Index();
+      index = Index;
       index.args = {
         allowNegative: true,
-        suffix: '.',
+        suffix: ';',
         prefix: 'R$',
         fixed: false,
         fractionDigits: 3,
         decimalSeparator: '.',
         thousandsSeparator: ','
       };
+    });    
+    
+    it('writing', () => {
+      let input = document.createElement('input');
+      input = index.setMask(input);  
+      input.value = '';    
+      
+      writeOnePerOne(input, 'a');
+      assert.equal(input.value, 'R$_.___;');
+      assert.equal(input.formatToNumber(), 0); 
+
+      input.value = '';    
+
+      writeOnePerOne(input, '1');
+      assert.equal(input.value, 'R$_.__1;');
+      assert.equal(input.formatToNumber(), 0.001);     
+
+      input.value = '';    
+
+      writeOnePerOne(input, '58');
+      assert.equal(input.value, 'R$_._58;');
+      assert.equal(input.formatToNumber(), 0.058);      
+      
+      input.value = '';
+
+      writeOnePerOne(input, 'a1a.5b0-0.0*25+10');
+      assert.equal(input.value, '1.500.025,10');
+      assert.equal(input.formatToNumber(), 1500025.1);
+
+      input.value = '';
+
+      writeOnePerOne(input, '1.500.025,10');
+      assert.equal(input.value, '1.500.025,10');
+      assert.equal(input.formatToNumber(), 1500025.10);
     });
 
     it('format', () => {
-      assert.equal(index.format('a'), 'R$_.___.');
-      assert.equal(index.format('010'), 'R$_.010.');
-      assert.equal(index.format('0010'), 'R$0.010.');
+      assert.equal(index.format('a'), 'R$_.___;');
+      assert.equal(index.format('010'), 'R$_.010;');
+      assert.equal(index.format('0010'), 'R$0.010;');
+      assert.equal(index.format('a10a1;'), 'R$_.101;');
+      assert.equal(index.format('2.500.02.510;'), 'R$250,002.510;');
+      assert.equal(index.format('a1a.5b0-0.0*25+10;'), '-R$150,002.510;');
+      index.args.negativeSignAfter = true;
+      assert.equal(index.format('0010-'), 'R$0.010;-');
+    });
+
+    it('formatToNumber', () => {
+      assert.equal(index.formatToNumber('R$_.___;'), 0);
+      assert.equal(index.formatToNumber('R$_.001;'), 0.001);
+      assert.equal(index.formatToNumber('R$_.101;'), 0.101);
+      assert.equal(index.formatToNumber('R$250,002.510;'), 250002.51);
+      assert.equal(index.formatToNumber('-R$150,002.510;'), -150002.51);
+      assert.equal(index.formatToNumber('R$150,002.510;-'), -150002.51);
+    }); 
+    
+    it('setMask', () => {
+      let input = document.createElement('input');
+      input = index.setMask(input);      
+      
+      writeAll(input, 'a');
+      assert.equal(input.value, 'R$_.___;');
+      assert.equal(input.formatToNumber(), 0);    
+
+      writeOnePerOne(input, '1');
+      assert.equal(input.value, 'R$_.__1;');
+      assert.equal(input.formatToNumber(), 0.001);     
+    });
+  });
+
+  describe('Case 2', () => {
+    beforeEach(() => {
+      index = Index;
+      index.args = {
+        allowNegative: true,
+        suffix: '',
+        prefix: '',
+        fixed: false,
+        fractionDigits: 2,
+        decimalSeparator: ',',
+        thousandsSeparator: '.'
+      };
+    });
+
+    it('format', () => {
+      assert.equal(index.format('a'), '_,__');
+      assert.equal(index.format('010'), '0,10');
+      assert.equal(index.format('0010'), '0,10');
       assert.equal(index.format('a10a1.'), 'R$_.101.');
       assert.equal(index.format('2.500.02.510.'), 'R$250,002.510.');
       assert.equal(index.format('a1a.5b0-0.0*25+10.'), '-R$150,002.510.');
@@ -169,37 +264,27 @@ describe('Index', () => {
       
       writeAll(input, 'a');
       assert.equal(input.value, 'R$_.___.');
-      assert.equal(input.formatToNumber(), 0);      
+      assert.equal(input.formatToNumber(), 0);    
+
+      writeAll(input, '1');
+      assert.equal(input.value, 'R$_.__1.');
+      assert.equal(input.formatToNumber(), 0.001);     
+
+      writeOnePerOne(input, '0010');
+      assert.equal(input.value, 'R$10.010.');
+      assert.equal(input.formatToNumber(), 0.01);     
       
       writeAll(input, '0010');
       assert.equal(input.value, 'R$0.010.');
       assert.equal(input.formatToNumber(), 0.01);      
       
       writeAll(input, 'a10a1');
-      assert.equal(input.value, 'R$0.101.');
+      assert.equal(input.value, 'R$_.101.');
       assert.equal(input.formatToNumber(), 0.101);      
 
       writeAll(input, '2.500.02.510');
       assert.equal(input.value, 'R$250,002.510.');
       assert.equal(input.formatToNumber(), 250002.510);      
-
-      writeAll(input, 'a1a.5b0-0.0*25+10');
-      assert.equal(input.value, '-R$150,002.510.');
-      assert.equal(input.formatToNumber(), -150002.51);
-
-      writeAll(input, '1.500.025,10');
-      assert.equal(input.value, 'R$150,002.510.');
-      assert.equal(input.formatToNumber(), 150002.51);
-
-      writeAll(input, '1.500.025,10-');
-      assert.equal(input.value, '-R$150,002.510.');
-      assert.equal(input.formatToNumber(), -150002.51);
-      
-      index.args.negativeSignAfter = true;
-
-      writeAll(input, '1.500.025,10-');
-      assert.equal(input.value, 'R$150,002.510.-');
-      assert.equal(input.formatToNumber(), -150002.51);
     });
   });
 });

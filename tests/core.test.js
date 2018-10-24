@@ -94,7 +94,7 @@ describe('Core', () => {
       assert.equal(core.numberToText('0,9'), '0,90');
       assert.equal(core.numberToText('0'), '0,00');
       assert.equal(core.numberToText('101'), '1,01');
-      assert.equal(core.numberToText('0010'), '00,10');
+      assert.equal(core.numberToText('0010'), '0,10');
     });
   });
 
@@ -107,7 +107,7 @@ describe('Core', () => {
         decimalSeparator: '.'
       });
 
-      args.suffix = '.';
+      args.suffix = ';';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
 
@@ -120,7 +120,7 @@ describe('Core', () => {
     });
 
     it('onlyNumber', () => {
-      assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
+      assert.equal(core.onlyNumber('@-,.1a0a'), '_.10');
       assert.equal(core.onlyNumber('0,12'), '012');
       assert.equal(core.onlyNumber('1.20'), '1.20');
       assert.equal(core.onlyNumber('12,0'), '120');
@@ -133,6 +133,8 @@ describe('Core', () => {
 
     it('removingCompleter', () => {
       assert.equal(core.removingCompleter('__1', core.completer()), '1');
+      assert.equal(core.removingCompleter('1__', core.completer()), '1__');
+      assert.equal(core.removingCompleter('1__', core.completer(), false), '1');
     });
 
 
@@ -168,18 +170,18 @@ describe('Core', () => {
     });
 
     it('checkNumberStart', () => {
-      assert.equal(core.checkNumberStart('.0'), '0.0');
+      assert.equal(core.checkNumberStart('.0'), '_.0');
       assert.equal(core.checkNumberStart('1.0'), '1.0');
-      assert.equal(core.checkNumberStart('.10'), '0.10');
+      assert.equal(core.checkNumberStart('.10'), '_.10');
     });
 
     it('textToNumber', () => {
       assert.equal(core.textToNumber('a'), '');
       assert.equal(core.textToNumber('a10a1'), '101');
-      assert.equal(core.textToNumber('a10a1.'), '101');
-      assert.equal(core.textToNumber('__10.'), '10');
-      assert.equal(core.textToNumber('_.__1.'), '0.1');
-      assert.equal(core.textToNumber('_.__1.0.'), '1.0');
+      assert.equal(core.textToNumber('a10a1.'), '101.');
+      assert.equal(core.textToNumber('__10.'), '10.');
+      assert.equal(core.textToNumber('_.__1'), '_.__1');
+      assert.equal(core.textToNumber('_.__10'), '_.__10');
       assert.equal(core.textToNumber('1.20'), '1.20');
       assert.equal(core.textToNumber('1.2'), '1.2');
       assert.equal(core.textToNumber('0.11'), '0.11');
@@ -187,14 +189,14 @@ describe('Core', () => {
     });
 
     it('numberToText', () => {
-      assert.equal(core.numberToText('0'), 'R$_.__0.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
-      assert.equal(core.numberToText('0010'), 'R$0.010.');
-      assert.equal(core.numberToText('1.2'), 'R$1.2__.');
-      assert.equal(core.numberToText('0.11'), 'R$0.11_.');
-      assert.equal(core.numberToText('0.988'), 'R$0.988.');
-      assert.equal(core.numberToText('a'), 'R$_.___.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
+      assert.equal(core.numberToText('0'), 'R$_.__0;');
+      assert.equal(core.numberToText('101'), 'R$_.101;');
+      assert.equal(core.numberToText('0010'), 'R$0.010;');
+      assert.equal(core.numberToText('1.2'), 'R$1.2__;');
+      assert.equal(core.numberToText('0.11'), 'R$0.11_;');
+      assert.equal(core.numberToText('0.988'), 'R$0.988;');
+      assert.equal(core.numberToText('a'), 'R$_.___;');
+      assert.equal(core.numberToText('101'), 'R$_.101;');
     });
   });
 });
