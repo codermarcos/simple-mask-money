@@ -19,7 +19,7 @@ module.exports = class SimpleMaskMoney {
     const _arguments = new Args(Object.assign({}, _args, args));
     _core = new Core(_arguments);
 
-    const negative = arguments.allowNegative && value.indexOf('-') !== -1;  
+    const negative = _arguments.allowNegative && value.indexOf('-') !== -1;  
     const formatation = _core.numberToText(_core.textToNumber(value, input));
 
     return `${!_arguments.negativeSignAfter && negative ? '-': ''}${formatation}${_arguments.negativeSignAfter && negative ? '-': ''}`;
@@ -50,7 +50,7 @@ module.exports = class SimpleMaskMoney {
 
     const input = typeof element == 'string' ? document.querySelector(element) : element;    
     const _arguments = new Args(Object.assign({}, _args, args));
-    input.maskArgs = new Core(_arguments);
+    input.maskArgs = _arguments;
 
     input.addEventListener('input', e => {
       const oldValue = input.value;

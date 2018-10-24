@@ -180,7 +180,7 @@ describe('Index', () => {
       input.value = '';
 
       writeOnePerOne(input, 'a1a.5b0-0.0*25+10');
-      assert.equal(input.value, '1.500.025,10');
+      assert.equal(input.value, 'R$150,002.510;');
       assert.equal(input.formatToNumber(), 1500025.1);
 
       input.value = '';

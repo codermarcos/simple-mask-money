@@ -16,12 +16,30 @@ module.exports = class Core {
     return `${this.completer()}${this.args.decimalSeparator}${this.completer(this.args.fractionDigits)}`;
   }
 
+  onlyNumberInput(value, permitNonFixed = true) {
+    const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
+    const completer = this.completer();
+    let putDecimalSeparator = false;
+    let retorno = '';
+    for (let i = value.length - 1; i >= 0; i--) {
+      if (isFinite(value[i]) || (!this.args.fixed && value[i] === completer)) {
+        retorno = (isFinite(value[i]) ? value[i] : (permitNonFixed ? value[i] : '0')) + retorno;
+      } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator && retorno.length >= this.args.fractionDigits) {
+        retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
+        putDecimalSeparator = true;
+      }
+    }
+
+    retorno = this.checkNumberStart(retorno);
+
+    return retorno;
+  }
+
   onlyNumber(value, permitNonFixed = true) {
     const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
     const completer = this.completer();
     let putDecimalSeparator = false;
     let retorno = '';
-
     for (let i = value.length - 1; i >= 0; i--) {
       if (isFinite(value[i]) || (!this.args.fixed && value[i] === completer)) {
         retorno = (isFinite(value[i]) ? value[i] : (permitNonFixed ? value[i] : '0')) + retorno;
@@ -36,6 +54,7 @@ module.exports = class Core {
     return retorno;
   }
 
+
   isNumberNonFixed(value) {
     return !isNaN(value.replace(new RegExp('\\_', 'g'), ''));
   }
@@ -45,13 +64,8 @@ module.exports = class Core {
   }
 
   removingPrefix(value) {
-    const position = value.indexOf(this.args.prefix, 0);
-
-    if (position !== -1) {
-      value = value.substring(this.args.prefix.length, value.length);
-    }
-
-    return value;
+    if (value.indexOf(this.args.prefix, 0) === -1) return value;
+    return value.substring(this.args.prefix.length, value.length);
   }
 
   addingSuffix(value) {
@@ -59,14 +73,9 @@ module.exports = class Core {
   }
 
   removingSuffix(value) {
-    const position = value.indexOf(this.args.suffix, value.length - this.args.suffix.length);
-
-    if (position !== -1) {
-      const start = value.substring(0, position);
-      value = start + value.substring(start.length + this.args.suffix.length - 1, value.length - 1);
-    }
-
-    return value;
+    const start = value.length - this.args.suffix.length - 1;
+    if (value.indexOf(this.args.suffix, start) === -1) return value;
+    return value.substring(0, value.length - this.args.suffix.length - 1);
   }
 
   addingCompleter(value, completer, length, start = true) {
