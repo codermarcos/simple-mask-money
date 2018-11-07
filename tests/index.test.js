@@ -175,30 +175,30 @@ describe('Index', () => {
       assert.equal(input.formatToNumber(), 0);      
       
       writeAll(input, '0010');
-      assert.equal(input.value, 'R$0.010.');
-      assert.equal(input.formatToNumber(), 0.01);      
+      assert.equal(input.value, 'R$0.001.');
+      assert.equal(input.formatToNumber(), 0.001);      
       
       writeAll(input, 'a10a1');
-      assert.equal(input.value, 'R$0.101.');
-      assert.equal(input.formatToNumber(), 0.101);      
+      assert.equal(input.value, 'R$_.010.');
+      assert.equal(input.formatToNumber(), 0.010);      
 
-      writeAll(input, '2.500.02.510');
+      writeAll(input, '2.500.02.510.');
       assert.equal(input.value, 'R$250,002.510.');
       assert.equal(input.formatToNumber(), 250002.510);      
 
-      writeAll(input, 'a1a.5b0-0.0*25+10');
+      writeAll(input, 'a1a.5b0-0.0*25+10.');
       assert.equal(input.value, '-R$150,002.510.');
       assert.equal(input.formatToNumber(), -150002.51);
 
-      writeAll(input, '1.500.025,10');
+      writeAll(input, '1.500.025,10.');
       assert.equal(input.value, 'R$150,002.510.');
       assert.equal(input.formatToNumber(), 150002.51);
 
-      writeAll(input, '1.500.025,10-');
+      writeAll(input, '1.500.025,10-.');
       assert.equal(input.value, '-R$150,002.510.');
       assert.equal(input.formatToNumber(), -150002.51);
       
-      index.args.negativeSignAfter = true;
+      input.maskArgs.negativeSignAfter = true;
 
       writeAll(input, '1.500.025,10-');
       assert.equal(input.value, 'R$150,002.510.-');
