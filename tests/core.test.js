@@ -12,58 +12,25 @@ describe('Core', () => {
       args = new Args();
       core = new Core(args);
     });
-
-    it('isFloat', () => {
-      assert.equal(core.isFloat(1.20), true);
-      assert.equal(core.isFloat('3.40'), true);
+    
+    it('addCompleter', () => {
+      assert.equal(core.addCompleter('1', core.completer(), 1), '1');
+      assert.equal(core.addCompleter('2', core.completer(), 2), '02');
+      assert.equal(core.addCompleter('3', core.completer(), 3), '003');
+      assert.equal(core.addCompleter('4', core.completer(), 3, false), '400');
     });
 
-    it('onlyNumber', () => {
-      assert.equal(core.onlyNumber('3.40'), '340');
-      assert.equal(core.onlyNumber(',23'), '0.23');
-      assert.equal(core.onlyNumber('a'), '');
-      assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
-      assert.equal(core.onlyNumber('0,12'), '0.12');
-      assert.equal(core.onlyNumber('56,0'), '56.0');
-      assert.equal(core.onlyNumber('7,8,0'), '78.0');
+    it('addPrefix', () => {
+      assert.equal(core.addPrefix('0,00'), '0,00');
     });
-
-    it('addingCompleter', () => {
-      assert.equal(core.addingCompleter('1', core.completer(), 1), '1');
-      assert.equal(core.addingCompleter('2', core.completer(), 2), '02');
-      assert.equal(core.addingCompleter('3', core.completer(), 3), '003');
-      assert.equal(core.addingCompleter('4', core.completer(), 3, false), '400');
-    });
-
-    it('removingCompleter', () => {
-      assert.equal(core.removingCompleter('1', core.completer()), '1');
-      assert.equal(core.removingCompleter('02', core.completer()), '2');
-      assert.equal(core.removingCompleter('300', core.completer()), '300');
-      assert.equal(core.removingCompleter('004', core.completer(), false), '004');
-    });
-
-    it('addingPrefix', () => {
-      assert.equal(core.addingPrefix('0,00'), '0,00');
-    });
-
-    it('removingPrefix', () => {
-      assert.equal(core.removingPrefix('0,00'), '0,00');
-    });
-
-    it('addingSeparators', () => {
-      assert.equal(core.addingSeparators('0'), ',0');
-      assert.equal(core.addingSeparators('000'), '0,00');
-      assert.equal(core.addingSeparators('0000'), '00,00');
-      assert.equal(core.addingSeparators('00000'), '000,00');
-      assert.equal(core.addingSeparators('000000'), '0.000,00');
-    });
-
-    it('replaceSeparator', () => {
-      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator), '00000000000,00');
-      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator), '00.000.000.00000');
-      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator, '.'), '00.000.000.000.00');
-      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator, ','), '00,000,000,000,00');
-    });
+    
+    it('addSeparators', () => {
+      assert.equal(core.addSeparators('0'), ',0');
+      assert.equal(core.addSeparators('000'), '0,00');
+      assert.equal(core.addSeparators('0000'), '00,00');
+      assert.equal(core.addSeparators('00000'), '000,00');
+      assert.equal(core.addSeparators('000000'), '0.000,00');
+    });    
 
     it('adjustDotPosition', () => {
       assert.equal(core.adjustDotPosition('.0'), '.0');
@@ -78,14 +45,9 @@ describe('Core', () => {
       assert.equal(core.checkNumberStart('.10'), '0.10');
     });
 
-    it('textToNumber', () => {
-      assert.equal(core.textToNumber('a'), '0');
-      assert.equal(core.textToNumber('a10a1'), '101');
-      assert.equal(core.textToNumber('0010'), '10');
-      assert.equal(core.textToNumber('1.2'), '12');
-      assert.equal(core.textToNumber('1,20'), '1.20');
-      assert.equal(core.textToNumber('0,11'), '0.11');
-      assert.equal(core.textToNumber('0,9'), '0.9');
+    it('isFloat', () => {
+      assert.equal(core.isFloat(1.20), true);
+      assert.equal(core.isFloat('3.40'), true);
     });
 
     it('numberToText', () => {
@@ -95,6 +57,44 @@ describe('Core', () => {
       assert.equal(core.numberToText('0'), '0,00');
       assert.equal(core.numberToText('101'), '1,01');
       assert.equal(core.numberToText('0010'), '00,10');
+    });
+
+    it('onlyNumber', () => {
+      assert.equal(core.onlyNumber('3.40'), '340');
+      assert.equal(core.onlyNumber(',23'), '0.23');
+      assert.equal(core.onlyNumber('a'), '');
+      assert.equal(core.onlyNumber('@-,.1a0a'), '0.10');
+      assert.equal(core.onlyNumber('0,12'), '0.12');
+      assert.equal(core.onlyNumber('56,0'), '56.0');
+      assert.equal(core.onlyNumber('7,8,0'), '78.0');
+    });
+
+    it('removeCompleter', () => {
+      assert.equal(core.removeCompleter('1', core.completer()), '1');
+      assert.equal(core.removeCompleter('02', core.completer()), '2');
+      assert.equal(core.removeCompleter('300', core.completer()), '300');
+      assert.equal(core.removeCompleter('004', core.completer(), false), '004');
+    });
+
+    it('removePrefix', () => {
+      assert.equal(core.removePrefix('0,00'), '0,00');
+    });
+
+    it('replaceSeparator', () => {
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator), '00000000000,00');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator), '00.000.000.00000');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.decimalSeparator, '.'), '00.000.000.000.00');
+      assert.equal(core.replaceSeparator('00.000.000.000,00', args.thousandsSeparator, ','), '00,000,000,000,00');
+    });
+
+    it('textToNumber', () => {
+      assert.equal(core.textToNumber('a'), '0');
+      assert.equal(core.textToNumber('a10a1'), '101');
+      assert.equal(core.textToNumber('0010'), '10');
+      assert.equal(core.textToNumber('1.2'), '12');
+      assert.equal(core.textToNumber('1,20'), '1.20');
+      assert.equal(core.textToNumber('0,11'), '0.11');
+      assert.equal(core.textToNumber('0,9'), '0.9');
     });
   });
 
@@ -114,9 +114,50 @@ describe('Core', () => {
       core = new Core(args);
     });
 
+    it('addCompleter', () => {
+      assert.equal(core.addCompleter('1', core.completer(), 3), '__1');
+    });
+    
+    it('addPrefix', () => {
+      assert.equal(core.addPrefix('_.___'), 'R$_.___');
+    });
+
+    it('adjustDotPosition', () => {
+      assert.equal(core.adjustDotPosition('.0'), '.0');
+      assert.equal(core.adjustDotPosition('1.0'), '.10');
+      assert.equal(core.adjustDotPosition('10.'), '.10');
+      assert.equal(core.adjustDotPosition('10.0'), '.100');
+    });
+
+    it('addSeparator', () => {
+      assert.equal(core.addSeparators('0'), '.0');
+      assert.equal(core.addSeparators('000'), '.000');
+      assert.equal(core.addSeparators('0000'), '0.000');
+      assert.equal(core.addSeparators('00000'), '00.000');
+      assert.equal(core.addSeparators('000000'), '000.000');
+      assert.equal(core.addSeparators('0000000'), '0,000.000');
+    });
+
+    it('checkNumberStart', () => {
+      assert.equal(core.checkNumberStart('.0'), '0.0');
+      assert.equal(core.checkNumberStart('1.0'), '1.0');
+      assert.equal(core.checkNumberStart('.10'), '0.10');
+    });
+
     it('isFloat', () => {
       assert.equal(core.isFloat(1.20), true);
       assert.equal(core.isFloat('1.20'), true);
+    });
+
+    it('numberToText', () => {
+      assert.equal(core.numberToText('0'), 'R$_.__0.');
+      assert.equal(core.numberToText('101'), 'R$_.101.');
+      assert.equal(core.numberToText('0010'), 'R$0.010.');
+      assert.equal(core.numberToText('1.2'), 'R$1.2__.');
+      assert.equal(core.numberToText('0.11'), 'R$0.11_.');
+      assert.equal(core.numberToText('0.988'), 'R$0.988.');
+      assert.equal(core.numberToText('a'), 'R$_.___.');
+      assert.equal(core.numberToText('101'), 'R$_.101.');
     });
 
     it('onlyNumber', () => {
@@ -127,50 +168,20 @@ describe('Core', () => {
       assert.equal(core.onlyNumber('1,2,0'), '120');
     });
 
-    it('addingCompleter', () => {
-      assert.equal(core.addingCompleter('1', core.completer(), 3), '__1');
+    it('removeCompleter', () => {
+      assert.equal(core.removeCompleter('__1', core.completer()), '1');
     });
 
-    it('removingCompleter', () => {
-      assert.equal(core.removingCompleter('__1', core.completer()), '1');
+    it('removePrefix', () => {
+      assert.equal(core.removePrefix('R$_.___'), '_.___');
     });
 
-
-    it('addingPrefix', () => {
-      assert.equal(core.addingPrefix('_.___'), 'R$_.___');
-    });
-
-    it('removingPrefix', () => {
-      assert.equal(core.removingPrefix('R$_.___'), '_.___');
-    });
-
-    it('addingSeparator', () => {
-      assert.equal(core.addingSeparators('0'), '.0');
-      assert.equal(core.addingSeparators('000'), '.000');
-      assert.equal(core.addingSeparators('0000'), '0.000');
-      assert.equal(core.addingSeparators('00000'), '00.000');
-      assert.equal(core.addingSeparators('000000'), '000.000');
-      assert.equal(core.addingSeparators('0000000'), '0,000.000');
-    });
 
     it('replaceSeparator', () => {
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator), '_.___.___.______');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator), '__________,___');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator, ','), '_,___,___,___,___');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator, '.'), '_.___.___.___.___');
-    });
-
-    it('adjustDotPosition', () => {
-      assert.equal(core.adjustDotPosition('.0'), '.0');
-      assert.equal(core.adjustDotPosition('1.0'), '.10');
-      assert.equal(core.adjustDotPosition('10.'), '.10');
-      assert.equal(core.adjustDotPosition('10.0'), '.100');
-    });
-
-    it('checkNumberStart', () => {
-      assert.equal(core.checkNumberStart('.0'), '0.0');
-      assert.equal(core.checkNumberStart('1.0'), '1.0');
-      assert.equal(core.checkNumberStart('.10'), '0.10');
     });
 
     it('textToNumber', () => {
@@ -184,17 +195,6 @@ describe('Core', () => {
       assert.equal(core.textToNumber('1.2'), '1.2');
       assert.equal(core.textToNumber('0.11'), '0.11');
       assert.equal(core.textToNumber('0.9'), '0.9');
-    });
-
-    it('numberToText', () => {
-      assert.equal(core.numberToText('0'), 'R$_.__0.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
-      assert.equal(core.numberToText('0010'), 'R$0.010.');
-      assert.equal(core.numberToText('1.2'), 'R$1.2__.');
-      assert.equal(core.numberToText('0.11'), 'R$0.11_.');
-      assert.equal(core.numberToText('0.988'), 'R$0.988.');
-      assert.equal(core.numberToText('a'), 'R$_.___.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
     });
   });
 });

@@ -3,7 +3,6 @@ const Core = require('./core');
 const implanter = require('./implanter');
 
 let _args = new Args();
-let _core = new Core(_args);
 
 module.exports = class SimpleMaskMoney {
   static get args() {
@@ -12,45 +11,30 @@ module.exports = class SimpleMaskMoney {
 
   static set args(value) {
     _args = new Args(value);
-    _core = new Core(_args);
   }
 
-  static format(value, args, isInput = false) {
-    let core;
-    if (typeof args !== 'undefined') {
-      args = new Args(args);
-      core = new Core(args);
-    } else {
-      args = _args;
-      core = _core;
-    }
+  static format(value, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
 
-    const negative = args.allowNegative && value.indexOf('-') !== -1;  
-    const formatation = core.numberToText(core.textToNumber(value, isInput));
+    const negative = core.args.allowNegative && value.indexOf('-') !== -1;  
+    const formatation = core.numberToText(core.textToNumber(value));
     
-    return `${!args.negativeSignAfter && negative ? '-': ''}${formatation}${args.negativeSignAfter && negative ? '-': ''}`;
+    return `${!core.args.negativeSignAfter && negative ? '-': ''}${formatation}${core.args.negativeSignAfter && negative ? '-': ''}`;
   }
 
   static formatToNumber(input, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
     let value = input.toString(); 
     let retorno = '0';
-    let core;
-    if (typeof args !== 'undefined') {
-      args = new Args(args);
-      core = new Core(args);
-    } else {
-      args = _args;
-      core = _core;
-    }
 
-    const negative = args.allowNegative && value.indexOf('-') !== -1;   
+    const negative = core.args.allowNegative && value.indexOf('-') !== -1;   
     
     if (negative) {
       value = value.replace('-', '');
     }
 
     value = core.textToNumber(value);
-    if (!isNaN(parseFloat(value))) {
+    if (!isNaN(value)) {
       retorno = value;
     }
       
@@ -61,11 +45,12 @@ module.exports = class SimpleMaskMoney {
     if (typeof document === 'undefined') throw 'This function only works on client side';
 
     const input = typeof element == 'string' ? document.querySelector(element) : element;    
-    input.maskArgs = args || SimpleMaskMoney.args;
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    input.maskArgs = core.args;
 
     input.addEventListener('input', e => {
       const oldValue = input.value;
-      const newValue = SimpleMaskMoney.format(oldValue, input.maskArgs, true);
+      const newValue = core.mask(oldValue);
       const caretPosition = implanter.getCaretPosition(input);
       const move = implanter.indexMove(newValue, oldValue);
       let newCaretPosition = caretPosition - move;
