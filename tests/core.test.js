@@ -139,9 +139,9 @@ describe('Core', () => {
     });
 
     it('checkNumberStart', () => {
-      assert.equal(core.checkNumberStart('.0'), '0.0');
+      assert.equal(core.checkNumberStart('.0'), '_.0');
       assert.equal(core.checkNumberStart('1.0'), '1.0');
-      assert.equal(core.checkNumberStart('.10'), '0.10');
+      assert.equal(core.checkNumberStart('.10'), '_.10');
     });
 
     it('isFloat', () => {
@@ -176,7 +176,6 @@ describe('Core', () => {
       assert.equal(core.removePrefix('R$_.___'), '_.___');
     });
 
-
     it('replaceSeparator', () => {
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.thousandsSeparator), '_.___.___.______');
       assert.equal(core.replaceSeparator('_.___.___.___,___', args.decimalSeparator), '__________,___');
@@ -189,7 +188,7 @@ describe('Core', () => {
       assert.equal(core.textToNumber('a10a1'), '101');
       assert.equal(core.textToNumber('a10a1.'), '101');
       assert.equal(core.textToNumber('__10.'), '10');
-      assert.equal(core.textToNumber('_.__1.'), '0.1');
+      assert.equal(core.textToNumber('_.__1.'), '_.__1');
       assert.equal(core.textToNumber('_.__1.0.'), '1.0');
       assert.equal(core.textToNumber('1.20'), '1.20');
       assert.equal(core.textToNumber('1.2'), '1.2');

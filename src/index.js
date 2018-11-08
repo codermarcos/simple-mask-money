@@ -34,6 +34,11 @@ module.exports = class SimpleMaskMoney {
     }
 
     value = core.textToNumber(value);
+    
+    if (!this.args.fixed) {
+      value = value.replace(new RegExp('_', 'g'), '');
+    }
+
     if (!isNaN(value)) {
       retorno = value;
     }
@@ -46,29 +51,10 @@ module.exports = class SimpleMaskMoney {
 
     const input = typeof element == 'string' ? document.querySelector(element) : element;    
     const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
-    input.maskArgs = core.args;
-
-    input.addEventListener('input', e => {
-      const oldValue = input.value;
-      const newValue = core.mask(oldValue);
-      const caretPosition = implanter.getCaretPosition(input);
-      const move = implanter.indexMove(newValue, oldValue);
-      let newCaretPosition = caretPosition - move;
-      const {cursor} = input.maskArgs;
-
-      if (cursor === 'start') {
-        newCaretPosition = 0;
-      } else if (cursor === 'end') {
-        newCaretPosition = newValue.length;
-      }
-
-      input.value = newValue;
-      input._value = newValue;
-
-      implanter.setCaretPosition(input, newCaretPosition);
-
-      !(e instanceof Event) && input.dispatchEvent(new Event('input'));
-    });
+    
+    implanter.addPropertyMask(input, core);
+    implanter.addMask(input, core);
+    implanter.refreshMask(input);
 
     input.formatToNumber = () => SimpleMaskMoney.formatToNumber(input.value, input.maskArgs);
 

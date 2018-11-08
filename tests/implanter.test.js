@@ -46,37 +46,37 @@ describe('Implanter', () => {
   describe('indexMove', () => {
     it('from 3 to 3', () => {
       // 0.0|0
-      assert.equal(implanter.indexMove('0.00', '0.00'), 0);
+      assert.equal(implanter.indexMove('0.00', '0.00', 0), 0);
     });
 
     it('from 2 to 3', () => {
       // 0.0|0
-      assert.equal(implanter.indexMove('0.0', '0.00'), 1);
+      assert.equal(implanter.indexMove('0.0', '0.00', 0), -1);
     });
     
     it('from 3 to 2', () => {
       // 0.0|0
-      assert.equal(implanter.indexMove('0.00', '0.0'), -1);
+      assert.equal(implanter.indexMove('0.00', '0.0', 0), 1);
     });
 
     it('from 3 to 4', () => {
       // 12.|34
-      assert.equal(implanter.indexMove('12.34', '125.34'), 1);
+      assert.equal(implanter.indexMove('12.34', '125.34', 0), -1);
     });
 
     it('from 4 to 3', () => {
       // 12.|34
-      assert.equal(implanter.indexMove('125.34', '12.34'), -1);
+      assert.equal(implanter.indexMove('125.34', '12.34', 0), 1);
     });
 
     it('from 2 to 3', () => {
       // 1|23.45
-      assert.equal(implanter.indexMove('123.45', '1,623.45'), 1);
+      assert.equal(implanter.indexMove('123.45', '1,623.45', 0), -1);
     });
 
     it('from 3 to 2', () => {
       // 1|23.45
-      assert.equal(implanter.indexMove('1,623.45', '123.45'), -1);
+      assert.equal(implanter.indexMove('1,623.45', '123.45', 0), 1);
     });
   });
 });

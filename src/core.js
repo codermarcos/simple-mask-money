@@ -63,21 +63,23 @@ module.exports = class Core {
 
   checkNumberStart(value) {
     const retorno = value.toString();
-    return retorno[0] === '.' ? `0${retorno}` : retorno;
+    return retorno[0] === '.' ? `${this.args.fixed ? '0' : '_'}${retorno}` : retorno;
   }
 
   checkSuffix(value) {
     let retorno;
     const lastIndex = value.length - 1;
     const lastButOneIndex = lastIndex - 1;
+    const currentLastSuffix = value.substring(lastIndex - this.args.suffix.length + 1, lastIndex + this.args.suffix.length);
+    const currentLastButOneSuffix = value.substring(lastButOneIndex - this.args.suffix.length + 1, lastButOneIndex + this.args.suffix.length);
 
     switch (this.args.suffix) {
-      case value[lastIndex]:
+      case currentLastSuffix:
         retorno = value;
         break;
-      case value[lastButOneIndex]:
+      case currentLastButOneSuffix:
         var start = value.substring(0, lastButOneIndex);
-        retorno = start + value.substring(start.length + this.args.suffix.length - 1);
+        retorno = `${start}${value.substring(value.length + this.args.suffix.length + 1, lastButOneIndex + this.args.suffix.length)}.`;
         break;
       default:
         retorno = `${value.substring(0, lastIndex)}.`;
@@ -96,7 +98,7 @@ module.exports = class Core {
   }
 
   mask(value) {
-    const negative = this.args.allowNegative && value.indexOf('-') !== -1;   
+    const negative = this.args.allowNegative && value.indexOf('-') !== -1;
     let retorno = this.writingToNumber(value) || this.emptyOrInvalid();
     retorno = this.replaceSeparator(retorno.toString(), this.args.decimalSeparator, '.');
 
@@ -114,7 +116,7 @@ module.exports = class Core {
       retorno = this.addSuffix(retorno);
     }
 
-    return `${!this.args.negativeSignAfter && negative ? '-': ''}${retorno}${this.args.negativeSignAfter && negative ? '-': ''}`;
+    return `${!this.args.negativeSignAfter && negative ? '-' : ''}${retorno}${this.args.negativeSignAfter && negative ? '-' : ''}`;
   }
 
   numberToText(value) {
@@ -155,13 +157,14 @@ module.exports = class Core {
     let retorno = '';
 
     for (let i = value.length - 1; i >= 0; i--) {
-      if (isFinite(value[i])) {
+      if (isFinite(value[i]) || (!this.args.fixed && value[i] === '_')) {
         retorno = value[i] + retorno;
       } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator) {
         retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
         putDecimalSeparator = true;
       }
     }
+
 
     return retorno[0] === '.' ? `0${retorno}` : retorno;
   }
