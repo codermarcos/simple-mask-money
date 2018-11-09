@@ -19,7 +19,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Default configuration  
     const args = {
+      afterFormat(e) { console.log('afterFormat', e); },
       allowNegative: false,
+      beforeFormat(e) { console.log('beforeFormat', e); },
       negativeSignAfter: false,
       prefix: '',
       suffix: '',
