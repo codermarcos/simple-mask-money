@@ -7,6 +7,7 @@
     <title>SimpleMaskMoney</title>
     <style>
       @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+
       * {
         border: 0 none;
         color: #fff;
@@ -51,7 +52,9 @@
     <script>
       // Default configuration  
       const args = {
+        afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
+        beforeFormat(e) { console.log('beforeFormat', e); },
         negativeSignAfter: false,
         prefix: '',
         suffix: '',
@@ -69,7 +72,7 @@
       send = (e) => {
         if (e.key !== 'Enter') return;
         // This method return value of your input in format number to save in your database
-        console.log( input.formatToNumber() );
+        console.log(input.formatToNumber());
       }
     </script>
   </body>

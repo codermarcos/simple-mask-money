@@ -9,7 +9,9 @@ The ```SimpleMaskMoney``` class hosts three methods for formatting the values an
 ```javascript
 // Default args
 SimpleMaskMoney.args = {
+    afterFormat(e) { console.log('afterFormat', e); },
     allowNegative: false,
+    beforeFormat(e) { console.log('beforeFormat', e); },
     negativeSignAfter: false,
     prefix: '',
     suffix: '',
@@ -23,7 +25,9 @@ SimpleMaskMoney.args = {
 
 The **args** they are:
 
+- **afterFormat**: function > *This function will be called always after value formated*
 - **allowNegative**: boolean > *This boolean define if allow values ​​below zero*
+- **beforeFormat**: function > *This function will be called always before value formated*
 - **negativeSignAfter**: boolean > *This boolean define if negative sign stay after the number*
 - **prefix**: string > *This string always precedes its value*
 - **suffix**: string > *This string always procedes its value*

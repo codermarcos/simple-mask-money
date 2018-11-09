@@ -29,6 +29,7 @@ module.exports = class SimpleMaskMoney {
   static formatToNumber(input, args) {
     const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
     let value = input.toString(); 
+    core.args.beforeFormat(value);
     let result = '0';
 
     const negative = core.args.allowNegative && value.indexOf('-') !== -1;   
@@ -44,10 +45,12 @@ module.exports = class SimpleMaskMoney {
     }
 
     if (!isNaN(value)) {
-      result = value;
+      result = parseFloat(negative ? value * -1 : value);
     }
+
+    core.args.afterFormat(result);
       
-    return parseFloat(negative ? result * -1 : result);
+    return result;
   }
 
   static setMask(element, args) {

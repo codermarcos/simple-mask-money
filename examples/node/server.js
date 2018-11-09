@@ -1,8 +1,10 @@
-const SimpleMaskMoney =  require('../../lib/simple-mask-money');
+const SimpleMaskMoney = require('../../lib/simple-mask-money');
 
 // Default configuration  
 SimpleMaskMoney.args = {
+  afterFormat(e) { console.log('afterFormat', e); },
   allowNegative: false,
+  beforeFormat(e) { console.log('beforeFormat', e); },
   negativeSignAfter: false,
   prefix: '$ ',
   suffix: '',
@@ -13,7 +15,7 @@ SimpleMaskMoney.args = {
 };
 
 // Format to currency
-console.log(SimpleMaskMoney.format(321118)); 
+console.log(SimpleMaskMoney.format(321118));
 
 // Format to number
 console.log(SimpleMaskMoney.formatToNumber('$ 3.211,18')); 
