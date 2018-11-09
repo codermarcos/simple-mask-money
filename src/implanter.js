@@ -42,12 +42,10 @@ module.exports = {
 
     for (const k in core.args) {
       Object.defineProperty(input.maskArgs, k, {
-        get() {
-          core.args[k];
-        },
-        set(value) {
+        get: () => core.args[k],
+        set: (value) => {
           core.args[k] = value;
-          input.dispatchEvent(new Event('input'));
+          this.refreshMask(input);
         }
       });
     }
@@ -56,6 +54,7 @@ module.exports = {
   addMask(input, core) {
     input.addEventListener('input', e => {
       const oldValue = input.value;
+      core.args.beforeFormat(oldValue);
       const newValue = core.mask(oldValue);
       const oldCaretPosition = this.getCaretPosition(input);
       let newCaretPosition = this.indexMove(newValue, oldValue, oldCaretPosition);
@@ -70,6 +69,7 @@ module.exports = {
       input._value = newValue;
 
       this.setCaretPosition(input, newCaretPosition);
+      core.args.afterFormat(newValue);
       !(e instanceof Event) && this.refreshMask(input);
     });
   },
