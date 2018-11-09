@@ -15,17 +15,21 @@ module.exports = class SimpleMaskMoney {
 
   static format(value, args) {
     const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    core.args.beforeFormat(value);
 
     const negative = core.args.allowNegative && value.indexOf('-') !== -1;  
     const formatation = core.numberToText(core.textToNumber(value));
+    const result = `${!core.args.negativeSignAfter && negative ? '-': ''}${formatation}${core.args.negativeSignAfter && negative ? '-': ''}`;
+  
+    core.args.afterFormat(result);
     
-    return `${!core.args.negativeSignAfter && negative ? '-': ''}${formatation}${core.args.negativeSignAfter && negative ? '-': ''}`;
+    return result;
   }
 
   static formatToNumber(input, args) {
     const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
     let value = input.toString(); 
-    let retorno = '0';
+    let result = '0';
 
     const negative = core.args.allowNegative && value.indexOf('-') !== -1;   
     
@@ -40,10 +44,10 @@ module.exports = class SimpleMaskMoney {
     }
 
     if (!isNaN(value)) {
-      retorno = value;
+      result = value;
     }
       
-    return parseFloat(negative ? retorno * -1 : retorno);
+    return parseFloat(negative ? result * -1 : result);
   }
 
   static setMask(element, args) {
