@@ -13,7 +13,7 @@ module.exports = class SimpleMaskMoney {
     _args = new Args(value);
   }
 
-  static format(value, args) {
+  static formatToCurrency(value, args) {
     const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
     core.args.beforeFormat(value);
 
@@ -21,6 +21,18 @@ module.exports = class SimpleMaskMoney {
     const formatation = core.numberToText(core.textToNumber(value));
     const result = `${!core.args.negativeSignAfter && negative ? '-': ''}${formatation}${core.args.negativeSignAfter && negative ? '-': ''}`;
   
+    core.args.afterFormat(result);
+    
+    return result;
+  }
+
+  static formatToMask(input, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    const value = input.toString(); 
+    core.args.beforeFormat(value);
+
+    const result = core.mask(value);
+
     core.args.afterFormat(result);
     
     return result;

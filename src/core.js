@@ -61,9 +61,9 @@ module.exports = class Core {
     return this.args.fixed ? ''.padEnd(size, '0') : ''.padEnd(size, '_');
   }
 
-  checkNumberStart(value) {
+  checkNumberStart(value, separator) {
     const result = value.toString();
-    return result[0] === '.' ? `${this.args.fixed ? '0' : '_'}${result}` : result;
+    return result[0] === separator ? `${this.args.fixed ? '0' : '_'}${result}` : result;
   }
 
   checkSuffix(value) {
@@ -99,13 +99,14 @@ module.exports = class Core {
 
   mask(value) {
     const negative = this.args.allowNegative && value.indexOf('-') !== -1;
-    let result = this.writingToNumber(value) || this.emptyOrInvalid();
-    result = this.replaceSeparator(result.toString(), this.args.decimalSeparator, '.');
+    let result = `${this.writingToNumber(value) || this.emptyOrInvalid()}`;
+    result = this.replaceSeparator(result, this.args.decimalSeparator, '.');
+    const completer = this.completer();
 
-    if (!isNaN(result)) {
+    if (!isNaN(this.removeCompleter(result, completer))) {
       result = this.replaceSeparator(result, '.');
-      result = this.addCompleter(result || '', this.completer(), this.args.fractionDigits);
-      result = this.args.fractionDigits >= result.length ? `${this.completer()}${result}` : result;
+      result = this.addCompleter(result || '', completer, this.args.fractionDigits);
+      result = this.args.fractionDigits >= result.length ? `${completer}${result}` : result;
       result = this.addSeparators(result);
     }
 
@@ -120,34 +121,35 @@ module.exports = class Core {
   }
 
   numberToText(value) {
+    const completer = this.completer();
     let result = this.emptyOrInvalid();
     value = this.replaceSeparator(value.toString(), this.args.decimalSeparator, '.');
 
-    if (!isNaN(parseFloat(value))) {
+    if (!isNaN(value)) {
       if (this.isFloat(value)) {
         const number = value.split('.');
         let hundreds = number[0];
         let decimals = number[1];
 
-        decimals = this.addCompleter(decimals || '', this.completer(), this.args.fractionDigits, false);
+        decimals = this.addCompleter(decimals || '', completer, this.args.fractionDigits, false);
 
         result = `${hundreds}${decimals}`;
       } else {
-        result = this.replaceSeparator(value, '.');
-        result = this.addCompleter(result || '', this.completer(), this.args.fractionDigits);
-        result = this.args.fractionDigits >= result.length ? `${this.completer()}${result}` : result;
+        result = this.removeCompleter(value, completer);
+        result = this.addCompleter(result || '', completer, this.args.fractionDigits + result.length, false);
       }
-
+      
       result = this.addSeparators(result);
+      result = this.checkNumberStart(result, this.args.decimalSeparator);
     }
-
+    
     if (this.args.prefix) {
       result = this.addPrefix(result);
     }
     if (this.args.suffix) {
       result = this.addSuffix(result);
     }
-
+    
     return result;
   }
 
@@ -222,7 +224,7 @@ module.exports = class Core {
 
     if (result) {
       result = this.removeCompleter(result, completer);
-      result = this.checkNumberStart(result);
+      result = this.checkNumberStart(result, '.');
     }
 
     return result || (this.args.fixed ? '0' : '');
@@ -248,7 +250,7 @@ module.exports = class Core {
 
       result = this.removeCompleter(result, completer);
 
-      result = this.checkNumberStart(result);
+      result = this.checkNumberStart(result, '.');
     }
 
     return result || (this.args.fixed ? '0' : '');
