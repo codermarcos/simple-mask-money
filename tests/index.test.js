@@ -58,19 +58,34 @@ describe('Index', () => {
       assert.equal(input.formatToNumber(), 0);
     });
 
-    it('format', () => {
-      assert.equal(index.format('0,01'), '0,01');
-      assert.equal(index.format('5,678'), '56,78');
-      assert.equal(index.format('1,2'), '1,20');
-      assert.equal(index.format('0,11'), '0,11');
-      assert.equal(index.format('0,9'), '0,90');
-      assert.equal(index.format('a'), '0,00');
-      assert.equal(index.format('-10'), '0,10');
-      assert.equal(index.format('0,02'), '0,02');
-      assert.equal(index.format('0030'), '0,30');
-      assert.equal(index.format('a10a1'), '1,01');
-      assert.equal(index.format('2.500.02.510'), '2.500.025,10');
-      assert.equal(index.format('a1a.5b0-0.0*25+10'), '1.500.025,10');
+    it('formatToCurrency', () => {
+      assert.equal(index.formatToCurrency('1'), '1,00');
+      assert.equal(index.formatToCurrency('5,678'), '56,78');
+      assert.equal(index.formatToCurrency('1,2'), '1,20');
+      assert.equal(index.formatToCurrency('0,11'), '0,11');
+      assert.equal(index.formatToCurrency('0,9'), '0,90');
+      assert.equal(index.formatToCurrency('a'), '0,00');
+      assert.equal(index.formatToCurrency('-10'), '10,00');
+      assert.equal(index.formatToCurrency('0,02'), '0,02');
+      assert.equal(index.formatToCurrency('0030'), '30,00');
+      assert.equal(index.formatToCurrency('a10a1'), '101,00');
+      assert.equal(index.formatToCurrency('2.500.02.510'), '250.002.510,00');
+      assert.equal(index.formatToCurrency('a1a.5b0-0.0*25+10'), '150.002.510,00');
+    });
+
+    it('formatToMask', () => {
+      assert.equal(index.formatToMask('0,01'), '0,01');
+      assert.equal(index.formatToMask('5,678'), '56,78');
+      assert.equal(index.formatToMask('1,2'), '0,12');
+      assert.equal(index.formatToMask('0,11'), '0,11');
+      assert.equal(index.formatToMask('0,9'), '0,09');
+      assert.equal(index.formatToMask('a'), '0,00');
+      assert.equal(index.formatToMask('-10'), '0,10');
+      assert.equal(index.formatToMask('0,02'), '0,02');
+      assert.equal(index.formatToMask('0030'), '0,30');
+      assert.equal(index.formatToMask('a10a1'), '1,01');
+      assert.equal(index.formatToMask('2.500.02.510'), '2.500.025,10');
+      assert.equal(index.formatToMask('a1a.5b0-0.0*25+10'), '1.500.025,10');
     });
 
     it('formatToNumber', () => {
@@ -123,15 +138,15 @@ describe('Index', () => {
       };
     });
 
-    it('format', () => {
-      assert.equal(index.format('a'), 'R$_.___.');
-      assert.equal(index.format('010'), 'R$_.010.');
-      assert.equal(index.format('0010'), 'R$0.010.');
-      assert.equal(index.format('a10a1.'), 'R$_.101.');
-      assert.equal(index.format('2.500.02.510.'), 'R$250,002.510.');
-      assert.equal(index.format('a1a.5b0-0.0*25+10.'), '-R$150,002.510.');
+    it('formatToMask', () => {
+      assert.equal(index.formatToMask('a'), 'R$_.___.');
+      assert.equal(index.formatToMask('010'), 'R$_._01.');
+      assert.equal(index.formatToMask('0010'), 'R$_.001.');
+      assert.equal(index.formatToMask('a10a1.'), 'R$_.101.');
+      assert.equal(index.formatToMask('2.500.02.510.'), 'R$250,002.510.');
+      assert.equal(index.formatToMask('a1a.5b0-0.0*25+10.'), '-R$150,002.510.');
       index.args.negativeSignAfter = true;
-      assert.equal(index.format('0010-'), 'R$0.010.-');
+      assert.equal(index.formatToMask('0010-'), 'R$0.010.-');
     });
 
     it('formatToNumber', () => {

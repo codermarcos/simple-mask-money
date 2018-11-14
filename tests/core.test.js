@@ -40,9 +40,10 @@ describe('Core', () => {
     });
 
     it('checkNumberStart', () => {
-      assert.equal(core.checkNumberStart('.0'), '0.0');
-      assert.equal(core.checkNumberStart('1.0'), '1.0');
-      assert.equal(core.checkNumberStart('.10'), '0.10');
+      assert.equal(core.checkNumberStart('.0', ','), '.0');
+      assert.equal(core.checkNumberStart('.0', '.'), '0.0');
+      assert.equal(core.checkNumberStart('1.0', '.'), '1.0');
+      assert.equal(core.checkNumberStart('.10', '.'), '0.10');
     });
 
     it('isFloat', () => {
@@ -55,8 +56,8 @@ describe('Core', () => {
       assert.equal(core.numberToText('0,11'), '0,11');
       assert.equal(core.numberToText('0,9'), '0,90');
       assert.equal(core.numberToText('0'), '0,00');
-      assert.equal(core.numberToText('101'), '1,01');
-      assert.equal(core.numberToText('0010'), '00,10');
+      assert.equal(core.numberToText('101'), '101,00');
+      assert.equal(core.numberToText('0010'), '10,00');
     });
 
     it('onlyNumber', () => {
@@ -149,9 +150,10 @@ describe('Core', () => {
     });
 
     it('checkNumberStart', () => {
-      assert.equal(core.checkNumberStart('.0'), '_.0');
-      assert.equal(core.checkNumberStart('1.0'), '1.0');
-      assert.equal(core.checkNumberStart('.10'), '_.10');
+      assert.equal(core.checkNumberStart('.0', ','), '.0');
+      assert.equal(core.checkNumberStart('.0', '.'), '_.0');
+      assert.equal(core.checkNumberStart('1.0', '.'), '1.0');
+      assert.equal(core.checkNumberStart('.10', '.'), '_.10');
     });
 
     it('isFloat', () => {
@@ -160,14 +162,14 @@ describe('Core', () => {
     });
 
     it('numberToText', () => {
-      assert.equal(core.numberToText('0'), 'R$_.__0.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
-      assert.equal(core.numberToText('0010'), 'R$0.010.');
+      assert.equal(core.numberToText('0'), 'R$0.___.');
+      assert.equal(core.numberToText('101'), 'R$101.___.');
+      assert.equal(core.numberToText('0010'), 'R$0,010.___.');
       assert.equal(core.numberToText('1.2'), 'R$1.2__.');
       assert.equal(core.numberToText('0.11'), 'R$0.11_.');
       assert.equal(core.numberToText('0.988'), 'R$0.988.');
       assert.equal(core.numberToText('a'), 'R$_.___.');
-      assert.equal(core.numberToText('101'), 'R$_.101.');
+      assert.equal(core.numberToText('101'), 'R$101.___.');
     });
 
     it('onlyNumber', () => {
