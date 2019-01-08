@@ -9,9 +9,7 @@ The ```SimpleMaskMoney``` class hosts three methods for formatting the values an
 ```javascript
 // Default args
 SimpleMaskMoney.args = {
-    afterFormat(e) { console.log('afterFormat', e); },
     allowNegative: false,
-    beforeFormat(e) { console.log('beforeFormat', e); },
     negativeSignAfter: false,
     prefix: '',
     suffix: '',
@@ -25,9 +23,7 @@ SimpleMaskMoney.args = {
 
 The **args** they are:
 
-- **afterFormat**: function > *This function will be called always after value formated*
 - **allowNegative**: boolean > *This boolean define if allow values ​​below zero*
-- **beforeFormat**: function > *This function will be called always before value formated*
 - **negativeSignAfter**: boolean > *This boolean define if negative sign stay after the number*
 - **prefix**: string > *This string always precedes its value*
 - **suffix**: string > *This string always procedes its value*
@@ -37,31 +33,15 @@ The **args** they are:
 - **thousandsSeparator**: string > *This string define the separator of thousands digits*
 - **cursor**: string > *This string define how the cursor will move. Can be `move`, `end`, or `start`.*
 
-## SimpleMaskMoney.formatToCurrency(...)
+## SimpleMaskMoney.format(...)
 
-**.formatToCurrency(...)** have three arguments, the ```value```, ```args```(optional):
+**.format(...)** have three arguments, the ```value```, ```args```(optional):
 
 ```javascript
 // With default args
-SimpleMaskMoney.formatToCurrency('123456789'); // 1.234.567,89
+SimpleMaskMoney.format('123456789'); // 1.234.567,89
 // With custom args
-SimpleMaskMoney.formatToCurrency('123456789', { prefix: 'R$' }); // R$1.234.567,89
-```
-
-The **arguments** they are:
-
-- **value**: string > *The value of your input or value that will be formatted*
-- **args**: object > *This is the configurations of the formattation. If this argument is omitted the arguments defined in ```SimpleMaskMoney.args = {}``` will be used*
-
-## SimpleMaskMoney.formatToMask(...)
-
-**.formatToMask(...)** have three arguments, the ```value```, ```args```(optional), is very similar to *formatToCurrency* however this method contains the suffix delete logic:
-
-```javascript
-// With default args
-SimpleMaskMoney.formatToMask('123456789.', { suffix: '.' }); // 1.234.567,8.
-// Without suffix on end this method remove last character
-SimpleMaskMoney.formatToMask('123456789'); // 123.456,7.
+SimpleMaskMoney.format('123456789', { prefix: 'R$' }); // R$1.234.567,89
 ```
 
 The **arguments** they are:

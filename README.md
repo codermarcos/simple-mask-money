@@ -1,5 +1,11 @@
 <h1 align="center">SimpleMaskMoney</h1>
-
+<h3 align="center"><b>WARNING</b></h3>
+<h5 align="center">
+  if you are having problems check the version you are using.
+  <a href="docs/#old">
+    The docs to old version stay <b>here</b>
+  </a>
+</h5>
 <p align="center">
   <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
   <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
