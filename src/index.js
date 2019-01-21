@@ -33,17 +33,17 @@ module.exports = class SimpleMaskMoney {
   }
 
   static format(value, input = false) {
-    const negative = _args.allowNegative && value.indexOf('-') !== -1;  
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;
     const formatation = _core.numberToText(_core.textToNumber(value, input));
 
     return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
   }
 
   static formatToNumber(input) {
-    let value = input.toString(); 
+    let value = input.toString();
     let retorno = '0';
-    const negative = _args.allowNegative && value.indexOf('-') !== -1;   
-    
+    const negative = _args.allowNegative && value.indexOf('-') !== -1;
+
     if (negative) {
       value = value.replace('-', '');
     }
@@ -52,7 +52,7 @@ module.exports = class SimpleMaskMoney {
     if (!isNaN(parseFloat(value))) {
       retorno = value;
     }
-      
+
     return parseFloat(negative ? retorno * -1 : retorno);
   }
 
@@ -64,31 +64,37 @@ module.exports = class SimpleMaskMoney {
     if (args) {
       SimpleMaskMoney.args = args;
     }
+    input.addEventListener('focus', e => {
+      this.moveCursor(input, e);
+    });
 
     input.addEventListener('input', e => {
-      const oldValue = input.value;
-      const newValue = SimpleMaskMoney.format(oldValue, true);
-      const caretPosition = implanter.getCaretPosition(input);
-      const move = implanter.indexMove(newValue, oldValue);
-      let newCaretPosition = caretPosition - move;
-      const {cursor} = SimpleMaskMoney.args;
-
-      if (cursor === 'start') {
-        newCaretPosition = 0;
-      } else if (cursor === 'end') {
-        newCaretPosition = newValue.length;
-      }
-
-      input.value = newValue;
-      input._value = newValue;
-
-      implanter.setCaretPosition(input, newCaretPosition);
-
-      !(e instanceof Event) && input.dispatchEvent(new Event('input'));
+      this.moveCursor(input, e);
     });
 
     input['formatToNumber'] = () => SimpleMaskMoney.formatToNumber(input.value);
 
     return input;
+  }
+  static moveCursor(input, e){
+    const oldValue = input.value;
+    const newValue = SimpleMaskMoney.format(oldValue, true);
+    const caretPosition = implanter.getCaretPosition(input);
+    const move = implanter.indexMove(newValue, oldValue);
+    let newCaretPosition = caretPosition - move;
+    const {cursor} = SimpleMaskMoney.args;
+
+    if (cursor === 'start') {
+      newCaretPosition = 0;
+    } else if (cursor === 'end') {
+      newCaretPosition = newValue.length;
+    }
+
+    input.value = newValue;
+    input._value = newValue;
+
+    implanter.setCaretPosition(input, newCaretPosition);
+
+    !(e instanceof Event) && input.dispatchEvent(new Event('input'));
   }
 };
