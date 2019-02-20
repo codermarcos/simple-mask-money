@@ -1,4 +1,4 @@
-# Documentation SimpleMaskMoney
+# Documentation SimpleMaskMoney 1.2.x
 
 The ```SimpleMaskMoney``` class hosts three methods for formatting the values and one property to configure the formatting.
 

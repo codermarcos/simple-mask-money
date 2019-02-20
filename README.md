@@ -3,7 +3,7 @@
 <h5 align="center">
   if you are having problems check the version you are using.
   <a href="docs/#old">
-    The docs to old version stay <b>here</b>
+    The docs to old (2.x.x) version stay <b>here</b>
   </a>
 </h5>
 <p align="center">
@@ -50,11 +50,11 @@ Or use direct of github release
 
 Read the [docs](docs/#readme) or chose your implementation:
 
-* [Javascript](examples/javascript/#readme)
-* [Angular](examples/angular#readme)
-* [React](examples/react#readme)
-* [Node](examples/node#readme)
-* [Vue](examples/vue#readme)
+* [Javascript](examples/3.x.x/javascript/#readme)
+* [Angular](examples/3.x.x/angular#readme)
+* [React](examples/3.x.x/react#readme)
+* [Node](examples/3.x.x/node#readme)
+* [Vue](examples/3.x.x/vue#readme)
 
 Then, follow the example to use in your browser:
 
