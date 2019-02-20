@@ -1,4 +1,4 @@
-<h1 align="center">Documentation SimpleMaskMoney</h1>
+<h1 align="center">Examples SimpleMaskMoney 3.x.x</h1>
 
 <p align="center">
   Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read the docs equivalent to your version.
