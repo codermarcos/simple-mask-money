@@ -11,6 +11,6 @@
   Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read api the docs equivalent to your version or if you prefer <a href="../examples/#readme">see the examples</a>.
 </p>
 
-[**3.x.x**](examples/3.x.x/#readme)
+[**3.x.x**](3.x.x/#readme)
 
-[**2.x.x**](examples/2.x.x/#readme)
+[**2.x.x**](2.x.x/#readme)
