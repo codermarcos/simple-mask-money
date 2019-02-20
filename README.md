@@ -2,7 +2,7 @@
 <h3 align="center"><b>WARNING</b></h3>
 <h5 align="center">
   if you are having problems check the version you are using.
-  <a href="docs/#old">
+  <a href="docs/#2.x.x">
     The docs to old (2.x.x) version stay <b>here</b>
   </a>
 </h5>
