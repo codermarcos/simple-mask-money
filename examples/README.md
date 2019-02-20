@@ -29,18 +29,18 @@ Or use direct of github release
 
 Read the read the docs equivalent to your version and choose your implementation:
 
-[**3.x.x**](examples/3.x.x/#readme)
+[**3.x.x**](3.x.x/#readme)
 
-* [Javascript](examples/3.x.x/javascript/#readme)
-* [Angular](examples/3.x.x/angular#readme)
-* [React](examples/3.x.x/react#readme)
-* [Node](examples/3.x.x/node#readme)
-* [Vue](examples/3.x.x/vue#readme)
+* [Javascript](3.x.x/javascript/#readme)
+* [Angular](3.x.x/angular#readme)
+* [React](3.x.x/react#readme)
+* [Node](3.x.x/node#readme)
+* [Vue](3.x.x/vue#readme)
 
-[**2.x.x**](examples/2.x.x/#readme)
+[**2.x.x**](2.x.x/#readme)
 
-* [Javascript](examples/2.x.x/javascript/#readme)
-* [Angular](examples/2.x.x/angular#readme)
-* [React](examples/2.x.x/react#readme)
-* [Node](examples/2.x.x/node#readme)
-* [Vue](examples/2.x.x/vue#readme)
+* [Javascript](2.x.x/javascript/#readme)
+* [Angular](2.x.x/angular#readme)
+* [React](2.x.x/react#readme)
+* [Node](2.x.x/node#readme)
+* [Vue](2.x.x/vue#readme)
