@@ -8,7 +8,7 @@
 </h5>
 
 <p align="center">
-  Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read api the docs equivalent to your version or if you prefer <a href="https//github.com/codermarcos/simple-mask-money/examples">see the examples</a>.
+  Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read api the docs equivalent to your version or if you prefer <a href="https://github.com/codermarcos/simple-mask-money/examples">see the examples</a>.
 </p>
 
 [**3.x.x**](examples/#3.x.x)
