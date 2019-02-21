@@ -70,7 +70,9 @@ Then, follow the example to use in your browser:
 
       // configuration
       const args = {
+        afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
+        beforeFormat(e) { console.log('beforeFormat', e); },
         negativeSignAfter: false,
         prefix: '',
         suffix: '',
@@ -107,7 +109,9 @@ Or if you prefer use the methods in your events
 
       // configuration
       SimpleMaskMoney.args = {
+        afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
+        beforeFormat(e) { console.log('beforeFormat', e); },
         negativeSignAfter: false,
         prefix: '',
         suffix: '',
