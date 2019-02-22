@@ -3,91 +3,79 @@ const Core = require('./core');
 const implanter = require('./implanter');
 
 let _args = new Args();
-let _core = new Core(_args);
 
 module.exports = class SimpleMaskMoney {
-  constructor() {
-    _args = new Args();
-    _core = new Core(_args);
-    Object.defineProperty(this, 'args', {
-      get() {
-        return _args;
-      },
-      set(value) {
-        _args = new Args(value);
-        _core = new Core(_args);
-      }
-    });
-    this.formatToNumber = SimpleMaskMoney.formatToNumber;
-    this.format = SimpleMaskMoney.format;
-    this.setMask = SimpleMaskMoney.setMask;
-  }
-
   static get args() {
     return _args;
   }
 
   static set args(value) {
     _args = new Args(value);
-    _core = new Core(_args);
   }
 
-  static format(value, input = false) {
-    const negative = _args.allowNegative && value.indexOf('-') !== -1;  
-    const formatation = _core.numberToText(_core.textToNumber(value, input));
+  static formatToCurrency(value, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    core.args.beforeFormat(value);
 
-    return `${!_args.negativeSignAfter && negative ? '-': ''}${formatation}${_args.negativeSignAfter && negative ? '-': ''}`;
+    const negative = core.args.allowNegative && value.indexOf('-') !== -1;  
+    const formatation = core.numberToText(core.textToNumber(value));
+    const result = `${!core.args.negativeSignAfter && negative ? '-': ''}${formatation}${core.args.negativeSignAfter && negative ? '-': ''}`;
+  
+    core.args.afterFormat(result);
+    
+    return result;
   }
 
-  static formatToNumber(input) {
+  static formatToMask(input, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    const value = input.toString(); 
+    core.args.beforeFormat(value);
+
+    const result = core.mask(value);
+
+    core.args.afterFormat(result);
+    
+    return result;
+  }
+
+  static formatToNumber(input, args) {
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
     let value = input.toString(); 
-    let retorno = '0';
-    const negative = _args.allowNegative && value.indexOf('-') !== -1;   
+    core.args.beforeFormat(value);
+    let result = '0';
+
+    const negative = core.args.allowNegative && value.indexOf('-') !== -1;   
     
     if (negative) {
       value = value.replace('-', '');
     }
 
-    value = _core.textToNumber(value);
-    if (!isNaN(parseFloat(value))) {
-      retorno = value;
+    value = core.textToNumber(value);
+    
+    if (!this.args.fixed) {
+      value = value.replace(new RegExp('_', 'g'), '');
     }
+
+    if (!isNaN(value)) {
+      result = parseFloat(negative ? value * -1 : value);
+    }
+
+    core.args.afterFormat(result);
       
-    return parseFloat(negative ? retorno * -1 : retorno);
+    return result;
   }
 
   static setMask(element, args) {
     if (typeof document === 'undefined') throw 'This function only works on client side';
 
-    const input = typeof element == 'string' ? document.querySelector(element) : element;
+    const input = typeof element == 'string' ? document.querySelector(element) : element;    
+    const core = new Core(typeof args !== 'undefined' && typeof args === 'object' ? args : _args);
+    
+    implanter.addPropertyMask(input, core);
+    implanter.addMask(input, core);
+    implanter.refreshMask(input);
 
-    if (args) {
-      SimpleMaskMoney.args = args;
-    }
-
-    input.addEventListener('input', e => {
-      const oldValue = input.value;
-      const newValue = SimpleMaskMoney.format(oldValue, true);
-      const caretPosition = implanter.getCaretPosition(input);
-      const move = implanter.indexMove(newValue, oldValue);
-      let newCaretPosition = caretPosition - move;
-      const {cursor} = SimpleMaskMoney.args;
-
-      if (cursor === 'start') {
-        newCaretPosition = 0;
-      } else if (cursor === 'end') {
-        newCaretPosition = newValue.length;
-      }
-
-      input.value = newValue;
-      input._value = newValue;
-
-      implanter.setCaretPosition(input, newCaretPosition);
-
-      !(e instanceof Event) && input.dispatchEvent(new Event('input'));
-    });
-
-    input['formatToNumber'] = () => SimpleMaskMoney.formatToNumber(input.value);
+    input.formatToNumber = () => SimpleMaskMoney.formatToNumber(input.value, input.maskArgs);
 
     return input;
   }

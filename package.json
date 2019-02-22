@@ -1,10 +1,10 @@
 {
   "name": "simple-mask-money",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
   "main": "lib/simple-mask-money.js",
   "scripts": {
-    "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w",
+    "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w -b",
     "test": "npx mocha tests/**/*.test.js --require babel-register",
     "start": "npx rollup -c -w",
     "build": "npx rollup -c --environment NODE_ENV:production",
@@ -66,6 +66,7 @@
     "rollup-plugin-eslint": "^5.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^4.0.0"
+    "rollup-plugin-uglify": "^4.0.0",
+    "sinon": "^7.1.1"
   }
 }

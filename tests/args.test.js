@@ -9,10 +9,18 @@ describe('Args', () => {
       args = new Args();
     });
 
+    it('afterFormat', () => {
+      assert.equal(typeof args.afterFormat, 'function');
+    });    
+
     it('allowNegative', () => {
       assert.equal(args.allowNegative, false);
     });    
     
+    it('beforeFormat', () => {
+      assert.equal(typeof args.beforeFormat, 'function');
+    });    
+
     it('negativeSignAfter', () => {
       assert.equal(args.negativeSignAfter, false);
     });
@@ -49,6 +57,7 @@ describe('Args', () => {
   describe('Custom', () => {
     beforeEach(() => {
       args = new Args({
+        afterFormat() { return 1; },
         prefix: 'R$',
         fixed: false,
         negativeSignAfter: true,
@@ -57,14 +66,25 @@ describe('Args', () => {
       });
       
       args.allowNegative = true;
+      args.beforeFormat = () => 1;
       args.suffix = '.';
       args.fractionDigits = '3';
       args.thousandsSeparator = ',';
     });
     
+    it('afterFormat', () => {
+      assert.equal(typeof args.afterFormat, 'function');
+      assert.equal(args.afterFormat(), 1);
+    });    
+
     it('allowNegative', () => {
       assert.equal(args.allowNegative, true);
     });    
+    
+    it('beforeFormat', () => {
+      assert.equal(typeof args.beforeFormat, 'function');
+      assert.equal(args.beforeFormat(), 1);
+    });   
     
     it('negativeSignAfter', () => {
       assert.equal(args.negativeSignAfter, true);

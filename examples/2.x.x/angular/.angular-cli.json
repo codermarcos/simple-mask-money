@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "exemple-angular"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "prefix": "app"
+    }
+  ]
+}

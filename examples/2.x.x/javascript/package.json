@@ -1,0 +1,13 @@
+{
+  "name": "html-test-simple-mask-money",
+  "version": "0.1.1",
+  "description": "Exemple with vanilla javascript",
+  "scripts": {
+    "start": "http-serve ../../"
+  },
+  "author": "codermarcos <coder.marcos@gmail.com>",
+  "dependencies": {
+    "http-serve": "^1.0.1",
+    "simple-mask-money": "^2.0.1"
+  }
+}
