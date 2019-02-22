@@ -48,10 +48,12 @@ module.exports = class SimpleMaskMoney {
   static setMask(element, args) {
     if (typeof document === 'undefined') throw 'This function only works on client side';
 
+    
     const input = typeof element == 'string' ? document.querySelector(element) : element;    
     const _arguments = new Args(Object.assign({}, _args, args));
     input.maskArgs = _arguments;
-
+    input.dispatch = true;
+    
     input.addEventListener('input', e => {
       const oldValue = input.value;
       const newValue = SimpleMaskMoney.format(oldValue, input.maskArgs, true);
@@ -59,7 +61,7 @@ module.exports = class SimpleMaskMoney {
       const move = implanter.indexMove(newValue, oldValue);
       let newCaretPosition = caretPosition - move;
       const {cursor} = input.maskArgs;
-
+      
       if (cursor === 'start') {
         newCaretPosition = 0;
       } else if (cursor === 'end') {
@@ -68,10 +70,11 @@ module.exports = class SimpleMaskMoney {
 
       input.value = newValue;
       input._value = newValue;
+      input.dispatch = !input.dispatch;
 
       implanter.setCaretPosition(input, newCaretPosition);
 
-      !(e instanceof Event) && input.dispatchEvent(new Event('input'));
+      (e instanceof Event) && !input.dispatch && input.dispatchEvent(new Event('input'));
     });
 
     input.formatToNumber = () => SimpleMaskMoney.formatToNumber(input.value, input.maskArgs);

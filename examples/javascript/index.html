@@ -46,7 +46,6 @@
       Put inputmode numeric to mobile show only numbers 
      -->
     <input inputmode="numeric" id="myInput1" onkeyup="send(event)" value="_,__"><br>
-    <input inputmode="numeric" id="myInput2" onkeyup="send(event)" value="0,00"><br>
 
     <script src="../../lib/simple-mask-money.js"></script>
     <script>
@@ -64,20 +63,6 @@
       // set mask on your input you can pass a querySelector or your input element and options
       let input1 = SimpleMaskMoney.setMask('#myInput1', args1);
 
-      // const args2 = {
-      //   allowNegative: false,
-      //   negativeSignAfter: false,
-      //   prefix: '',
-      //   suffix: '',
-      //   fixed: true,
-      //   fractionDigits: 2,
-      //   decimalSeparator: ',',
-      //   thousandsSeparator: '.',
-      //   cursor: 'move'
-      // };
-
-      // // set mask on your input you can pass a querySelector or your input element and options
-      // let input2 = SimpleMaskMoney.setMask('#myInput2', args2);
       // Your send method 
       send = (e) => {
         if (e.key !== 'Enter') return;
