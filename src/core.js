@@ -136,7 +136,7 @@ module.exports = class Core {
         result = `${hundreds}${decimals}`;
       } else {
         result = this.removeCompleter(value, completer);
-        result = this.addCompleter(result || '', completer, this.args.fractionDigits + result.length, false);
+        result = this.addCompleter(typeof result !== 'undefined' && result !== null ? result : '', completer, this.args.fractionDigits + result.length, false);
       }
       
       result = this.addSeparators(result);
