@@ -1,77 +1,16 @@
-# Documentation SimpleMaskMoney
+<h1 align="center">Documentation SimpleMaskMoney</h1>
+<h3 align="center"><b>WARNING</b></h3>
+<h5 align="center">
+  if you are having problems check the version you are using.
+  <a href="2.x.x/#readme">
+    The docs to old (2.x.x) version stay <b>here</b>
+  </a>
+</h5>
 
-The ```SimpleMaskMoney``` class hosts three methods for formatting the values and one property to configure the formatting.
+<p align="center">
+  Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read api the docs equivalent to your version or if you prefer <a href="../examples/#readme">see the examples</a>.
+</p>
 
-## SimpleMaskMoney.args
+[**3.x.x**](3.x.x/#readme)
 
-**.args** is the property, of type object that sets the formatting:
-
-```javascript
-// Default args
-SimpleMaskMoney.args = {
-    allowNegative: false,
-    negativeSignAfter: false,
-    prefix: '',
-    suffix: '',
-    fixed: true,
-    fractionDigits: 2,
-    decimalSeparator: ',',
-    thousandsSeparator: '.',
-    cursor: 'move'
-};
-```
-
-The **args** they are:
-
-- **allowNegative**: boolean > *This boolean define if allow values ​​below zero*
-- **negativeSignAfter**: boolean > *This boolean define if negative sign stay after the number*
-- **prefix**: string > *This string always precedes its value*
-- **suffix**: string > *This string always procedes its value*
-- **fixed**: boolean > *This boolean define if your value can be empty or always should have value*
-- **fractionDigits**: number > *This number define the quantity of decimals digits*
-- **decimalSeparator**: string > *This string define the separator of decimals digits*
-- **thousandsSeparator**: string > *This string define the separator of thousands digits*
-- **cursor**: string > *This string define how the cursor will move. Can be `move`, `end`, or `start`.*
-
-## SimpleMaskMoney.format(...)
-
-**.format(...)** have one argument, the ```value``` that will be formatted to your settings:
-
-```javascript
-// With default args
-SimpleMaskMoney.format('123456789'); // 1.234.567,89
-```
-
-## SimpleMaskMoney.formatToNumber(...)
-
-**.formatToNumber(...)** have one argument, the ```value``` that will be formatted to number:
-
-```javascript
-// With default args
-SimpleMaskMoney.format('$ 1.234.567,89'); // 1234567.89
-```
-
-## SimpleMaskMoney.setMask(...)
-
-**.setMask(...)** have two arguments, the ```input``` or ```input selector``` and ```args```.
-This method get the input and implements the mask with this args:
-
-```html
-<!-- With default args -->
-<input type="text" inputmode="numeric" id="#myInput">
-```
-
-Use the query selector
-
-```javascript
-// With default args
-SimpleMaskMoney.setMask('#myInput', args); // 1.234.567,89
-```
-
-Or if you prefer pass the input element
-
-```javascript
-const element = document.getElementById('#myInput');
-
-SimpleMaskMoney.setMask(element, args); // 1.234.567,89
-```
+[**2.x.x**](2.x.x/#readme)

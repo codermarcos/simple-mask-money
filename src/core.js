@@ -4,65 +4,7 @@ module.exports = class Core {
     this.args = new Args(args);
   }
 
-  isFloat(number) {
-    return number % 1 !== 0;
-  }
-
-  completer(size = 1) {
-    return this.args.fixed ? ''.padEnd(size, '0') : ''.padEnd(size, '_');
-  }
-
-  emptyOrInvalid() {
-    return `${this.completer()}${this.args.decimalSeparator}${this.completer(this.args.fractionDigits)}`;
-  }
-
-  onlyNumber(value) {
-    const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
-    let putDecimalSeparator = false;
-    let retorno = '';
-
-    for (let i = value.length - 1; i >= 0; i--) {
-      if (isFinite(value[i])) {
-        retorno = value[i] + retorno;
-      } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator) {
-        retorno = value[i].replace(this.args.decimalSeparator, '.') + retorno;
-        putDecimalSeparator = true;
-      }
-    }
-
-    return retorno[0] === '.' ? `0${retorno}` : retorno;
-  }
-
-  addingPrefix(value) {
-    return `${this.args.prefix}${value}`;
-  }
-
-  removingPrefix(value) {
-    const position = value.indexOf(this.args.prefix, 0);
-
-    if (position !== -1) {
-      value = value.substring(this.args.prefix.length, value.length);
-    }
-
-    return value;
-  }
-
-  addingSuffix(value) {
-    return `${value}${this.args.suffix}`;
-  }
-
-  removingSuffix(value) {
-    const position = value.indexOf(this.args.suffix, value.length - this.args.suffix.length);
-
-    if (position !== -1) {
-      const start = value.substring(0, position);
-      value = start + value.substring(start.length + this.args.suffix.length - 1, value.length - 1);
-    }
-
-    return value;
-  }
-
-  addingCompleter(value, completer, length, start = true) {
+  addCompleter(value, completer, length, start = true) {
     while (value.length < length) {
       value = start ? `${completer}${value}` : `${value}${completer}`;
     }
@@ -70,17 +12,11 @@ module.exports = class Core {
     return value;
   }
 
-  removingCompleter(value, completer, start = true) {
-    const position = start ? 0 : value.length - 1;
-
-    while (value[position] === completer) {
-      value = value.substring(0, position - 1) + value.substring(position + 1, value.length);
-    }
-
-    return value;
+  addPrefix(value) {
+    return `${this.args.prefix}${value}`;
   }
 
-  addingSeparators(value) {
+  addSeparators(value) {
     let size = value.length - this.args.fractionDigits;
     let character = this.args.fixed ? 'd' : 'w';
     let regexp = `\\,?||\\.?(\\${character})`;
@@ -106,82 +42,217 @@ module.exports = class Core {
     return value.replace(new RegExp(regexp), replacement);
   }
 
-  replaceSeparator(value, separator, replacer = '') {
-    return value.replace(new RegExp(`\\${separator}`, 'g'), replacer);
+  addSuffix(value) {
+    return `${value}${this.args.suffix}`;
   }
 
   adjustDotPosition(value) {
     let fractionDigits;
-    let retorno = value.toString();
+    let result = value.toString();
 
-    retorno = retorno.replace('.', '');
-    fractionDigits = retorno.length - this.args.fractionDigits;
-    retorno = `${retorno.substring(0, fractionDigits)}.${retorno.substring(fractionDigits)}`;
+    result = result.replace('.', '');
+    fractionDigits = result.length - this.args.fractionDigits;
+    result = `${result.substring(0, fractionDigits)}.${result.substring(fractionDigits)}`;
 
-    return retorno;
+    return result;
   }
 
-  checkNumberStart(value) {
-    const retorno = value.toString();
-    return retorno[0] === '.' ? `0${retorno}` : retorno;
+  completer(size = 1) {
+    return this.args.fixed ? ''.padEnd(size, '0') : ''.padEnd(size, '_');
   }
 
-  textToNumber(value, input) {
-    let retorno = value.toString();
-    let completer = this.completer();
+  checkNumberStart(value, separator) {
+    const result = value.toString();
+    return result[0] === separator ? `${this.args.fixed ? '0' : '_'}${result}` : result;
+  }
+
+  checkSuffix(value) {
+    let result;
+    const lastIndex = value.length - 1;
+    const lastButOneIndex = lastIndex - 1;
+    const currentLastSuffix = value.substring(lastIndex - this.args.suffix.length + 1, lastIndex + this.args.suffix.length);
+    const currentLastButOneSuffix = value.substring(lastButOneIndex - this.args.suffix.length + 1, lastButOneIndex + this.args.suffix.length);
+
+    switch (this.args.suffix) {
+      case currentLastSuffix:
+        result = value;
+        break;
+      case currentLastButOneSuffix:
+        var start = value.substring(0, lastButOneIndex);
+        result = `${start}${value.substring(value.length + this.args.suffix.length + 1, lastButOneIndex + this.args.suffix.length)}.`;
+        break;
+      default:
+        result = `${value.substring(0, lastIndex)}.`;
+        break;
+    }
+
+    return result;
+  }
+
+  emptyOrInvalid() {
+    return `${this.completer()}${this.args.decimalSeparator}${this.completer(this.args.fractionDigits)}`;
+  }
+
+  isFloat(number) {
+    return number % 1 !== 0;
+  }
+
+  mask(value) {
+    const negative = this.args.allowNegative && value.indexOf('-') !== -1;
+    let result = `${this.writingToNumber(value) || this.emptyOrInvalid()}`;
+    result = this.replaceSeparator(result, this.args.decimalSeparator, '.');
+    const completer = this.completer();
+
+    if (!isNaN(this.removeCompleter(result, completer))) {
+      result = this.replaceSeparator(result, '.');
+      result = this.addCompleter(result || '', completer, this.args.fractionDigits);
+      result = this.args.fractionDigits >= result.length ? `${completer}${result}` : result;
+      result = this.addSeparators(result);
+    }
 
     if (this.args.prefix) {
-      retorno = this.removingPrefix(retorno);
+      result = this.addPrefix(result);
     }
-
     if (this.args.suffix) {
-      retorno = this.removingSuffix(retorno);
+      result = this.addSuffix(result);
     }
 
-    retorno = this.onlyNumber(retorno);
-
-    if (retorno) {
-      if (input) {
-        retorno = this.adjustDotPosition(retorno);
-      }
-
-      retorno = this.removingCompleter(retorno, completer);
-
-      retorno = this.checkNumberStart(retorno);
-    }
-
-    return retorno || (this.args.fixed ? '0' : '');
+    return `${!this.args.negativeSignAfter && negative ? '-' : ''}${result}${this.args.negativeSignAfter && negative ? '-' : ''}`;
   }
 
   numberToText(value) {
-    let retorno = this.emptyOrInvalid();
+    const completer = this.completer();
+    let result = this.emptyOrInvalid();
     value = this.replaceSeparator(value.toString(), this.args.decimalSeparator, '.');
 
-    if (!isNaN(parseFloat(value))) {
+    if (!isNaN(value)) {
       if (this.isFloat(value)) {
         const number = value.split('.');
         let hundreds = number[0];
         let decimals = number[1];
 
-        decimals = this.addingCompleter(decimals || '', this.completer(), this.args.fractionDigits, false);
+        decimals = this.addCompleter(decimals || '', completer, this.args.fractionDigits, false);
 
-        retorno = `${hundreds}${decimals}`;
+        result = `${hundreds}${decimals}`;
       } else {
-        retorno = this.replaceSeparator(value, '.');
-        retorno = this.addingCompleter(retorno || '', this.completer(), this.args.fractionDigits);
-        retorno = this.args.fractionDigits >= retorno.length ? `${this.completer()}${retorno}` : retorno;
+        result = this.removeCompleter(value, completer);
+        result = this.addCompleter(typeof result === 'string' ? result : '', completer, this.args.fractionDigits + result.length, false);
       }
-
-      retorno = this.addingSeparators(retorno);
+      
+      result = this.addSeparators(result);
+      result = this.checkNumberStart(result, this.args.decimalSeparator);
     }
-
+    
     if (this.args.prefix) {
-      retorno = this.addingPrefix(retorno);
+      result = this.addPrefix(result);
     }
     if (this.args.suffix) {
-      retorno = this.addingSuffix(retorno);
+      result = this.addSuffix(result);
+    }
+    
+    return result;
+  }
+
+  onlyNumber(value) {
+    const hasDecimalSeparator = value.toString().indexOf(this.args.decimalSeparator);
+    let putDecimalSeparator = false;
+    let result = '';
+
+    for (let i = value.length - 1; i >= 0; i--) {
+      if (isFinite(value[i]) || (!this.args.fixed && value[i] === '_')) {
+        result = value[i] + result;
+      } else if (hasDecimalSeparator !== -1 && !putDecimalSeparator && value[i] === this.args.decimalSeparator) {
+        result = value[i].replace(this.args.decimalSeparator, '.') + result;
+        putDecimalSeparator = true;
+      }
     }
 
-    return retorno;
+
+    return result[0] === '.' ? `0${result}` : result;
+  }
+
+  removeCompleter(value, completer, start = true) {
+    const getPosition = () => start ? 0 : value.length - 1;
+    let position = getPosition();
+
+    while (value[position] === completer) {
+      value = value.substring(0, position - 1) + value.substring(position + 1, value.length);
+      position = getPosition();
+    }
+
+    return value;
+  }
+
+  removePrefix(value) {
+    const position = value.indexOf(this.args.prefix, 0);
+
+    if (position !== -1) {
+      value = value.substring(this.args.prefix.length, value.length);
+    }
+
+    return value;
+  }
+
+  removeSuffix(value) {
+    const position = value.indexOf(this.args.suffix, value.length - this.args.suffix.length);
+
+    if (position !== -1) {
+      const start = value.substring(0, position);
+      value = start + value.substring(start.length + this.args.suffix.length - 1, value.length - 1);
+    }
+
+    return value;
+  }
+
+  replaceSeparator(value, separator, replacer = '') {
+    return value.replace(new RegExp(`\\${separator}`, 'g'), replacer);
+  }
+
+  textToNumber(value) {
+    let result = value.toString();
+    let completer = this.completer();
+
+    if (this.args.prefix) {
+      result = this.removePrefix(result);
+    }
+
+    if (this.args.suffix) {
+      result = this.removeSuffix(result);
+    }
+
+    result = this.onlyNumber(result);
+
+    if (result) {
+      result = this.removeCompleter(result, completer);
+      result = this.checkNumberStart(result, '.');
+    }
+
+    return result || (this.args.fixed ? '0' : '');
+  }
+
+  writingToNumber(value) {
+    let result = value.toString();
+    let completer = this.completer();
+
+    if (this.args.prefix) {
+      result = this.removePrefix(result);
+    }
+
+    if (this.args.suffix) {
+      result = this.checkSuffix(result);
+      result = this.removeSuffix(result);
+    }
+
+    result = this.onlyNumber(result);
+
+    if (result) {
+      result = this.adjustDotPosition(result);
+
+      result = this.removeCompleter(result, completer);
+
+      result = this.checkNumberStart(result, '.');
+    }
+
+    return result || (this.args.fixed ? '0' : '');
   }
 };

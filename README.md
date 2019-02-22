@@ -1,5 +1,11 @@
 <h1 align="center">SimpleMaskMoney</h1>
-
+<h3 align="center"><b>WARNING</b></h3>
+<h5 align="center">
+  if you are having problems check the version you are using.
+  <a href="docs/#2.x.x">
+    The docs to old (2.x.x) version stay <b>here</b>
+  </a>
+</h5>
 <p align="center">
   <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
   <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
@@ -44,11 +50,11 @@ Or use direct of github release
 
 Read the [docs](docs/#readme) or chose your implementation:
 
-* [Javascript](examples/javascript/#readme)
-* [Angular](examples/angular#readme)
-* [React](examples/react#readme)
-* [Node](examples/node#readme)
-* [Vue](examples/vue#readme)
+* [Javascript](examples/3.x.x/javascript/#readme)
+* [Angular](examples/3.x.x/angular#readme)
+* [React](examples/3.x.x/react#readme)
+* [Node](examples/3.x.x/node#readme)
+* [Vue](examples/3.x.x/vue#readme)
 
 Then, follow the example to use in your browser:
 
@@ -64,7 +70,9 @@ Then, follow the example to use in your browser:
 
       // configuration
       const args = {
+        afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
+        beforeFormat(e) { console.log('beforeFormat', e); },
         negativeSignAfter: false,
         prefix: '',
         suffix: '',
@@ -101,7 +109,9 @@ Or if you prefer use the methods in your events
 
       // configuration
       SimpleMaskMoney.args = {
+        afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
+        beforeFormat(e) { console.log('beforeFormat', e); },
         negativeSignAfter: false,
         prefix: '',
         suffix: '',
