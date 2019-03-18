@@ -27,7 +27,7 @@ h1.invisible {
   transition: margin-top 1s ease-in-out;
 }
 
-input {
+input#masked {
   background-color: transparent;
   color: red;
   font-size: 10vw;
@@ -37,7 +37,7 @@ input {
   -webkit-text-fill-color: transparent;
 }
 
-input::-webkit-input-placeholder {
+input#masked::-webkit-input-placeholder {
   text-shadow: none;
   -webkit-text-fill-color: initial;
 }
@@ -49,24 +49,34 @@ button {
   background-color: transparent;
 }
 
-textarea {
+#code,
+.field {
   background-color: #666;
-  display: inline-block;
   line-height: 2.5vw;
+  height: 2.5vw;
   font-size: 2vw;
-  opacity: 0;
-  overflow-y: hidden;
   text-align: left;
-  width: 40vw;
-  height: 0;
 }
 
-.invalid {
+.field {
+  display: inline-block;
+  min-width: 4px;
+}
+
+#code {
+  display: inline-block;
+  height: 0;
+  opacity: 0;
+  overflow-y: hidden;
+  width: 40vw;
+}
+
+#code.invalid {
   border: 0.5vw solid #f00;
 }
 
-.visible {
-  height: 13.8em;
+#code.visible {
+  height: 21.45em;
   opacity: 1;
   -webkit-transition: opacity 2s linear, height 2.5s ease-in-out;
   -moz-transition: opacity 2s linear, height 2.5s ease-in-out;
@@ -78,7 +88,7 @@ a {
 }
 
 @media screen and (max-width: 720px) {
-  input {
+  input#masked {
     font-size: 15vw;
     width: 95vw;
   }
@@ -87,7 +97,7 @@ a {
     font-size: 4vw;
   }
 
-  textarea {
+  #code {
     line-height: 6.5vw;
     font-size: 6vw;
     width: 80vw;
