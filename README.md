@@ -29,7 +29,7 @@
 
 <p align="center">
   Simple money mask developed with pure JavaScript. To run on <b>Client Side</b> and <b>Server Side</b>.
-  <a href="https://codermarcos.github.io/simple-mask-money/">Try <b>live demo</b></a> 
+  <a href="https://simple-mask-money.codermarcos.zone/">Try <b>live demo</b></a> 
 </p>
 
 ## Getting Started
