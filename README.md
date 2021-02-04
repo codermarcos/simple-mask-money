@@ -50,7 +50,7 @@ Or access the GitHub release directly:
 
 Read the [docs](docs/#readme) or chose your implementation:
 
-* [Javascript](examples/3.x.x/javascript/#readme)
+* [JavaScript](examples/3.x.x/javascript/#readme)
 * [Angular](examples/3.x.x/angular#readme)
 * [React](examples/3.x.x/react#readme)
 * [Node](examples/3.x.x/node#readme)
