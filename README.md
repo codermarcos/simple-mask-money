@@ -34,40 +34,38 @@
 
 ## Getting Started
 
-First, install it.
+First install it:
 
 ```shell
   npm i simple-mask-money --save
 ```
 
-Or use direct of github release
+Or access the GitHub release directly:
 
 ```html
 <script src="https://github.com/codermarcos/simple-mask-money/releases/download/<RELEASE_VERSION_HERE>/simple-mask-money.js"></script>
 ```
 
-> remember change **<RELEASE_VERSION_HERE>** by the [last version](https://github.com/codermarcos/simple-mask-money/releases/latest)
+> Remember to replace **<RELEASE_VERSION_HERE>** with the [latest version](https://github.com/codermarcos/simple-mask-money/releases/latest)
 
 Read the [docs](docs/#readme) or chose your implementation:
 
-* [Javascript](examples/3.x.x/javascript/#readme)
+* [JavaScript](examples/3.x.x/javascript/#readme)
 * [Angular](examples/3.x.x/angular#readme)
 * [React](examples/3.x.x/react#readme)
 * [Node](examples/3.x.x/node#readme)
 * [Vue](examples/3.x.x/vue#readme)
 
-Then, follow the example to use in your browser:
+Here is a usage example:
 
 ```html
   <body>
-    <!-- 
-      Put inputmode numeric to mobile show only numbers 
-    -->
+    <!-- Set inputmode to numeric to show only numbers on mobile -->
     <input id="myInput" inputmode="numeric" value="0,00">
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
+    
     <script>
-
       // configuration
       const args = {
         afterFormat(e) { console.log('afterFormat', e); },
@@ -83,10 +81,9 @@ Then, follow the example to use in your browser:
         cursor: 'move'
       };
 
-      // select the element
+      // Select the element
       const input = SimpleMaskMoney.setMask('#myInput', args);
-
-      // This method return value of your input in format number to save in your database
+      // Convert the input value to a number, which you can save e.g. to a database:
       input.formatToNumber();
 
     </script>
@@ -97,17 +94,15 @@ Or if you prefer use the methods in your events
 
 ```html
   <body>
-    <!-- 
-      Put inputmode numeric to mobile show only numbers 
-    -->
+    <!--  Set inputmode to numeric to show only numbers on mobile -->
     <input inputmode="numeric" value="0,00">
 
     <script src="./node_modules/simple-mask-money/lib/simple-mask-money.js"></script>
     <script>
-      // select the element
+      // Select the element
       let input = document.getElementsByTagName('input')[0];
 
-      // configuration
+      // Configuration
       SimpleMaskMoney.args = {
         afterFormat(e) { console.log('afterFormat', e); },
         allowNegative: false,
@@ -129,7 +124,7 @@ Or if you prefer use the methods in your events
       // Your send method
       input.onkeyup = (e) => {
         if (e.key !== "Enter") return;
-        // This method return value of your input in format number to save in your database
+        // Returns the value of your input as a number:
         SimpleMaskMoney.formatToNumber(input.value);
       }
     </script>
