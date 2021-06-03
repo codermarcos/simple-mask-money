@@ -61,7 +61,7 @@ module.exports = {
 
       if (input.maskArgs.cursor === 'start') {
         newCaretPosition = 0;
-      } else if (input.maskArgs.cursor === 'end') {
+      } else if (input.maskArgs.cursor === 'end' || (input.maskArgs.cursor === 'move' && oldValue.length <= 1)) {
         newCaretPosition = newValue.length;
       }
 
