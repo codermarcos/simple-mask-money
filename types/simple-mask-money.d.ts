@@ -1,26 +1,26 @@
 interface ISimpleMaskMoneyArgs {
-  afterFormat: (e: string) => {}; 
-  allowNegative: boolean = false;  
-  beforeFormat: (e: string) => {};  
-  negativeSignAfter: boolean = false;
-  decimalSeparator: string = ',';
-  fixed: boolean = true;
-  fractionDigits: number = 2;
+  afterFormat: (e: string) => {};
+  allowNegative: boolean;
+  beforeFormat: (e: string) => {};
+  negativeSignAfter: boolean;
+  decimalSeparator: string;
+  fixed: boolean;
+  fractionDigits: number;
   prefix: string;
   suffix: string;
-  thousandsSeparator: string = '.';
+  thousandsSeparator: string;
   cursor: 'start' | 'move' | 'end';
 }
 
-interface ISimpleMaskMoney {
-  public static args: ISimpleMaskMoneyArgs;
-  public static formatToCurrency(value: number, args?: ISimpleMaskMoneyArgs): string;
-  public static formatToMask(value: number, args?: ISimpleMaskMoneyArgs): string;
-  public static formatToNumber(value: string, args?: ISimpleMaskMoneyArgs): number;
-  public static setMask(element: string | HTMLInputElement, args?: ISimpleMaskMoneyArgs): HTMLInputElement;
+declare class SimpleMaskMoney {
+  static args: ISimpleMaskMoneyArgs;
+  static formatToCurrency(value: number | string, args?: ISimpleMaskMoneyArgs): string;
+  static formatToMask(value: number | string, args?: ISimpleMaskMoneyArgs): string;
+  static formatToNumber(value: string, args?: ISimpleMaskMoneyArgs): number;
+  static setMask(element: string | HTMLInputElement, args?: ISimpleMaskMoneyArgs): HTMLInputElement;
 }
 
 declare module 'simple-mask-money' {
-  export = ISimpleMaskMoney;
+  export = SimpleMaskMoney;
 }
 
