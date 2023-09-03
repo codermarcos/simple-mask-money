@@ -1,38 +1,42 @@
-import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import { uglify } from 'rollup-plugin-uglify';
-import { eslint } from 'rollup-plugin-eslint';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
+// import swc from '@rollup/plugin-swc';
 
-export default {
-  input: 'src/index.js',
-  sourceMap: true,
-  output: {
-    file: 'lib/simple-mask-money.js',
-    format: 'umd'
-  },
-  name: 'SimpleMaskMoney',
-  plugins: [
-    eslint({
-      exclude: [
-        'node_modules/**'
-      ]
-    }),
-    babel({
-      exclude: 'node_modules/**'
-    }),
-    resolve({
-      module: true,
-      jsnext: true,
-      main: true,
-      browser: true
-    }),
-    commonjs(),
-    replace({
-      exclude: 'node_modules/**',
-      ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-    }),
-    (process.env.NODE_ENV === 'production' && uglify()),
-  ]
-};
+const getConfiguration4File = (file) => [
+    // browser-friendly UMD build
+    {
+      input: `src/${file}.ts`,
+      output: {
+        name: 'SimpleMaskMoney',
+        file: `./lib/${file}.umd.js`,
+        format: 'umd',
+        sourcemap: true,
+      },
+      plugins: [
+        resolve(), //
+        commonjs(),
+        typescript({ tsconfig: './tsconfig.build.json' }),
+        terser()
+      ],
+    },
+  
+    // CommonJS (for Node) and ES module (for bundlers) build.
+    {
+      input: `src/${file}.ts`,
+      output: [
+        { file: `./lib/${file}.cjs.js`, format: 'cjs', sourcemap: true },
+        { file: `./lib/${file}.esm.js`, format: 'es', sourcemap: true },
+      ],
+      plugins: [typescript({ tsconfig: './tsconfig.build.json' }), terser()],
+    },
+]
+
+export default [
+  ...getConfiguration4File('simple-mask-money'),
+  ...getConfiguration4File('set-mask'),
+  ...getConfiguration4File('create-instance'),
+  ...getConfiguration4File('format-to-number'),
+  ...getConfiguration4File('format-to-currency'),
+];
