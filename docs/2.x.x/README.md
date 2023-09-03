@@ -1,4 +1,4 @@
-# Documentation SimpleMaskMoney 2.x.x
+# Documentation SimpleMaskMoney 2.x.x **(deprecated)**
 
 The ```SimpleMaskMoney``` class hosts three methods for formatting the values and one property to configure the formatting.
 
@@ -9,15 +9,15 @@ The ```SimpleMaskMoney``` class hosts three methods for formatting the values an
 ```javascript
 // Default args
 SimpleMaskMoney.args = {
-    allowNegative: false,
-    negativeSignAfter: false,
-    prefix: '',
-    suffix: '',
-    fixed: true,
-    fractionDigits: 2,
-    decimalSeparator: ',',
-    thousandsSeparator: '.',
-    cursor: 'move'
+  allowNegative: false,
+  negativeSignAfter: false,
+  prefix: '',
+  suffix: '',
+  fixed: true,
+  fractionDigits: 2,
+  decimalSeparator: ',',
+  thousandsSeparator: '.',
+  cursor: 'move'
 };
 ```
 

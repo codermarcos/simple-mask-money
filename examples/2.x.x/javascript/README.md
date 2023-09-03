@@ -1,4 +1,6 @@
-# SimpleMaskMoney Exemple Javascript
+# SimpleMaskMoney Example Javascript (deprecated)
+
+## ⚠️ Please update to version 4.x.x
 
 First, install it.
 
@@ -78,38 +80,4 @@ Or if you prefer use the methods in your events
       }
     </script>
   </body>
-```
-
-## Get the exemple
-
-To see an example of the code running, follow these steps:
-
-1. Clone the repository
-
-```shell
-  git clone https://github.com/codermarcos/simple-mask-money.git
-```
-
-2. Enter on repository
-
-```shell
-  cd simple-mask-money/exemples/javascript
-```
-
-3. Install dependencies
-
-```shell
-  npm i
-```
-
-4. start project
-
-```shell
-  npm start
-```
-
-5. open browser in [http://localhost:8080](http://localhost:8080)
-
-```shell
-  start "http://localhost:8080"
 ```

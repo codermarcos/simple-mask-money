@@ -1,4 +1,6 @@
-# SimpleMaskMoney Example Vue
+# SimpleMaskMoney Example Vue (deprecated)
+
+## ⚠️ Please update to version 4.x.x
 
 First, install it.
 

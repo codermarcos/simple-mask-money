@@ -1,4 +1,6 @@
-# SimpleMaskMoney Exemple AngularX
+# SimpleMaskMoney Example AngularX (deprecated)
+
+## ⚠️ Please update to version 4.x.x
 
 First, install it.
 
@@ -10,7 +12,7 @@ Then, use it as follows:
 
 ```javascript
 import SimpleMaskMoney from 'simple-mask-money'; // import mask
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -98,38 +100,4 @@ export class AppComponent implements OnInit {
     SimpleMaskMoney.formatToNumber(this.val);
   }
 }
-```
-
-### Get the exemple
-
-To see an example of the code running, follow these steps:
-
-1. Clone the repository
-
-```shell
-  git clone https://github.com/codermarcos/simple-mask-money.git
-```
-
-2. Enter on repository
-
-```shell
-  cd simple-mask-money/exemples/angular
-```
-
-3. Install dependencies
-
-```shell
-  npm i
-```
-
-4. start project
-
-```shell
-  npm start
-```
-
-5. open browser in [http://localhost:4200](http://localhost:4200)
-
-```shell
-  start "http://localhost:4200"
 ```
