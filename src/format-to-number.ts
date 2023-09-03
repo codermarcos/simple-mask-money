@@ -17,7 +17,7 @@ function formatToNumber(value: number | string, currentConfiguration?: Partial<S
   const stringIsNumber = (s: string) => {
     const parsedValue = parseFloat(s);
     return Number.isNaN(parsedValue) ? s : normalizeNumber(parsedValue);
-  }
+  };
 
   const normalizedValue = typeof value !== 'number'
     ? stringIsNumber(value)
@@ -27,7 +27,7 @@ function formatToNumber(value: number | string, currentConfiguration?: Partial<S
 
   let result = '';
 
-  for (let character; character = characteres.shift(); ) {
+  for (let character; (character = characteres.shift()); ) {
     if (!Number.isNaN(parseInt(character))) result += character;
     
     if (character !== decimalSeparator) continue;
