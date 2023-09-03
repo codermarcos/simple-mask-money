@@ -26,8 +26,6 @@ function setMask(
   input: HTMLInputElementMasked | HTMLInputElement | string | null,
   configuration?: Partial<SimpleMaskMoneyConfiguration>
 ) {
-  console.log('ATUALIZOU', 1);
-
   const currentConfiguration = getBaseConfiguration(configuration);
 
   const {
