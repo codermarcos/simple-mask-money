@@ -1,16 +1,13 @@
+# top-most EditorConfig file
 root = true
 
+# Unix-style newlines with a newline ending every file
 [*]
-end_of_line = crlf
+charset = utf-8
+indent_size = 2
+end_of_line = lf
+indent_style = space
 insert_final_newline = true
 
-[*.{js}]
-charset = utf-8
-indent_style = space
-indent_size = 2
-tab_width = 2
-
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
-
+[.nvmrc]
+insert_final_newline = false
