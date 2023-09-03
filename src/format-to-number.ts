@@ -9,19 +9,22 @@ import getBaseConfiguration from 'src/get-base-configuration';
  * @param configuration - The second is the configuration
  * @returns The a formated input ex: input -> `$0.66` and `0,66`
  */
-function formatToNumber(value: number | string, currentConfiguration?: Partial<SimpleMaskMoneyConfiguration>) {
+function formatToNumber(
+  value: number | string,
+  currentConfiguration?: Partial<SimpleMaskMoneyConfiguration>
+) {
   const { decimalSeparator } = getBaseConfiguration(currentConfiguration);
 
-  const normalizeNumber = (n: number) => n.toString().replace('.', decimalSeparator);
+  const normalizeNumber = (n: number) =>
+    n.toString().replace('.', decimalSeparator);
 
   const stringIsNumber = (s: string) => {
-    const parsedValue = parseFloat(s);
+    const parsedValue = Number(s);
     return Number.isNaN(parsedValue) ? s : normalizeNumber(parsedValue);
   };
 
-  const normalizedValue = typeof value !== 'number'
-    ? stringIsNumber(value)
-    : normalizeNumber(value);
+  const normalizedValue =
+    typeof value === 'number' ? normalizeNumber(value) : stringIsNumber(value);
 
   const characteres = normalizedValue.split('');
 
@@ -29,9 +32,9 @@ function formatToNumber(value: number | string, currentConfiguration?: Partial<S
 
   for (let character; (character = characteres.shift()); ) {
     if (!Number.isNaN(parseInt(character))) result += character;
-    
+
     if (character !== decimalSeparator) continue;
-    result += '.'; 
+    result += '.';
   }
 
   return parseFloat(result);
