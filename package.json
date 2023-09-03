@@ -1,12 +1,17 @@
 {
   "name": "simple-mask-money",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
   "types": "./lib/simple-mask-money.d.ts",
   "main": "./lib/simple-mask-money.cjs.js",
   "module": "./lib/simple-mask-money.esm.js",
   "browser": "./lib/simple-mask-money.umd.js",
   "scripts": {
+    "postinstall": "node -e \"console.log('\\x1b[36m','Look at the documentation:','\\x1b[0m','\\x1b[33m','https://github.com/codermarcos/simple-mask-money','\\x1b[0m','\\x1b[36m','\\nThanks for your download! ❤️','\\x1b[0m')\"",
+    "build": "rollup --config rollup.config.js --bundleConfigAsCjs",
+    "build:production": "cross-env NODE_ENV=PRODUCTION rollup --config rollup.config.js --bundleConfigAsCjs",
+    "test": "jest"
+  },
   "files": [
     "lib"
   ],
@@ -33,6 +38,8 @@
     "Hybrid-Mask",
     "Node-Mask",
     "Vanilla",
+    "vanilla-mask",
+    "react-mask",
     "ng-mask",
     "v-mask"
   ],
@@ -46,34 +53,21 @@
     "url": "https://github.com/codermarcos/simple-mask-money/issues"
   },
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
-  "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-helpers": "^6.24.1",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "chai": "^4.1.2",
-    "chai-spies": "^1.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-loader": "^2.1.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-mocha": "^5.1.0",
-    "http-serve": "^1.0.1",
-    "jsdom": "^11.11.0",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^5.2.0",
-    "rollup": "^0.63.5",
-    "rollup-plugin-babel": "^3.0.7",
-    "rollup-plugin-commonjs": "^9.1.4",
-    "rollup-plugin-eslint": "^5.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^4.0.0",
-    "sinon": "^7.1.1"
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@swc/core": "^1.3.78",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "cross-env": "^7.0.3",
+    "cypress": "^12.17.4",
+    "eslint": "^8.48.0",
+    "rollup": "^3.28.0",
+    "swc-loader": "^0.2.3",
+    "ts-jest": "^29.1.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.1.6"
   }
 }
