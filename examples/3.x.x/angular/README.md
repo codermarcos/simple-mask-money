@@ -1,4 +1,6 @@
-# SimpleMaskMoney Exemple AngularX
+# SimpleMaskMoney Example AngularX (deprecated)
+
+## ⚠️ Please update to version 4.x.x
 
 First, install it.
 
@@ -30,7 +32,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Default configuration  
     const args = {
+      afterFormat(e) { console.log('afterFormat', e); },
       allowNegative: false,
+      beforeFormat(e) { console.log('beforeFormat', e); },
       negativeSignAfter: false,
       prefix: '',
       suffix: '',
@@ -82,12 +86,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // configuration
     SimpleMaskMoney.args = {
+      afterFormat(e) { console.log('afterFormat', e); },
+      allowNegative: false,
+      beforeFormat(e) { console.log('beforeFormat', e); },
+      negativeSignAfter: false,
       prefix: '',
       suffix: '',
       fixed: true,
       fractionDigits: 2,
       decimalSeparator: ',',
-      thousandsSeparator: '.'
+      thousandsSeparator: '.',
+      cursor: 'move'
     };
   }
 

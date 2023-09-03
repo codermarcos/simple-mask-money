@@ -1,5 +1,7 @@
 <h1 align="center">Documentation SimpleMaskMoney</h1>
+
 <h3 align="center"><b>WARNING</b></h3>
+
 <h5 align="center">
   if you are having problems check the version you are using.
   <a href="docs/#old">
@@ -29,7 +31,15 @@ Or use direct of github release
 
 Read the read the docs equivalent to your version and choose your implementation:
 
-[**3.x.x**](3.x.x/#readme)
+[4.x.x](4.x.x/#readme)
+
+* [Javascript](4.x.x/javascript/#readme)
+* [Angular](4.x.x/angular/#readme)
+* [React](4.x.x/react/#readme)
+* [Node](4.x.x/node/#readme)
+* [Vue](4.x.x/vue/#readme)
+
+[3.x.x **(deprecated)**](3.x.x/#readme)
 
 * [Javascript](3.x.x/javascript/#readme)
 * [Angular](3.x.x/angular/#readme)
@@ -37,7 +47,7 @@ Read the read the docs equivalent to your version and choose your implementation
 * [Node](3.x.x/node/#readme)
 * [Vue](3.x.x/vue/#readme)
 
-[**2.x.x**](2.x.x/#readme)
+[2.x.x **(deprecated)**](2.x.x/#readme)
 
 * [Javascript](2.x.x/javascript/#readme)
 * [Angular](2.x.x/angular/#readme)

@@ -1,4 +1,6 @@
-# SimpleMaskMoney Exemple Javascript
+# SimpleMaskMoney Example Javascript (deprecated)
+
+## ⚠️ Please update to version 4.x.x
 
 First, install it.
 
