@@ -187,6 +187,8 @@ function setMask(
     writable: true,
   });
 
+  activeListeners.push(removeMask);
+
   return removeMask;
 }
 
