@@ -2,15 +2,21 @@
   "name": "simple-mask-money",
   "version": "3.0.2",
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
-  "main": "lib/simple-mask-money.js",
-  "types": "types/simple-mask-money.d.ts",
+  "types": "./lib/simple-mask-money.d.ts",
+  "main": "./lib/simple-mask-money.cjs.js",
+  "module": "./lib/simple-mask-money.esm.js",
+  "browser": "./lib/simple-mask-money.umd.js",
   "scripts": {
-    "test:tdd": "npx mocha tests/**/*.test.js --require babel-register -w -b",
-    "test": "npx mocha tests/**/*.test.js --require babel-register",
-    "start": "npx rollup -c -w",
-    "build": "npx rollup -c --environment NODE_ENV:production",
-    "lint": "npx eslint ./src/**/*.js",
-    "postinstall": "node -e \"console.log('\\x1b[36m','Look at the documentation:','\\x1b[0m','\\x1b[33m','https://github.com/codermarcos/simple-mask-money','\\x1b[0m','\\x1b[36m','\\nThanks for your download! ❤️','\\x1b[0m')\""
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/simple-mask-money.d.ts",
+      "node": "./lib/simple-mask-money.cjs.js",
+      "import": "./lib/simple-mask-money.esm.js",
+      "default": "./lib/simple-mask-money.umd.js"
+    }
   },
   "repository": {
     "type": "git",
