@@ -94,8 +94,6 @@ function setMask(
 
     const start = element.selectionStart ?? 0;
 
-    console.log(start, prefix.length);
-
     // No allow erase the prefix
     if ((e.key === 'Backspace' && start === 0) || start < prefix.length) return;
 
