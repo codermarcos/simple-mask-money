@@ -1,12 +1,14 @@
 module.exports = {
   env: {
+    'cypress/globals' : true,
     browser: true,
     es2021: true,
     node: true
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:cypress/recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   overrides: [
     {
