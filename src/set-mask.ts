@@ -169,14 +169,24 @@ function setMask(
     setCaretPosition();
   };
 
+  const onSelectionChange = () => {
+    setCaretPosition();
+  };
+
   element.addEventListener('keydown', onKeyDown);
 
-  if (cursor !== 'move') element.addEventListener('click', onClick);
+  if (cursor !== 'move') {
+    element.addEventListener('click', onClick);
+    element.addEventListener('selectionchange', onSelectionChange);
+  }
 
   triggerInputChanges(initialValue);
 
   const removeMask = (): void => {
-    if (cursor !== 'move') element.removeEventListener('click', onClick);
+    if (cursor !== 'move') {
+      element.removeEventListener('click', onClick);
+      element.removeEventListener('selectionchange', onSelectionChange);
+    }
     element.removeEventListener('keydown', onKeyDown);
     delete (element as HTMLInputElementMasked).removeMask;
   };
