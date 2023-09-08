@@ -6,9 +6,6 @@ import type {
 import getBaseConfiguration from 'src/get-base-configuration';
 import formatToCurrency from 'src/format-to-currency';
 
-const activeListeners = new Array<() => void>();
-
-const arrows = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
 const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
 
 /**
@@ -16,8 +13,32 @@ const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
  *
  * @param input - The first can be a QueryCSSSelectorString or an Input
  * @param configuration - The second is the configuration
- * @returns The a method to clear the input mask
+ * @returns The a method to remove the input mask
  *
+ * @example
+ * Here's an example using from cdn with CSSSelector:
+ * ```html
+ * <script src=""></script>
+ * 
+ * <input id="my-input" />
+ * 
+ * <script>
+ *     const remove = SimpleMaskMoney.setMask('#my-input');
+ *     remove(); // To remove the mask and listeners 
+ * </script>
+ * ```
+ * 
+ * @example
+ * Here's an example using from npm to React with CSSSelector:
+ * ```jsx
+ * import { setMask } from 'simple-mask-money';
+ * 
+ * function InputMoney() {
+ *    useEffect(() => setMask('#my-input'), []);
+ * 
+ *    return <input id="my-input" />;
+ * }
+ * ```
  *
  * @throws {@link}
  * This exception is thrown if the element is not an input.
@@ -55,67 +76,90 @@ function setMask(
   if (!element.hasAttribute('inputmode'))
     element.setAttribute('inputmode', 'numeric');
 
-  const setCaretPosition = () => {
-    const position =
-      cursor === 'end'
-        ? ([
-          element.value.length - suffix.length,
-          element.value.length - suffix.length,
-        ] as const)
-        : ([0, 0] as const);
-    element.focus();
-    element.setSelectionRange(...position);
-  };
+  const setCaretPosition = (force?: [start: number, end?: number]) => {
+    const lastPositionToNumber = element.value.length - suffix.length;
+    const positionDefault = [lastPositionToNumber, lastPositionToNumber] as const;
 
-  const triggerInputChanges = (value: string) => {
-    element.value = value;
-    element.dispatchEvent(new InputEvent('input'));
-    if (cursor === 'end') setCaretPosition();
+    let position = positionDefault;
+
+    if (cursor === 'move' && force)
+      position = typeof force[1] === 'number' 
+        ? [force[0], force[1]] as const
+        : [force[0], force[0]] as const;
+
+    element.setSelectionRange(...position);
+    
+    return position;
   };
 
   const initialValue = formatToCurrency(element.value, currentConfiguration);
+  let lastValue = initialValue;
+  
+  const triggerInputChanges = (
+    value: string,
+    caret?: [start: number, end: number]
+  ) => {
+    element.value = value;
+    element.dispatchEvent(new InputEvent('input'));
+    setCaretPosition(caret);
+    lastValue = value;
+  };
+
+  const firstPositionToNumber = prefix.length;
+  const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
 
   const removePrefix = (v: Array<string>) => v.slice(prefix.length);
   const removeSuffix = (v: Array<string>) =>
     v.slice(0, v.length - suffix.length);
   const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
   const fillDecimals = (v: string) => v.padStart(fractionDigits, completer);
+  const getLastPositionToNumber = (v?: string) => v?.length ?? element.value.length - suffix.length;
+  const caretIsOnPrefix = (n: number) => n < firstPositionToNumber;
+  const caretIsOnSuffix = (n: number) => suffix.length > 0 && n > getLastPositionToNumber();
 
   const onKeyDown = (e: KeyboardEvent) => {
+    const lastPositionToNumber = getLastPositionToNumber();
+    
+    let start = element.selectionStart ?? lastPositionToNumber;
+    let end = element.selectionEnd ?? lastPositionToNumber;
+
+    // Undo to first value
     if (e.ctrlKey && e.key === 'z') return triggerInputChanges(initialValue);
+    
+    // Allow move caret after or before the prefix or suffix
+    if (cursor === 'move' && (
+      (e.key === 'ArrowLeft' && start > firstPositionToNumber) ||
+      (e.key === 'ArrowRight' && start < lastPositionToNumber)
+    )) return; 
 
-    if (cursor === 'move' && arrows.includes(e.key)) return;
-
+    // escrever logicva [pra n selecionar o CAD]
     e.preventDefault();
+
+    // Select all
+    if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
 
     // Allow only number
     if (!allowedKeys.includes(e.key) && (e.key !== '-' || !allowNegative))
       return;
 
-    const start = element.selectionStart ?? 0;
+    if (caretIsOnPrefix(start)) [start, end] = setCaretPosition([firstPositionToNumber]);
+
+    if (caretIsOnSuffix(start)) [start, end] = setCaretPosition([lastPositionToNumber]);
 
     // No allow erase the prefix
-    if ((e.key === 'Backspace' && start === 0) || start < prefix.length) return;
-
-    // No allow erase the suffix
-    if (
-      e.key === 'Backspace' &&
-      suffix.length > 0 &&
-      start > element.value.length - suffix.length
-    )
-      return;
+    if (e.key === 'Backspace' && start === 0) return;
 
     let characteres = element.value.split('');
 
-    const end = element.selectionEnd ?? 0;
     const length = Math.abs(end - start);
+    const removeMoreThanOne = length > 0;
 
     // Define range that should remove
     const remove =
-      length === 0 ? ([start - 1, 1] as const) : ([start, length] as const);
+      removeMoreThanOne ? ([start, length] as const) : ([start - 1, 1] as const);
 
     // Define a range to add
-    const add = [start, 0, e.key] as const;
+    const add = [start, removeMoreThanOne ? length : 0, e.key] as const;
 
     // Add or remove characters
     characteres.splice(
@@ -135,12 +179,12 @@ function setMask(
       return triggerInputChanges(
         addPrefixAndSuffix(
           `${completer}${decimalSeparator}${fillDecimals(characteres.join(''))}`
-        )
+        ), [start, end]
       );
 
     const result = [];
 
-    let thousandsCounter = 3 + decimalSeparator.length + fractionDigits;
+    let thousandsCounter = lengthUntilFirstThousandSeparator;
 
     for (let character; (character = characteres.pop()); ) {
       if (Number.isNaN(parseInt(character))) continue;
@@ -161,33 +205,51 @@ function setMask(
     if (result.length === fractionDigits + decimalSeparator.length)
       result.unshift(completer);
 
-    triggerInputChanges(addPrefixAndSuffix(result.join('')));
-  };
+    const newValue = addPrefixAndSuffix(result.join(''));
 
-  const onClick = (e: MouseEvent) => {
-    e.preventDefault();
-    setCaretPosition();
+    if (e.key !== 'Backspace' && lastValue.length < newValue.length && start < getLastPositionToNumber(newValue)) {
+      start += newValue.length - lastValue.length;
+      end += newValue.length - lastValue.length;
+    }
+  
+    triggerInputChanges(newValue, [start, end]);
   };
 
   const onSelectionChange = () => {
-    setCaretPosition();
+    if (document.activeElement !== element) return;
+
+    const start = element.selectionStart;
+    const end = element.selectionEnd;
+
+    if (typeof start !== 'number' || typeof end !== 'number') return;
+
+    let position: [start: number, end?: number] | undefined;
+
+    const rangeStartOnPrefix = caretIsOnPrefix(start);
+    const rangeStartOnSuffix = caretIsOnSuffix(end);
+
+    const rangeEndOnSuffix = caretIsOnSuffix(start);
+    const rangeEndOnPrefix = caretIsOnPrefix(end);
+
+    if (rangeStartOnPrefix || rangeStartOnSuffix || rangeEndOnPrefix || rangeEndOnSuffix) position = [
+      rangeStartOnPrefix ? firstPositionToNumber : (rangeStartOnSuffix ? getLastPositionToNumber() : start),
+      rangeEndOnPrefix ? firstPositionToNumber : (rangeStartOnSuffix ? getLastPositionToNumber() : end),
+    ];
+
+    // Only set position if is on prefix or suffix
+    if (!position) return;
+    
+    setCaretPosition(position);
   };
 
   element.addEventListener('keydown', onKeyDown);
-
-  if (cursor !== 'move') {
-    element.addEventListener('click', onClick);
-    element.addEventListener('selectionchange', onSelectionChange);
-  }
+  document.addEventListener('selectionchange', onSelectionChange);
 
   triggerInputChanges(initialValue);
 
   const removeMask = (): void => {
-    if (cursor !== 'move') {
-      element.removeEventListener('click', onClick);
-      element.removeEventListener('selectionchange', onSelectionChange);
-    }
     element.removeEventListener('keydown', onKeyDown);
+    document.removeEventListener('selectionchange', onSelectionChange);
     delete (element as HTMLInputElementMasked).removeMask;
   };
 
@@ -197,37 +259,7 @@ function setMask(
     writable: true,
   });
 
-  activeListeners.push(removeMask);
-
   return removeMask;
-}
-
-/**
- * Removes the mask from an input element.
- *
- * @param input - The input element or selector string.
- * @returns A function that removes the mask from the input element or all inputs.
- */
-
-export function removeMask(
-  input?: HTMLInputElementMasked | HTMLInputElement | string | null
-): () => void {
-  if (typeof document === 'undefined') return () => void 0;
-
-  const element =
-    typeof input === 'string' ? document.querySelector(input) : input ?? null;
-
-  if (element === null) return () => void 0;
-
-  if (!(element instanceof HTMLInputElement))
-    throw new Error('the element must be an input');
-
-  return () => {
-    if ('removeMask' in element && typeof element.removeMask === 'function')
-      return element.removeMask();
-
-    for (let remove; (remove = activeListeners.pop()); ) remove();
-  };
 }
 
 export default setMask;
