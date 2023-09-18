@@ -6,8 +6,11 @@ import getBaseConfiguration from 'src/get-base-configuration';
  * It removes any non-numeric characters from the input string and returns a number.
  * It takes a number or string as input.
  * 
+ * @remarks
+ * This method is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#formattonumber | SimpleMaskMoney.formatToNumber}
+ * 
  * @param {string | number} value - The first can be a number or string
- * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is the configuration
+ * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is an object with the configuration to check options visit {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#simplemaskMoneyconfiguration | SimpleMaskMoneyConfiguration}
  * @returns {number} A number with any non-numeric characters removed e.g when receive `$0.66` return `0,66`
  * 
  * @example
@@ -65,10 +68,9 @@ function formatToNumber(
 
 export default formatToNumber;
 /**
- * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToNumber | SimpleMaskMoney.formatToNumber} method to get more information about this type
+ * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#formattonumber | SimpleMaskMoney.formatToNumber} method to get more information about this type
  * 
  * @remarks
- * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToNumber | SimpleMaskMoney.formatToNumber}
- * 
+ * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#formattonumber | SimpleMaskMoney.formatToNumber}
  */
 export type FormatToNumberFunction = typeof formatToNumber;

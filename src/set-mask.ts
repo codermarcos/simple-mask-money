@@ -15,10 +15,10 @@ const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
  * It also handles caret positioning and allows for undoing changes. The function returns a method to remove the mask from the input element.
  * 
  * @remarks
- * This method is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.setMask | SimpleMaskMoney.setMask}
+ * This method is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#simplemaskmoneysetmask | SimpleMaskMoney.setMask}
  *
  * @param {HTMLInputElement | string | null} input - The first can be a QueryCSSSelectorString or an Input
- * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is an object with the configuration to check options visit {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoneyConfiguration | SimpleMaskMoneyConfiguration}
+ * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is an object with the configuration to check options visit {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#simplemaskMoneyconfiguration | SimpleMaskMoneyConfiguration}
  * @returns {() => void} A function to remove the input mask
  *
  * @example
@@ -46,7 +46,7 @@ const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
  * }
  * ```
  *
- * @throws {@link}
+ * @throws {@link ADD_LINK_AQUI}
  * This exception is thrown if the element is not an input.
  */
 function setMask(
@@ -268,6 +268,7 @@ function setMask(
   Object.defineProperty(element, 'removeMask', {
     value: removeMask,
     configurable: true,
+    enumerable: true,
     writable: true,
   });
 
@@ -280,7 +281,6 @@ export default setMask;
  * 
  * @remarks
  * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.setMask | SimpleMaskMoney.setMask}
- * 
  */
 export type SetMaskFunction = typeof setMask;
 
