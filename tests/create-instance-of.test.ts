@@ -28,7 +28,7 @@ describe(
         );
 
         it(
-          'should allow pre-defined cofiguration', 
+          'should keep pre-defined cofiguration and merged with new configuration', 
           () => {
             expect(fn(1666.99, { suffix: 'BRL' })).toEqual('$1.666,99BRL');
           },
