@@ -1,4 +1,4 @@
-import type { SimpleMaskMoneyConfiguration } from 'src/types';
+import type { OptionalSimpleMaskMoneyConfiguration } from 'src/types';
 
 import getBaseConfiguration from 'src/get-base-configuration';
 import formatToNumber from 'src/format-to-number';
@@ -31,6 +31,10 @@ import formatToNumber from 'src/format-to-number';
  * console.log(value); // "$666,99"
  * ```
  */
+function formatToCurrency(
+  value: number | string, 
+  configuration?: OptionalSimpleMaskMoneyConfiguration,
+) {
   
   const { 
     fixed,
@@ -38,7 +42,7 @@ import formatToNumber from 'src/format-to-number';
     fractionDigits,
     thousandsSeparator, decimalSeparator,
     allowNegative, negativeSignAfter,
-  } = getBaseConfiguration(currentConfiguration);
+  } = getBaseConfiguration(configuration);
 
   const completer = fixed ? '0' : '_';
 
@@ -53,7 +57,7 @@ import formatToNumber from 'src/format-to-number';
 
   const isNegative = allowNegative && srtValue.includes('-');
 
-  const numberValue = formatToNumber(value, currentConfiguration);
+  const numberValue = formatToNumber(value, configuration);
 
   const [thousands, decimals] = numberValue.toString().split('.');
 

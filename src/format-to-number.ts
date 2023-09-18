@@ -1,4 +1,4 @@
-import type { SimpleMaskMoneyConfiguration } from 'src/types';
+import type { OptionalSimpleMaskMoneyConfiguration } from 'src/types';
 
 import getBaseConfiguration from 'src/get-base-configuration';
 
@@ -33,10 +33,10 @@ import getBaseConfiguration from 'src/get-base-configuration';
  * ```
  */
 function formatToNumber(
-  value: number | string,
-  currentConfiguration?: Partial<SimpleMaskMoneyConfiguration>
+  value: string | number,
+  configuration?: OptionalSimpleMaskMoneyConfiguration,
 ) {
-  const { decimalSeparator } = getBaseConfiguration(currentConfiguration);
+  const { decimalSeparator } = getBaseConfiguration(configuration);
 
   const normalizeNumber = (n: number) =>
     n.toString().replace('.', decimalSeparator);
