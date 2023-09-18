@@ -4,5 +4,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^src(.*)$': '<rootDir>/src$1',
-  } 
+  },
+  collectCoverageFrom: [
+    'src/**/*.ts'
+  ],
 };
