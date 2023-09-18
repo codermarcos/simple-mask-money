@@ -4,13 +4,33 @@ import getBaseConfiguration from 'src/get-base-configuration';
 import formatToNumber from 'src/format-to-number';
 
 /**
- * Returns the formated input.
+ * It formats the input value as a currency string based on the provided configuration and returns the formatted output
+ * It takes a number or string value and an optional configuration object as input.
  *
- * @param value - The first can be a number or string
- * @param configuration - The second is the configuration
- * @returns The a formated input ex: input -> `0.66` and `$0,66`
+ * @param {string | number} value - The first can be a number or string
+ * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is the configuration
+ * @returns {string} A formated string based on the input value and configuration options e.g when receive `0.66` return `$0,66`
+ * 
+ * @example
+ * Here's an example using from cdn with CSSSelector:
+ * ```html
+ * <script src=""></script>
+ * 
+ * <script>
+ *     const value = SimpleMaskMoney.formatToCurrency(666.99, { prefix: '$' });
+ *     console.log(value); // "$666,99"
+ * </script>
+ * ```
+ * 
+ * @example
+ * Here's an example using from npm with ESmodules:
+ * ```javascript
+ * import { formatToCurrency } from 'simple-mask-money';
+ * 
+ * const value = formatToCurrency(666.99, { prefix: '$' });
+ * console.log(value); // "$666,99"
+ * ```
  */
-function formatToCurrency(value: number | string, currentConfiguration?: Partial<SimpleMaskMoneyConfiguration>) {
   
   const { 
     fixed,
@@ -57,3 +77,11 @@ function formatToCurrency(value: number | string, currentConfiguration?: Partial
 }
 
 export default formatToCurrency;
+/**
+ * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToCurrency | SimpleMaskMoney.formatToCurrency} method to get more information about this type
+ * 
+ * @remarks
+ * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToCurrency | SimpleMaskMoney.formatToCurrency}
+ * 
+ */
+export type FormatToCurrencyFunction = typeof formatToCurrency;
