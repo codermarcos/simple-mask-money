@@ -69,15 +69,15 @@ function formatToCurrency(
 
   const thousandGroups = [];
   
-  for (let i = 0, thousandsLength = thousands.length; i < thousandsLength; i += 3) 
-    thousandGroups.push(thousands.substring(i, i + 3));
-
-  output = addPrefixAndSuffix(`${thousandGroups.join(thousandsSeparator)}${decimalSeparator}${formatedDecimal}`);
+  for (let i = 0; i < thousands.length; i += 3) 
+    thousandGroups.unshift(thousands.substring(thousands.length - i, thousands.length - i - 3));
+  
+  output = `${thousandGroups.join(thousandsSeparator)}${decimalSeparator}${formatedDecimal}`; 
 
   if (isNegative)
     output = negativeSignAfter ? `${output}-` : `-${output}`;
 
-  return output;
+  return addPrefixAndSuffix(output);
 }
 
 export default formatToCurrency;

@@ -5,7 +5,7 @@ import getBaseConfiguration from 'src/get-base-configuration';
 /**
  * It removes any non-numeric characters from the input string and returns a number.
  * It takes a number or string as input.
- *
+ * 
  * @param {string | number} value - The first can be a number or string
  * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is the configuration
  * @returns {number} A number with any non-numeric characters removed e.g when receive `$0.66` return `0,66`
@@ -54,7 +54,7 @@ function formatToNumber(
   let result = '';
 
   for (let character; (character = characteres.shift()); ) {
-    if (!Number.isNaN(parseInt(character))) result += character;
+    if (!Number.isNaN(Number(character))) result += character;
 
     if (character !== decimalSeparator) continue;
     result += '.';
