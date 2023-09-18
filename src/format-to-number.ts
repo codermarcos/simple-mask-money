@@ -3,11 +3,34 @@ import type { SimpleMaskMoneyConfiguration } from 'src/types';
 import getBaseConfiguration from 'src/get-base-configuration';
 
 /**
- * Returns a number based on your input.
+ * It removes any non-numeric characters from the input string and returns a number.
+ * It takes a number or string as input.
  *
- * @param value - The first can be a number or string
- * @param configuration - The second is the configuration
- * @returns The a formated input ex: input -> `$0.66` and `0,66`
+ * @param {string | number} value - The first can be a number or string
+ * @param {Partial<SimpleMaskMoneyConfiguration>} configuration - The second is the configuration
+ * @returns {number} A number with any non-numeric characters removed e.g when receive `$0.66` return `0,66`
+ * 
+ * @example
+ * Here's an example using from cdn with CSSSelector:
+ * ```html
+ * <script src=""></script>
+ * 
+ * <script>
+ *     const value = SimpleMaskMoney.formatToNumber('$666,99');
+ *     // Before save convert to number
+ *     console.log(value); // 666.99
+ * </script>
+ * ```
+ * 
+ * @example
+ * Here's an example using from npm with ESmodules:
+ * ```jsx
+ * import { formatToCurrency } from 'simple-mask-money';
+ * 
+ * const value = formatToNumber('$666,99');
+ * // Before save convert to number 
+ * console.log(value); // 666.99
+ * ```
  */
 function formatToNumber(
   value: number | string,

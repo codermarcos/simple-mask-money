@@ -1,10 +1,11 @@
 import type { HTMLInputElementMasked } from './types';
 
 /**
- * Removes the mask from an input element.
+ * It removes a mask from an input element. 
+ * It takes an input element or selector string as a parameter and returns a function that removes the mask from the input element or all inputs.
  *
- * @param input - The input element or selector string.
- * @returns A function that removes the mask from the input element or all inputs.
+ * @param {HTMLInputElementMasked | HTMLInputElement | string | null} input - The input element or selector string.
+ * @returns {() => void} A function that removes the mask from the input element.
  */
 function removeMask(
   input: HTMLInputElementMasked | HTMLInputElement | string | null
@@ -27,3 +28,11 @@ function removeMask(
 
 
 export default removeMask;
+/**
+ * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.removeMask | SimpleMaskMoney.removeMask} method to get more information about this type
+ * 
+ * @remarks
+ * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.removeMask | SimpleMaskMoney.removeMask}
+ * 
+ */
+export type RemoveMaskFunction = typeof removeMask;
