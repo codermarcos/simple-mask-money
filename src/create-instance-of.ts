@@ -42,8 +42,8 @@ function createInstanceOf<P, R>(
 ) {
   const instanceOf = (
     param: P,
-    overwritedConfiguration?: OptionalSimpleMaskMoneyConfiguration,
-  ) => fn(param, overwritedConfiguration ?? configuration) as R;
+    overwritedConfiguration: OptionalSimpleMaskMoneyConfiguration = {},
+  ) => fn(param, { ...configuration, ...overwritedConfiguration }) as R;
 
   return instanceOf as typeof fn;
 }

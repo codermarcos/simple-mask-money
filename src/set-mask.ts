@@ -1,6 +1,6 @@
 import type {
-  SimpleMaskMoneyConfiguration,
   HTMLInputElementMasked,
+  OptionalSimpleMaskMoneyConfiguration,
 } from 'src/types';
 
 import getBaseConfiguration from 'src/get-base-configuration';
@@ -51,7 +51,7 @@ const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
  */
 function setMask(
   input: HTMLInputElementMasked | HTMLInputElement | string | null,
-  configuration?: Partial<SimpleMaskMoneyConfiguration>
+  configuration?: OptionalSimpleMaskMoneyConfiguration,
 ) {
   const currentConfiguration = getBaseConfiguration(configuration);
 
