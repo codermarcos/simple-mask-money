@@ -64,3 +64,11 @@ function formatToNumber(
 }
 
 export default formatToNumber;
+/**
+ * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToNumber | SimpleMaskMoney.formatToNumber} method to get more information about this type
+ * 
+ * @remarks
+ * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.formatToNumber | SimpleMaskMoney.formatToNumber}
+ * 
+ */
+export type FormatToNumberFunction = typeof formatToNumber;
