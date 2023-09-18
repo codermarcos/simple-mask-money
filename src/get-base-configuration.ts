@@ -3,7 +3,7 @@ import type {
   SimpleMaskMoneyConfiguration,
 } from 'src/types';
 
-const configuration: SimpleMaskMoneyConfiguration = { 
+const configuration: SimpleMaskMoneyConfiguration = {
   allowNegative     : false,
   negativeSignAfter : false,
   decimalSeparator  : ',',

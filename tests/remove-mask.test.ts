@@ -48,11 +48,11 @@ describe(
     );
 
     it(
-      'should should remove mask', 
+      'should should remove mask when pass an input element', 
       () => {
         expect(input.value).toEqual('');
 
-        setMask('input');
+        setMask(input);
 
         expect(input.value).toEqual('0,00');
         
@@ -60,13 +60,38 @@ describe(
 
         expect(input.value).toEqual('1,23');
 
-        clear = removeMask('input');
+        clear = removeMask(input);
         
         clear();
         
         write('123');
 
         expect(input.value).toEqual('1,23');
+      },
+    );
+    
+    it(
+      'should not throw when pass an invalid input element', 
+      () => {
+        clear = removeMask('none');
+
+        expect(() => clear()).not.toThrow();
+      },
+    );
+
+    it(
+      'should not throw when pass null', 
+      () => {
+        clear = removeMask(null);
+
+        expect(() => clear()).not.toThrow();
+      },
+    );
+
+    it(
+      'should throw an error when pass an element that is not an input', 
+      () => {
+        expect(() => removeMask(document.body as unknown as HTMLInputElementMasked)).toThrow(new Error('the element must be an input'));
       },
     );
   }
