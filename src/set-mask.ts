@@ -56,6 +56,8 @@ function setMask(
   const currentConfiguration = getBaseConfiguration(configuration);
 
   const {
+    beforeFormat,
+    afterFormat,
     allowNegative,
     fractionDigits,
     decimalSeparator,
@@ -82,8 +84,30 @@ function setMask(
   if (!element.hasAttribute('inputmode'))
     element.setAttribute('inputmode', 'numeric');
 
+  const triggerInputChanges = (
+    value: string,
+    caret?: [start: number, end: number]
+  ) => {
+    element.value = value;
+    element.dispatchEvent(new InputEvent('input'));
+    setCaretPosition(caret);
+    lastValue = value;
+    afterFormat?.(value);
+  };
+
+  const firstPositionToNumber = prefix.length;
+  const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
+
+  const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
+  const removePrefix = (v: Array<string>) => v.slice(prefix.length);
+  const removeSuffix = (v: Array<string>) => v.slice(0, v.length - suffix.length);
+  const fillDecimals = (v: string) => v.padStart(fractionDigits, completer);
+  const getLastPositionToNumber = (v?: string) => v?.length ?? element.value.length - suffix.length;
+  const caretIsOnPrefix = (n: number) => n < firstPositionToNumber;
+  const caretIsOnSuffix = (n: number) => suffix.length > 0 && n > getLastPositionToNumber();
+
   const setCaretPosition = (force?: [start: number, end?: number]) => {
-    const lastPositionToNumber = element.value.length - suffix.length;
+    const lastPositionToNumber = getLastPositionToNumber();
     const positionDefault = [lastPositionToNumber, lastPositionToNumber] as const;
 
     let position = positionDefault;
@@ -98,32 +122,14 @@ function setMask(
     return position;
   };
 
+  beforeFormat?.(element.value);
+
   const initialValue = formatToCurrency(element.value, currentConfiguration);
+
   let lastValue = initialValue;
   
-  const triggerInputChanges = (
-    value: string,
-    caret?: [start: number, end: number]
-  ) => {
-    element.value = value;
-    element.dispatchEvent(new InputEvent('input'));
-    setCaretPosition(caret);
-    lastValue = value;
-  };
-
-  const firstPositionToNumber = prefix.length;
-  const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
-
-  const removePrefix = (v: Array<string>) => v.slice(prefix.length);
-  const removeSuffix = (v: Array<string>) =>
-    v.slice(0, v.length - suffix.length);
-  const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
-  const fillDecimals = (v: string) => v.padStart(fractionDigits, completer);
-  const getLastPositionToNumber = (v?: string) => v?.length ?? element.value.length - suffix.length;
-  const caretIsOnPrefix = (n: number) => n < firstPositionToNumber;
-  const caretIsOnSuffix = (n: number) => suffix.length > 0 && n > getLastPositionToNumber();
-
   const onKeyDown = (e: KeyboardEvent) => {
+    beforeFormat?.(element.value);
     const lastPositionToNumber = getLastPositionToNumber();
     
     let start = element.selectionStart ?? lastPositionToNumber;
