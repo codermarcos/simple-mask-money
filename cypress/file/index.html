@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Simple Mask Money E2E Tests</title>
+
+</head>
+
+<body>
+
+  <script src="/lib/simple-mask-money.umd.js"></script>
+
+  <input type="text" />
+
+  <script>
+    const options = {};
+
+    const q = new URLSearchParams(window.location.search);
+
+    if (q.has('allowNegative'))
+      options.allowNegative = q.get('allowNegative') === 'true';
+  
+    if (q.has('negativeSignAfter'))
+      options.negativeSignAfter = q.get('negativeSignAfter') === 'true';
+
+    if (q.has('prefix'))
+      options.prefix = decodeURIComponent(q.get('prefix'));
+
+    if (q.has('suffix'))
+      options.suffix = decodeURIComponent(q.get('suffix'));
+
+    if (q.has('fixed'))
+      options.fixed = q.get('fixed') === 'true';
+
+    if (q.has('fractionDigits'))
+      options.fractionDigits = Number(q.get('fractionDigits'));
+
+    if (q.has('decimalSeparator'))
+      options.decimalSeparator = decodeURIComponent(q.get('decimalSeparator'));
+
+    if (q.has('thousandsSeparator'))
+      options.thousandsSeparator = decodeURIComponent(q.get('thousandsSeparator'));
+
+    if (q.has('cursor'))
+      options.cursor = q.get('cursor');
+
+    if (q.has('initialValue'))
+      document.querySelector('input').value = q.get('initialValue');
+
+    const removeMask = SimpleMaskMoney.setMask('input', options);
+  </script>
+
+</body>
+
+</html>
