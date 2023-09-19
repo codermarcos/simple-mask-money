@@ -50,7 +50,8 @@ jobs:
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.PACKAGE_VERSION }}
+          name: "SimpleMaskMoney - v${{ env.PACKAGE_VERSION }}"
+          tag_name: "v${{ env.PACKAGE_VERSION }}"
           files: | 
             lib/*
             package.json
