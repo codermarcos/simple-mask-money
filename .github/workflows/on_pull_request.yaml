@@ -2,10 +2,13 @@ name: Pull Request
 
 on:
   pull_request:
-    branches-ignore: |
-      **/*.md
-      docs/**/*
-      examples/**/*
+    branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "LISCENSE"
+      - ".gitignore"
+      - "docs/**/*"
+      - examples/**/*"
 
 jobs:
   validate:
