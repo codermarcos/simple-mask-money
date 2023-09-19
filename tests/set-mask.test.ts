@@ -17,15 +17,13 @@ describe(
         input = document.createElement('input');
         document.body.appendChild(input);
         write = createWriter(input);
-
-        clear = () => {};
       }
     );
 
     afterEach(
       () => {
         document.body.removeChild(input);
-        clear();
+        if (typeof clear === 'function') clear();
       }
     );
 
