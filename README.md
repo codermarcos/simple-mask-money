@@ -50,10 +50,9 @@ Or access the GitHub release directly:
 
 > Remember to replace **<RELEASE_VERSION_HERE>** with the [latest version](https://github.com/codermarcos/simple-mask-money/releases/latest)
 
-### Choose your implementation
+### Implementation
 
-#### Vue JS Basic Example
-
+After installed is just implement, for it choose the best example for you.
 
 #### React JS Basic Example
 
@@ -70,7 +69,7 @@ function InputMoneyComponent() {
 }
 ```
 
-If you prefer you can use a [ref]():
+If you prefer you can use a [ref](https://react.dev/learn/referencing-values-with-refs):
 
 ```tsx
 import { useEffect } from 'react';
@@ -107,6 +106,55 @@ Here is a usage example with Vanilla JS:
   </body>
 ```
 
+#### Vue JS Basic Example
+
+Here is a usage example with Vue JS:
+
+```html
+<template>
+  <form>
+    <input type="text" id="my-input" />
+  </form>
+</template>
+
+<script>
+import { setMask, formatToNumber } from 'simple-mask-money'; // import mask
+
+export default {
+  mounted() {
+    SimpleMaskMoney.setMask('#my-input'); // set mask on your input you can passing a querySelector
+  },
+  beforeUnmount() {
+    SimpleMaskMoney.removeMask('#my-input'); // remove mask destroy listeners
+  },
+}
+</script>
+```
+
+#### Angular Basic Example
+
+Here is a usage example with Angular JS:
+
+```javascript
+import { setMask, removeMask, formatToNumber } from 'simple-mask-money'; // import mask
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+
+@Component({
+  template: '<input id="my-input" />'
+})
+export class InputMoneyComponent implements AfterViewInit, OnDestroy {
+
+  ngAfterViewInit() {
+    // set mask on your input you can pass a querySelector or your input element and options
+    setMask('#my-input');
+  }
+
+  ngOnDestroy() { 
+    removeMask('#my-input'); // remove mask destroy listeners
+  }
+}
+```
+
 ## 📚 Detailed documentation
 
 Read the [docs](docs/) or chose your implementation to check an example:
@@ -117,8 +165,15 @@ Read the [docs](docs/) or chose your implementation to check an example:
 * [Node](examples/4.x.x/node)
 * [Vue](examples/4.x.x/vue)
 
-## Some features and behaviours
+## ✨ Some features and behaviours
 
-* Allow clear the mask
+* Clear the mask
+  * Remove listeners
 * Allow type only numbers
+  * Block user to type non-numeric chars
+* Allow negative numbers
+  * It permit user add a negative sign
+* Allow choose if negative sign is before or after
 * Allow lock the carret bar on end
+* Allow choose how many fractionalDigits
+* Allow choose decimal and thousands separators

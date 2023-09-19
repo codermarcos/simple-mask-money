@@ -108,37 +108,3 @@ export class AppComponent implements OnInit {
   }
 }
 ```
-
-### Get the exemple
-
-To see an example of the code running, follow these steps:
-
-1. Clone the repository
-
-```shell
-  git clone https://github.com/codermarcos/simple-mask-money.git
-```
-
-2. Enter on repository
-
-```shell
-  cd simple-mask-money/exemples/angular
-```
-
-3. Install dependencies
-
-```shell
-  npm i
-```
-
-4. start project
-
-```shell
-  npm start
-```
-
-5. open browser in [http://localhost:4200](http://localhost:4200)
-
-```shell
-  start "http://localhost:4200"
-```

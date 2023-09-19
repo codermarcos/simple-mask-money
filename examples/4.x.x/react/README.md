@@ -1,4 +1,4 @@
-# SimpleMaskMoney Example Vue
+# SimpleMaskMoney Example React
 
 ## Getting started
 
