@@ -2,7 +2,6 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
-// import swc from '@rollup/plugin-swc';
 
 const getConfiguration4File = (file) => [
   // browser-friendly UMD build
