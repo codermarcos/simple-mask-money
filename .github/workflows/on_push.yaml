@@ -6,19 +6,26 @@ on:
 
 permissions:
   contents: write
+  discussions: write
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - name: Set git configuration
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"  
+
+      - uses: actions/setup-node@v4
         with:
           node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -34,12 +41,19 @@ jobs:
       - name: Build package
         run: npm run build:production
 
-      - name: Create Release Publish to npm
-        uses: changesets/action@v1
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
         with:
-          commit: "🎉 new release version"
-          title: "🎉 new release version"
+          files: | 
+            lib/*
+            package.json
+            package-lock.json
+
+      - name: Create Npm Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish
         
+
+          
