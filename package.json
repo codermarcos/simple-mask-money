@@ -84,6 +84,11 @@
     "url": "https://github.com/codermarcos/simple-mask-money/issues"
   },
   "homepage": "https://github.com/codermarcos/simple-mask-money#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.0",
