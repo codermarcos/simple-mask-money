@@ -36,6 +36,7 @@ const getConfiguration4File = (file) => [
 export default [
   ...getConfiguration4File('simple-mask-money'),
   ...getConfiguration4File('set-mask'),
+  ...getConfiguration4File('remove-mask'),
   ...getConfiguration4File('create-instance-of'),
   ...getConfiguration4File('format-to-number'),
   ...getConfiguration4File('format-to-currency'),
