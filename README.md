@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <a class="badge-align" href="https://github.com/codermarcos/simple-mask-money/actions/">
-    <img src="https://github.com/codermarcos/simple-mask-money/actions/workflows/on_push.yaml/badge.svg" alt="build status"/>
+  <a class="badge-align" href="https://github.com/codermarcos/simple-mask-money/actions/workflows/on_push.yaml">
+    <img src="https://github.com/codermarcos/simple-mask-money/actions/workflows/on_push.yaml/badge.svg?event=push" alt="build status"/>
   </a>
   <a class="badge-align" href="https://badge.fury.io/js/simple-mask-money">
     <img src="https://badge.fury.io/js/simple-mask-money.svg" alt="npm version">
