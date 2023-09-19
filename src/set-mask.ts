@@ -135,6 +135,9 @@ function setMask(
     let start = element.selectionStart ?? lastPositionToNumber;
     let end = element.selectionEnd ?? lastPositionToNumber;
 
+    // Select all
+    if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
+
     // Undo to first value
     if (e.ctrlKey && e.key === 'z') return triggerInputChanges(initialValue);
     
