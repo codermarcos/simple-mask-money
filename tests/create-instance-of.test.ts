@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it, jest } from '@jest/globals';
+import { beforeAll, describe, expect, it } from '@jest/globals';
 
 import createInstanceOf from 'src/create-instance-of';
 import formatToCurrency, { FormatToCurrencyFunction } from 'src/format-to-currency';
