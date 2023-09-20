@@ -1,16 +1,10 @@
 <h1 align="center">SimpleMaskMoney</h1>
 
-<h3 align="center">⚠️<b>WARNING</b>⚠️</h3>
-
 <h5 align="center">
+  ⚠️<b>WARNING</b>⚠️<br>
   If you are having problems please check the version that you are using. <br>
-  This package follows the <a>semantic versioning</a> try to keep it updated with the <a href="">latest version</a>.
+  This package follows the <a href="https://semver.org/">semantic versioning</a> try to keep it updated with the <a href="https://github.com/codermarcos/simple-mask-money">latest version</a>.
 </h5>
-
-<p align="center">
-  <a class="badge-align" href="https://nodei.co/npm/simple-mask-money/">
-  <img src="https://nodei.co/npm/simple-mask-money.png?downloads=true&downloadRank=true" alt="NPM"></a>
-</p>
 
 <p align="center">
   <a class="badge-align" href="https://github.com/codermarcos/simple-mask-money/actions/workflows/on_push.yaml">
@@ -27,10 +21,7 @@
   </a>
 </p>
 
-<p align="center">
-  Simple money mask developed with pure JavaScript 🗃️ <b>0 dependecies</b>, 🔒 <b>100% Safe</b> (no <a href="https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities">npm audit problems as vulnerabilities</a> or <a href="https://github.com/codermarcos/simple-mask-money/security/dependabot">dependabot issues</a>) which you can run on <b>Client Side</b> and <b>Server Side</b>.
-  <a href="https://simple-mask-money.codermarcos.zone/">Try <b>live demo</b></a>
-</p>
+Simple money mask developed with pure JavaScript 🗃️ **0 _dependecies_**, 🍃 Super light just **1.65kB gzipped**, 🔒 **100% Secure** (no [npm audit problems](https://docs.npmjs.com/auditing-package-dependencies-for-security-vulnerabilities) or [dependabot issues](https://github.com/codermarcos/simple-mask-money/security/dependabot)) which you can run on **Client Side** and **Server Side**. [Try **live demo**](https://simple-mask-money.codermarcos.zone/).
 
 ## 🎉 Getting Started
 
@@ -106,6 +97,8 @@ Here is a usage example with Vanilla JS:
   </body>
 ```
 
+> These are only the basic usage if you need configure some arguments you can check [documentation about full api reference](./docs/4.x.x/)
+
 #### Vue JS Basic Example
 
 Here is a usage example with Vue JS:
@@ -131,6 +124,9 @@ export default {
 </script>
 ```
 
+> These are only the basic usage if you need configure some arguments you can check [documentation about full api reference](./docs/4.x.x/)
+
+
 #### Angular Basic Example
 
 Here is a usage example with Angular JS:
@@ -145,8 +141,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 export class InputMoneyComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
-    // set mask on your input you can pass a querySelector or your input element and options
-    setMask('#my-input');
+    setMask('#my-input'); // set mask on your input you can pass a querySelector or your input element and options
   }
 
   ngOnDestroy() { 
@@ -154,6 +149,9 @@ export class InputMoneyComponent implements AfterViewInit, OnDestroy {
   }
 }
 ```
+
+> These are only the basic usage if you need configure some arguments you can check [documentation about full api reference](./docs/4.x.x/)
+
 
 ## 📚 Detailed documentation
 

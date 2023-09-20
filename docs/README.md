@@ -1,20 +1,11 @@
-<h1 align="center">Documentation SimpleMaskMoney</h1>
+# Documentation SimpleMaskMoney
 
-<h3 align="center"><b>WARNING</b></h3>
+> ⚠️ **WARNING**  
+> If you are having problems please check the version that you are using.  
+> This package follows the [semver (**semantic versioning**)](https://semver.org/) try to keep it updated with the [latest version](https://github.com/codermarcos/simple-mask-money).
 
-<h5 align="center">
-  if you are having problems check the version you are using.
-  <a href="2.x.x/#readme">
-    The docs to old (2.x.x) version stay <b>here</b>
-  </a>
-</h5>
+Please read api the docs equivalent to your version or if you prefer [see the examples](../examples/#readme):
 
-<p align="center">
-  Simple money mask use a <a href="https://semver.org/">semver (semantic version)</a> please read api the docs equivalent to your version or if you prefer <a href="../examples/#readme">see the examples</a>.
-</p>
-
-[4.x.x](4.x.x/#readme)
-
-[3.x.x **(deprecated)**](3.x.x/#readme)
-
-[2.x.x **(deprecated)**](2.x.x/#readme)
+- [4.x.x **latest**](4.x.x/#readme)
+- [~~3.x.x~~ **(deprecated)**](3.x.x/#readme)
+- [~~2.x.x~~ **(deprecated)**](2.x.x/#readme)
