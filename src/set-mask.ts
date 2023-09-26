@@ -6,8 +6,6 @@ import type {
 import getBaseConfiguration from 'src/get-base-configuration';
 import formatToCurrency from 'src/format-to-currency';
 
-const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
-
 /**
  * It applies a mask to an input element, formatting its value as a currency. 
  * It takes an input element and an optional configuration object as parameters. 
@@ -97,6 +95,7 @@ function setMask(
 
   const firstPositionToNumber = prefix.length;
   const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
+  const allowedKeys = [...[...Array(10).keys()].map((n) => n.toString()), 'Backspace', allowNegative ? '-' : ''];
 
   const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
   const removePrefix = (v: Array<string>) => v.slice(prefix.length);
@@ -154,15 +153,16 @@ function setMask(
     if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
 
     // Allow only number
-    if (!allowedKeys.includes(e.key) && (e.key !== '-' || !allowNegative))
-      return;
+    if (!allowedKeys.includes(e.key)) return;
+
+    const isBackspace = e.key === 'Backspace';
 
     if (caretIsOnPrefix(start)) [start, end] = setCaretPosition([firstPositionToNumber]);
 
     if (caretIsOnSuffix(start)) [start, end] = setCaretPosition([lastPositionToNumber]);
 
     // No allow erase the prefix
-    if (e.key === 'Backspace' && start === 0) return;
+    if (isBackspace && start === 0) return;
 
     let characteres = element.value.split('');
 
@@ -178,7 +178,7 @@ function setMask(
 
     // Add or remove characters
     characteres.splice(
-      ...((e.key === 'Backspace' ? remove : add) as [number, number])
+      ...((isBackspace ? remove : add) as [number, number])
     );
 
     characteres = removeSuffix(removePrefix(characteres));
@@ -222,7 +222,7 @@ function setMask(
 
     const newValue = addPrefixAndSuffix(result.join(''));
 
-    if (e.key !== 'Backspace' && lastValue.length < newValue.length && start < getLastPositionToNumber(newValue)) {
+    if (!isBackspace && lastValue.length < newValue.length && start < getLastPositionToNumber(newValue)) {
       start += newValue.length - lastValue.length;
       end += newValue.length - lastValue.length;
     }
