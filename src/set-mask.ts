@@ -6,6 +6,8 @@ import type {
 import getBaseConfiguration from 'src/get-base-configuration';
 import formatToCurrency from 'src/format-to-currency';
 
+const numbers = '0123456789'.split('');
+
 /**
  * It applies a mask to an input element, formatting its value as a currency. 
  * It takes an input element and an optional configuration object as parameters. 
@@ -94,8 +96,8 @@ function setMask(
   };
 
   const firstPositionToNumber = prefix.length;
+  const allowedKeys = [...numbers, 'Backspace', allowNegative ? '-' : ''];
   const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
-  const allowedKeys = [...[...Array(10).keys()].map((n) => n.toString()), 'Backspace', allowNegative ? '-' : ''];
 
   const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
   const removePrefix = (v: Array<string>) => v.slice(prefix.length);
