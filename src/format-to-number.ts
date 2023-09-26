@@ -39,7 +39,7 @@ function formatToNumber(
   value: string | number,
   configuration?: OptionalSimpleMaskMoneyConfiguration,
 ) {
-  const { decimalSeparator } = getBaseConfiguration(configuration);
+  const { decimalSeparator, allowNegative } = getBaseConfiguration(configuration);
 
   const normalizeNumber = (n: number) =>
     n.toString().replace('.', decimalSeparator);
@@ -53,8 +53,10 @@ function formatToNumber(
     typeof value === 'number' ? normalizeNumber(value) : stringIsNumber(value);
 
   const characteres = normalizedValue.split('');
-
+  
   let result = '';
+  
+  const isNegative = allowNegative && characteres.includes('-');
 
   for (let character; (character = characteres.shift()); ) {
     if (!Number.isNaN(Number(character))) result += character;
@@ -63,7 +65,7 @@ function formatToNumber(
     result += '.';
   }
 
-  return parseFloat(result);
+  return parseFloat(`${isNegative ? '-' : '' }${result}`);
 }
 
 export default formatToNumber;
