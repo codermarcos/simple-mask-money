@@ -119,7 +119,7 @@ function setMask(
       const characteresRemoved = characteres.splice(...(actionParams as [number, number]));
 
       // Backspace into decimal separator or thousands separator should remove next character
-      if (actionName === 'remove' && characteresRemoved && characteresRemoved.length === 1) {
+      if (actionName === 'remove' && characteresRemoved.length === 1) {
         const [removed] = characteresRemoved;
         if (removed === decimalSeparator || removed === thousandsSeparator)
           characteres.splice(start - 1, end);
@@ -234,7 +234,6 @@ function setMask(
       (e.key === 'ArrowRight' && start < lastPositionToNumber)
     )) return; 
 
-    // escrever logicva [pra n selecionar o CAD]
     e.preventDefault();
 
     // Select all
