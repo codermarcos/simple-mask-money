@@ -22,7 +22,6 @@ describe(
         beforeEach(
           () => {
             cy.visit(getUrl({ prefix: '$', suffix: 'AUD' }, '6.66'));
-            cy.reload();
           }
         );
 
@@ -59,7 +58,6 @@ describe(
         beforeEach(
           () => {
             cy.visit(getUrl({ prefix: '$', suffix: 'AUD', cursor: 'move' }, '6.66'));
-            cy.reload();
           }
         );
 
@@ -70,13 +68,44 @@ describe(
             cy.get('input').type('{leftArrow}');
             cy.get('input').type('9');
             cy.get('input').should('have.value', '$66,96AUD');
+          }
+        );
 
-            cy.get('input').type('{backspace}'.repeat(4));
+        it(
+          'shouldn\'t erase prefix',
+          () => {
+            cy.get('input').should('have.value', '$6,66AUD');
+            cy.get('input').type('{backspace}'.repeat(8));
             cy.get('input').type('123');
             cy.get('input').should('have.value', '$1,23AUD');
             cy.get('input').type('{leftArrow}'.repeat(4));
             cy.get('input').type('2');
             cy.get('input').should('have.value', '$21,23AUD');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after inserted',
+          () => {
+            cy.get('input').should('have.value', '$6,66AUD');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('9');
+            cy.get('input').should('have.value', '$66,96AUD');
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '$6,66AUD');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after clear',
+          () => {
+            cy.get('input').should('have.value', '$6,66AUD');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('9');
+            cy.get('input').should('have.value', '$66,96AUD');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('{backspace}'.repeat(2));
+            cy.get('input').should('have.value', '$0,96AUD');
           }
         );
       }
@@ -90,7 +119,6 @@ describe(
     beforeEach(
       () => {
         cy.visit(getUrl({ prefix: '$', suffix: 'AUD', cursor: 'move' }, '666.99'));
-        cy.reload();
       }
     );
 
@@ -200,3 +228,167 @@ describe(
   }
 );
 
+
+describe(
+  'negative numbers',
+  () => {
+    describe(
+      'should start with negative when allowed',
+      () => {
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ allowNegative: true }, '-6.99'));
+          }
+        );
+    
+        it(
+          'should allow add negative sign',
+          () => {
+            cy.get('input').should('have.value', '-6,99');
+            cy.get('input').type('-');
+            cy.get('input').should('have.value', '-6,99');
+          }
+        );
+      }
+    );
+
+    describe(
+      'should allow add and remove negative sign correctly',
+      () => {
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ allowNegative: true, cursor: 'move' }));
+          }
+        );
+    
+        it(
+          'should allow add negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('-');
+            cy.get('input').should('have.value', '-0,00');
+          }
+        );
+    
+        it(
+          'should allow add only one negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('----');
+            cy.get('input').should('have.value', '-0,00');
+          }
+        );
+    
+        it(
+          'should allow write with negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('666');
+            cy.get('input').type('-');
+            cy.get('input').should('have.value', '-6,66');
+            cy.get('input').type('963');
+            cy.get('input').should('have.value', '-6.669,63');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after inserted',
+          () => {
+            cy.get('input').type('6-66');
+            cy.get('input').should('have.value', '-6,66');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('9');
+            cy.get('input').should('have.value', '-66,96');
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '-6,66');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after clear',
+          () => {
+            cy.get('input').type('6-66');
+            cy.get('input').should('have.value', '-6,66');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('9');
+            cy.get('input').should('have.value', '-66,96');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('{backspace}'.repeat(2));
+            cy.get('input').should('have.value', '-0,96');
+          }
+        );
+      }
+    );
+
+    describe(
+      'should allow add and remove negative sign correctly when it is after numbers',
+      () => {
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ allowNegative: true, negativeSignAfter: true, cursor: 'move' }));
+          }
+        );
+    
+        it(
+          'should allow add negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('-');
+            cy.get('input').should('have.value', '0,00-');
+          }
+        );
+    
+        it(
+          'should allow add only one negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('----');
+            cy.get('input').should('have.value', '0,00-');
+          }
+        );
+    
+        it(
+          'should allow write with negative sign',
+          () => {
+            cy.get('input').should('have.value', '0,00');
+            cy.get('input').type('666');
+            cy.get('input').type('-');
+            cy.get('input').should('have.value', '6,66-');
+            cy.get('input').type('963');
+            cy.get('input').should('have.value', '6.669,63-');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after inserted',
+          () => {
+            cy.get('input').type('6-66');
+            cy.get('input').should('have.value', '6,66-');
+            cy.get('input').type('{leftArrow}');
+            cy.get('input').type('9');
+            cy.get('input').should('have.value', '66,69-');
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '6,66-');
+          }
+        );
+        
+        it(
+          'should keep caret at correct position after clear',
+          () => {
+            cy.get('input').type('6-99'); // 6,99-|
+            cy.get('input').should('have.value', '6,99-');
+            cy.get('input').type('{leftArrow}'); // 6,99|-
+            cy.get('input').type('3');
+            cy.get('input').should('have.value', '69,93-');
+            cy.get('input').type('{leftArrow}'.repeat(2)); // 69,|93-
+            cy.get('input').type('{backspace}'.repeat(2)); // 0,|93-
+            cy.get('input').should('have.value', '0,93-');
+            cy.get('input').type('{rightArrow}'.repeat(3)); // 0,93-|
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '0,93');
+          }
+        );
+      }
+    );
+  }
+);
