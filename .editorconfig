@@ -11,3 +11,6 @@ insert_final_newline = true
 
 [.nvmrc]
 insert_final_newline = false
+
+[LICENSE]
+insert_final_newline = false
