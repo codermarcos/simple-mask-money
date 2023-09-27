@@ -16,8 +16,8 @@
   <a class="badge-align" href="https://www.npmjs.com/package/simple-mask-money">
     <img src="https://img.shields.io/npm/dm/simple-mask-money.svg" alt="npm downloads">
   </a>
-  <a class="badge-align" href="https://opensource.org/license/mit/">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+  <a class="badge-align" href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/badge/Apache-2.0-blue.svg" alt="License">
   </a>
 </p>
 
