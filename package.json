@@ -1,6 +1,6 @@
 {
   "name": "simple-mask-money",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "private": false,
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
   "types": "./lib/simple-mask-money.d.ts",
@@ -98,7 +98,7 @@
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "cross-env": "^7.0.3",
-    "cypress": "^12.17.4",
+    "cypress": "^13.3.0",
     "eslint": "^8.48.0",
     "eslint-plugin-cypress": "^2.14.0",
     "jest-environment-jsdom": "^29.6.4",
