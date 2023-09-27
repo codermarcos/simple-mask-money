@@ -60,7 +60,7 @@ function formatToCurrency(
 
   const isNegative = allowNegative && srtValue.includes('-');
 
-  const numberValue = formatToNumber(value, configuration);
+  const numberValue = formatToNumber(value, configuration).toString().replace('-', '');
 
   const [thousands, decimals] = numberValue.toString().split('.');
 

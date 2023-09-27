@@ -4,9 +4,8 @@ import type {
 } from 'src/types';
 
 import getBaseConfiguration from 'src/get-base-configuration';
-import formatToCurrency from 'src/format-to-currency';
 
-const allowedKeys = [...Array(10).keys(), 'Backspace'].map((n) => n.toString());
+const numbers = '0123456789'.split('');
 
 /**
  * It applies a mask to an input element, formatting its value as a currency. 
@@ -59,6 +58,7 @@ function setMask(
     beforeFormat,
     afterFormat,
     allowNegative,
+    negativeSignAfter,
     fractionDigits,
     decimalSeparator,
     thousandsSeparator,
@@ -96,15 +96,102 @@ function setMask(
   };
 
   const firstPositionToNumber = prefix.length;
+  const allowedKeys = [...numbers, 'Backspace', allowNegative ? '-' : ''];
   const lengthUntilFirstThousandSeparator = 3 + decimalSeparator.length + fractionDigits;
 
   const addPrefixAndSuffix = (v: string) => `${prefix}${v}${suffix}`;
-  const removePrefix = (v: Array<string>) => v.slice(prefix.length);
-  const removeSuffix = (v: Array<string>) => v.slice(0, v.length - suffix.length);
-  const fillDecimals = (v: string) => v.padStart(fractionDigits, completer);
   const getLastPositionToNumber = (v?: string) => v?.length ?? element.value.length - suffix.length;
+
   const caretIsOnPrefix = (n: number) => n < firstPositionToNumber;
   const caretIsOnSuffix = (n: number) => suffix.length > 0 && n > getLastPositionToNumber();
+
+  const formatToMask = (v: Array<string>, trimExtraDecimals = false, action?: readonly [name: string, parmas: readonly [start: number, length: number, replace?: string]]) => {
+    let actionName: string | undefined;
+    const characteres = [...v];
+    let result = new Array<string>();
+
+    if (action) {
+      [actionName] = action;
+      const [, actionParams] = action;
+      const [start, end] = actionParams;
+      
+      // Add or remove characters
+      const characteresRemoved = characteres.splice(...(actionParams as [number, number]));
+
+      // Backspace into decimal separator or thousands separator should remove next character
+      if (actionName === 'remove' && characteresRemoved.length === 1) {
+        const [removed] = characteresRemoved;
+        if (removed === decimalSeparator || removed === thousandsSeparator)
+          characteres.splice(start - 1, end);
+      }
+    }
+
+    let thousandsCounter = lengthUntilFirstThousandSeparator;
+    let decimalSeparatorAdded = false;
+    let completersToRemove = 0;
+    let isNegative = false;
+
+    for (let character; (character = characteres.pop()); ) {
+      if (character === '-') { 
+        isNegative = true;
+        continue; 
+      }
+
+      if (character === decimalSeparator && decimalSeparatorAdded && trimExtraDecimals) {
+        const startAt = result.indexOf(decimalSeparator);
+        result.splice(startAt, decimalSeparator.length);
+
+        const fractionDigitsNumbers = result.slice(0, fractionDigits);
+
+        if (fractionDigitsNumbers.length < result.length)
+          thousandsCounter += result.length - fractionDigitsNumbers.length;
+        
+        result = [
+          decimalSeparator,
+          ...fractionDigitsNumbers,
+        ];
+        decimalSeparatorAdded = true;
+        continue;
+      }
+
+      if (Number.isNaN(Number(character))) continue;
+
+      thousandsCounter -= 1;
+
+      if (character === completer)
+        completersToRemove += 1;
+      else if (character !== decimalSeparator && completersToRemove > 0)
+        completersToRemove = 0;
+
+      if (thousandsCounter === 0) {
+        result.unshift(thousandsSeparator);
+        thousandsCounter = 3;
+      }
+
+      result.unshift(character);
+      
+      if (result.length !== fractionDigits || decimalSeparatorAdded) continue;
+      
+      result.unshift(decimalSeparator);
+      decimalSeparatorAdded = true;
+    }
+
+    if (completersToRemove !== 0)
+      result.splice(0, completersToRemove);
+
+    if (result.every(v => v === completer) && actionName === 'remove')
+      isNegative = false;
+
+    if (result.length <= fractionDigits)
+      result = [completer, decimalSeparator, result.join('').padStart(fractionDigits, completer)];
+    else if (result.length === fractionDigits + decimalSeparator.length) // ,00
+      result.unshift(completer);
+    
+    if (isNegative)
+      result[negativeSignAfter ? 'push' : 'unshift']('-');
+
+    return addPrefixAndSuffix(result.join(''));
+  };
 
   const setCaretPosition = (force?: [start: number, end?: number]) => {
     const lastPositionToNumber = getLastPositionToNumber();
@@ -124,7 +211,7 @@ function setMask(
 
   beforeFormat?.(element.value);
 
-  const initialValue = formatToCurrency(element.value, currentConfiguration);
+  const initialValue = formatToMask(element.value.split(''), true);
 
   let lastValue = initialValue;
   
@@ -147,24 +234,24 @@ function setMask(
       (e.key === 'ArrowRight' && start < lastPositionToNumber)
     )) return; 
 
-    // escrever logicva [pra n selecionar o CAD]
     e.preventDefault();
 
     // Select all
     if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
 
     // Allow only number
-    if (!allowedKeys.includes(e.key) && (e.key !== '-' || !allowNegative))
-      return;
+    if (!allowedKeys.includes(e.key)) return;
+
+    const isBackspace = e.key === 'Backspace';
 
     if (caretIsOnPrefix(start)) [start, end] = setCaretPosition([firstPositionToNumber]);
 
     if (caretIsOnSuffix(start)) [start, end] = setCaretPosition([lastPositionToNumber]);
 
     // No allow erase the prefix
-    if (e.key === 'Backspace' && start === 0) return;
+    if (isBackspace && start === 0) return;
 
-    let characteres = element.value.split('');
+    const characteres = element.value.split('');
 
     const length = Math.abs(end - start);
     const removeMoreThanOne = length > 0;
@@ -176,55 +263,17 @@ function setMask(
     // Define a range to add
     const add = [start, removeMoreThanOne ? length : 0, e.key] as const;
 
-    // Add or remove characters
-    characteres.splice(
-      ...((e.key === 'Backspace' ? remove : add) as [number, number])
-    );
+    const action = isBackspace ? 'remove' : 'add';
 
-    characteres = removeSuffix(removePrefix(characteres));
+    const newValue = formatToMask(characteres, false, [action, ({ add, remove })[action]]);
 
-    while (
-      characteres[0] === '0' ||
-      characteres[0] === decimalSeparator ||
-      characteres[0] === thousandsSeparator
-    )
-      characteres.shift();
-
-    if (characteres.length <= fractionDigits)
-      return triggerInputChanges(
-        addPrefixAndSuffix(
-          `${completer}${decimalSeparator}${fillDecimals(characteres.join(''))}`
-        ), [start, end]
-      );
-
-    const result = [];
-
-    let thousandsCounter = lengthUntilFirstThousandSeparator;
-
-    for (let character; (character = characteres.pop()); ) {
-      if (Number.isNaN(parseInt(character))) continue;
-      thousandsCounter -= 1;
-
-      if (thousandsCounter === 0) {
-        result.unshift(thousandsSeparator);
-        thousandsCounter = 3;
-      }
-
-      result.unshift(character);
-
-      if (result.length !== fractionDigits) continue;
-
-      result.unshift(decimalSeparator);
-    }
-
-    if (result.length === fractionDigits + decimalSeparator.length)
-      result.unshift(completer);
-
-    const newValue = addPrefixAndSuffix(result.join(''));
-
-    if (e.key !== 'Backspace' && lastValue.length < newValue.length && start < getLastPositionToNumber(newValue)) {
+    if (!isBackspace && lastValue.length < newValue.length && start < getLastPositionToNumber(newValue)) {
       start += newValue.length - lastValue.length;
       end += newValue.length - lastValue.length;
+    } else if (isBackspace && lastValue.length > newValue.length && start > firstPositionToNumber) {
+      const characteresRemoved = lastValue.length - newValue.length;
+      start = start - characteresRemoved <= firstPositionToNumber ? firstPositionToNumber : start - characteresRemoved;
+      end = end - characteresRemoved <= firstPositionToNumber ? firstPositionToNumber : end - characteresRemoved;
     }
   
     triggerInputChanges(newValue, [start, end]);

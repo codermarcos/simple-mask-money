@@ -21,6 +21,27 @@ describe.only(
     );
     
     it(
+      'shouldn\'t return correct negative number', 
+      () => {
+        expect(formatToNumber('R$-6,66')).toBe(6.66);
+      },
+    );
+    
+    it(
+      'should return correct negative number', 
+      () => {
+        expect(formatToNumber('R$6,66-', { allowNegative: true })).toBe(-6.66);
+      },
+    );
+
+    it(
+      'should return correct negative number', 
+      () => {
+        expect(formatToNumber('R$6,66-', { allowNegative: true })).toBe(-6.66);
+      },
+    );
+    
+    it(
       'should get only numbers', 
       () => {
         expect(formatToNumber('A6AA6!a6')).toBe(666);

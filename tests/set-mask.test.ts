@@ -123,6 +123,17 @@ describe(
             expect(input.value).toBe('R$999.666,50');
           },
         );
+
+        it(
+          'should format first value with wrong number bigger than max decimal digits', 
+          () => {
+            input.value = 'R$999.666,999';
+
+            clear = setMask(input, { prefix: 'R$' });
+
+            expect(input.value).toBe('R$999.666,99');
+          },
+        );
       }
     );
     
