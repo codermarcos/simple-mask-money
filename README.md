@@ -92,7 +92,7 @@ Here is a usage example with Vanilla JS:
       // Select the element
       const removeMask = SimpleMaskMoney.setMask('#my-input');
       // Convert the input value to a number, which you can save e.g. to a database:
-      SimpleMaskMoney.formatToNumber(document.getElementById('my-input').value);
+      SimpleMaskMoney.formatToNumber(document.getElementById('my-input')).value;
     </script>
   </body>
 ```
