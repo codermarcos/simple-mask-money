@@ -8,23 +8,24 @@ describe(
     it(
       'should export correct elements', 
       () => {
+        const keysDefaultExported = Object.keys(SimpleMaskMoney.default);
         const keys = Object.keys(SimpleMaskMoney);
-        expect(keys.length).toEqual(5);
-        expect(keys).toContain('setMask');
-        expect(keys).toContain('removeMask');
-        expect(keys).toContain('formatToNumber');
-        expect(keys).toContain('formatToCurrency');
-        expect(keys).toContain('createInstanceOf');
+        expect(keysDefaultExported.length).toEqual(5);
+        expect(keys.length).toEqual(6);
+        expect(keys).toContain('default');
       },
     );
 
-    it.each(Object.keys(SimpleMaskMoney))(
-      'should export correct elements with correct functions', 
-      (functionName) => {
-        expect(SimpleMaskMoney).toHaveProperty(functionName);
-        expect(typeof SimpleMaskMoney[functionName as keyof typeof SimpleMaskMoney])
+    it.each(['setMask', 'removeMask', 'formatToNumber', 'createInstanceOf', 'formatToCurrency'])(
+      'should have all keys to default and to named export',
+      (propertyName) => {
+        expect(SimpleMaskMoney.default).toHaveProperty(propertyName);
+        expect(SimpleMaskMoney).toHaveProperty(propertyName);
+        expect(typeof SimpleMaskMoney[propertyName as keyof typeof SimpleMaskMoney])
           .toBe('function');
-      },
+        expect(typeof SimpleMaskMoney.default[propertyName as keyof typeof SimpleMaskMoney.default])
+          .toBe('function');
+      }
     );
   }
 );
