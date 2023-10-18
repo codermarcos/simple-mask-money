@@ -1,6 +1,19 @@
-export type { SimpleMaskMoneyConfiguration } from './types';
-export { default as setMask, SetMaskFunction } from 'src/set-mask';
-export { default as removeMask, RemoveMaskFunction } from 'src/remove-mask';
-export { default as formatToNumber, FormatToNumberFunction } from 'src/format-to-number';
-export { default as createInstanceOf, CreateInstanceOfFunction } from 'src/create-instance-of';
-export { default as formatToCurrency, FormatToCurrencyFunction } from 'src/format-to-currency';
+export type { SimpleMaskMoneyConfiguration } from 'src/types';
+
+export type { SetMaskFunction } from 'src/set-mask';
+export type { RemoveMaskFunction } from 'src/remove-mask';
+export type { FormatToNumberFunction } from 'src/format-to-number';
+export type { CreateInstanceOfFunction } from 'src/create-instance-of';
+export type { FormatToCurrencyFunction } from 'src/format-to-currency';
+
+import setMask from 'src/set-mask';
+import removeMask from 'src/remove-mask';
+import formatToNumber from 'src/format-to-number';
+import createInstanceOf from 'src/create-instance-of';
+import formatToCurrency from 'src/format-to-currency';
+
+const SimpleMaskMoney = { setMask, removeMask, formatToNumber, createInstanceOf, formatToCurrency };
+
+export default SimpleMaskMoney;
+
+export { setMask, removeMask, formatToNumber, createInstanceOf, formatToCurrency };
