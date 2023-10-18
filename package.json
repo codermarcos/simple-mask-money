@@ -17,37 +17,37 @@
     "lib"
   ],
   "exports": {
-    "/": {
+    ".": {
       "types": "./lib/simple-mask-money.d.ts",
       "node": "./lib/simple-mask-money.cjs.js",
       "import": "./lib/simple-mask-money.esm.js",
       "default": "./lib/simple-mask-money.umd.js"
     },
-    "/set-mask": {
+    "./set-mask": {
       "types": "./lib/set-mask.d.ts",
       "node": "./lib/set-mask.cjs.js",
       "import": "./lib/set-mask.esm.js",
       "default": "./lib/set-mask.umd.js"
     },
-    "/remove-mask": {
+    "./remove-mask": {
       "types": "./lib/remove-mask.d.ts",
       "node": "./lib/remove-mask.cjs.js",
       "import": "./lib/remove-mask.esm.js",
       "default": "./lib/remove-mask.umd.js"
     },
-    "/format-to-number": {
+    "./format-to-number": {
       "types": "./lib/format-to-number.d.ts",
       "node": "./lib/format-to-number.cjs.js",
       "import": "./lib/format-to-number.esm.js",
       "default": "./lib/format-to-number.umd.js"
     },
-    "/create-instance-of": {
+    "./create-instance-of": {
       "types": "./lib/create-instance-of.d.ts",
       "node": "./lib/create-instance-of.cjs.js",
       "import": "./lib/create-instance-of.esm.js",
       "default": "./lib/create-instance-of.umd.js"
     },
-    "/format-to-currency": {
+    "./format-to-currency": {
       "types": "./lib/format-to-currency.d.ts",
       "node": "./lib/format-to-currency.cjs.js",
       "import": "./lib/format-to-currency.esm.js",
