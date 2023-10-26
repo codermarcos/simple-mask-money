@@ -13,6 +13,7 @@ const configuration: SimpleMaskMoneyConfiguration = {
   suffix            : '',
   thousandsSeparator: '.',
   cursor            : 'end',
+  allowEmpty        : false,
 };
 
 function getBaseConfiguration(

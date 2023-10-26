@@ -3,14 +3,14 @@ import { describe, expect, it } from '@jest/globals';
 import getBaseConfiguration from 'src/get-base-configuration';
 
 describe(
-  'getBaseConfiguration', 
+  'getBaseConfiguration',
   () => {
 
     it(
-      'should have base configuration', 
+      'should have base configuration',
       () => {
-        expect(getBaseConfiguration()).toEqual({ 
-          allowNegative       : false, 
+        expect(getBaseConfiguration()).toEqual({
+          allowNegative       : false,
           negativeSignAfter   : false,
           decimalSeparator    : ',',
           fixed               : true,
@@ -19,12 +19,13 @@ describe(
           suffix              : '',
           thousandsSeparator  : '.',
           cursor              : 'end',
+          allowEmpty          : false,
         });
       },
     );
 
     it(
-      'should have base configuration', 
+      'should have base configuration',
       () => {
         const fractionDigits = 4;
         const decimalSeparator = '.';
@@ -32,16 +33,16 @@ describe(
         const allowNegative = true;
         const cursor = 'move';
 
-        const result = getBaseConfiguration({ 
-          allowNegative, 
-          decimalSeparator, 
+        const result = getBaseConfiguration({
+          allowNegative,
+          decimalSeparator,
           fractionDigits,
           prefix,
           cursor
         });
 
-        expect(result).toEqual({ 
-          allowNegative, 
+        expect(result).toEqual({
+          allowNegative,
           negativeSignAfter   : false,
           decimalSeparator,
           fixed               : true,
@@ -50,6 +51,7 @@ describe(
           prefix,
           thousandsSeparator  : '.',
           cursor,
+          allowEmpty          : false,
         });
       },
     );
