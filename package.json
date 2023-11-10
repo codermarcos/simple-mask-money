@@ -1,6 +1,6 @@
 {
   "name": "simple-mask-money",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "private": false,
   "description": "Simple money mask developed with pure JavaScript. To run on Client Side and Server Side",
   "types": "./lib/simple-mask-money.d.ts",
