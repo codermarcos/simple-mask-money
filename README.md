@@ -175,3 +175,79 @@ Read the [docs](docs/) or chose your implementation to check an example:
 * Allow lock the carret bar on end
 * Allow choose how many fractionalDigits
 * Allow choose decimal and thousands separators
+
+## 🦾 Contribute to this project
+
+This project needs your help, all contributions are welcome!
+
+For it please take a look for some patterns in [this documentation](https://github.com/codermarcos/simple-mask-money/blob/main/CONTRIBUTING.md).
+
+
+### Requirements to run this project
+
+This repository uses:
+
+| Dependencies                                 | Description        | Docs             |
+| -------------------------------------------- | ------------------ | ---------------- |
+| [![node-version]][node-download]             | Javascript Runtime | [📚][node-doc]   |
+
+> You can use [NVM][nvm-download] to select correct node version based on file `.nvmrc`.
+
+### Developing in this project
+
+1. Clone it:
+
+```bash
+git clone git@github.com:codermarcos/simple-mask-money.git
+```
+
+Or just [make a fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
+
+2. Install the dependecies whitout change the lock file:
+
+```bash
+npm ci
+```
+
+> Just change the lock file if necessary.
+
+3. Run build to generate a build:
+
+```bash
+npm run build
+```
+
+### Before open a PR
+
+Remember of write unit and e2e tests, and make it works!
+
+1. Run unit tests
+
+```bash
+npm run test
+```
+
+2. Run e2e tests
+
+```bash
+npx cypress open
+```
+
+## 📖 Learn More
+
+To learn more about this project, take a look at the following resources:
+
+* [Typescript][ts-doc] - understand about typescript.
+* [Rollup][rollup-doc] - understand about the bundler used by this project.
+* [Jest][jest-doc] - understand about the tool that we use for write unit tests.
+* [Cypress][cypress-doc] - understand about the tool that we use for write e2e tests.
+
+[node-download]: https://nodejs.org/dist/v16.9.1/
+[node-doc]: https://nodejs.org/dist/latest-v16.x/docs/api/
+
+[nvm-download]: https://github.com/nvm-sh/nvm
+
+[ts-doc]: https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+[rollup-doc]: https://rollupjs.org/configuration-options/
+[jest-doc]: https://jestjs.io/pt-BR/docs/using-matchers
+[cypress-doc]: https://docs.cypress.io/guides/overview/why-cypress#Writing-tests
