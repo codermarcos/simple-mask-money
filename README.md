@@ -242,8 +242,9 @@ To learn more about this project, take a look at the following resources:
 * [Jest][jest-doc] - understand about the tool that we use for write unit tests.
 * [Cypress][cypress-doc] - understand about the tool that we use for write e2e tests.
 
-[node-download]: https://nodejs.org/dist/v16.9.1/
-[node-doc]: https://nodejs.org/dist/latest-v16.x/docs/api/
+[node-download]: https://nodejs.org/en/download/
+[node-doc]: https://nodejs.org/docs/latest-v20.x/api/documentation.html
+[node-version]: https://img.shields.io/badge/node-latest-blue
 
 [nvm-download]: https://github.com/nvm-sh/nvm
 
