@@ -34,10 +34,10 @@ Here are some guides to names and patterns which helps everybody understand cont
 
 Take a look at some examples:
 
-* `refactor/CF-321/remove-bad-code`
-* `feat/CF-666/add-path-to-hell`
-* `fix/CF-999/rollback-path-hell`
-* `doc/CF-123/add-lessons-learned`
+* `refactor/#666/remove-bad-code`
+* `feat/#999/add-path-to-hell`
+* `fix/#666/rollback-path-hell`
+* `doc/#123/add-lessons-learned`
 
 ### 💬 Git Commit Messages
 
