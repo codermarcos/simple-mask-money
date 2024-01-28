@@ -88,6 +88,35 @@ describe(
       }
     );
 
+    describe(
+      'form submit', 
+      () => {
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }, '6.66'));
+          }
+        );
+
+        it(
+          'should trigger form submit',
+          (done) => {
+            const spy = cy.spy().as('submit');
+            
+            cy.get('form').then(form$ => {
+              form$.on('submit', e => {
+                e.preventDefault();
+                spy();
+                done();
+              });
+            });
+            
+            cy.get('input').type('{Enter}');
+
+            cy.get('@submit').should('have.not.been.called');
+          },
+        );
+      }
+    );
   }
 );
 
@@ -306,7 +335,6 @@ describe(
     );
   }
 );
-
 
 describe(
   'negative numbers',

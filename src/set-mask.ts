@@ -223,6 +223,9 @@ function setMask(
     let start = element.selectionStart ?? lastPositionToNumber;
     let end = element.selectionEnd ?? lastPositionToNumber;
 
+    // Trigger input submit
+    if (e.key === 'Enter') return;
+
     // Select all
     if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
 
