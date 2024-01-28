@@ -14,7 +14,9 @@
 
   <script src="/lib/simple-mask-money.umd.js"></script>
 
-  <input type="text" />
+  <form>
+    <input type="text" />
+  </form>
 
   <script>
     const options = {};
@@ -50,6 +52,9 @@
 
     if (q.has('initialValue'))
       document.querySelector('input').value = q.get('initialValue');
+    
+    if (q.has('attributes'))
+      q.get('attributes').split(',').forEach(prop => document.querySelector('input').setAttribute(prop, ''));
 
     const removeMask = SimpleMaskMoney.setMask('input', options);
   </script>

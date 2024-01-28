@@ -312,14 +312,16 @@ function setMask(
     setCaretPosition(position);
   };
 
-  element.addEventListener('keydown', onKeyDown);
-  document.addEventListener('selectionchange', onSelectionChange);
-
   if (allowEmpty && initialValue === `${prefix}0`) {
     triggerInputChanges('');
   } else {
     triggerInputChanges(initialValue);
   }
+  
+  if (element.hasAttribute('readonly') || element.hasAttribute('disabled')) return () => void 0;
+
+  element.addEventListener('keydown', onKeyDown);
+  document.addEventListener('selectionchange', onSelectionChange);
 
   const removeMask = (): void => {
     element.removeEventListener('keydown', onKeyDown);

@@ -235,6 +235,40 @@ describe(
       }
     );
 
+    describe(
+      'shouldn\'t write when is readonly or disabled',
+      () => {
+        it(
+          'should format when apply mask and not allow write when is readonly', 
+          () => {
+            input.value = '0,50';
+            input.setAttribute('readonly', '');
+
+            clear = setMask(input, { prefix: 'R$', suffix: 'BRL' });
+    
+            write('69');
+    
+            expect(input.value).toBe('R$0,50BRL');
+          },
+        );
+        
+        it(
+          'should format when apply mask and not allow write when is disabled', 
+          () => {
+            input.value = '0,50';
+            input.setAttribute('disabled', '');
+
+            clear = setMask(input, { prefix: 'R$', suffix: 'BRL' });
+    
+            write('69');
+    
+            expect(input.value).toBe('R$0,50BRL');
+          },
+        );
+      }
+    );
+
+
     // Only basic tests because jsdom doesn't work to simulate user actions
     // Real tests at cypress
     describe(

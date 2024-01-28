@@ -2,15 +2,94 @@
 
 import type { SimpleMaskMoneyConfiguration } from '../../../src/types';
 
-const getUrl = (configuration: Partial<SimpleMaskMoneyConfiguration>, initalValue?: string) => {
+const getUrl = (configuration: Partial<SimpleMaskMoneyConfiguration>, initalValue?: string, attr?: Array<string>) => {
   const options = new Array<string>();
 
   Object.keys(configuration).forEach((key) => options.push(`${key}=${encodeURIComponent(configuration[key])}`));
 
   if (initalValue) options.push(`initialValue=${initalValue}`);
+  if (attr) options.push(`attributes=${attr.join(',')}`);
 
   return `./cypress/file/?${options.join('&')}`;
 };
+
+
+describe(
+  'input behaviour',
+  () => {
+    describe(
+      'readonly',
+      () => {
+
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }, '6.66', ['readonly']));
+            cy.reload();
+          }
+        );
+    
+        it(
+          'should format when input was created',
+          () => {
+            cy.get('input').should('have.value', '$6,66CAD');
+          }
+        );
+    
+        it(
+          'shouldn\'t allow type when is readonly',
+          (done) => {
+            const prevent = async (error) => {
+              const passed = error.message.includes('readonly');
+              cy.off('fail', prevent);
+              if (passed) done();
+              return !passed;
+            };
+
+            cy.on('fail', prevent);
+            cy.get('input').type('123', { timeout: 100 });
+          }
+        );
+      }
+    );
+
+    describe(
+      'readonly',
+      () => {
+
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }, '6.66', ['disabled']));
+            cy.reload();
+          }
+        );
+    
+        it(
+          'should format when input was created',
+          () => {
+            cy.get('input').should('have.value', '$6,66CAD');
+          }
+        );
+    
+        it(
+          'shouldn\'t allow type when is disabled',
+          (done) => {
+            const prevent = async (error) => {
+              const passed = error.message.includes('disabled');
+              cy.off('fail', prevent);
+              if (passed) done();
+              return !passed;
+            };
+
+            cy.on('fail', prevent);
+            
+            cy.get('input').type('123', { timeout: 100 });
+          }
+        );
+      }
+    );
+
+  }
+);
 
 describe(
   'cursor',
