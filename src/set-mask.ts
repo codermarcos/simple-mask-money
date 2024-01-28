@@ -8,11 +8,11 @@ import getBaseConfiguration from 'src/get-base-configuration';
 const numbers = '0123456789'.split('');
 
 /**
- * It applies a mask to an input element, formatting its value as a currency. 
- * It takes an input element and an optional configuration object as parameters. 
- * The function listens for keyboard events on the input element and updates its value accordingly. 
+ * It applies a mask to an input element, formatting its value as a currency.
+ * It takes an input element and an optional configuration object as parameters.
+ * The function listens for keyboard events on the input element and updates its value accordingly.
  * It also handles caret positioning and allows for undoing changes. The function returns a method to remove the mask from the input element.
- * 
+ *
  * @remarks
  * This method is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#simplemaskmoneysetmask | SimpleMaskMoney.setMask}
  *
@@ -24,23 +24,23 @@ const numbers = '0123456789'.split('');
  * Here's an example using from cdn with CSSSelector:
  * ```html
  * <script src=""></script>
- * 
+ *
  * <input id="my-input" />
- * 
+ *
  * <script>
  *     const remove = SimpleMaskMoney.setMask('#my-input');
- *     remove(); // To remove the mask and listeners 
+ *     remove(); // To remove the mask and listeners
  * </script>
  * ```
- * 
+ *
  * @example
  * Here's an example using from npm to React with CSSSelector:
  * ```jsx
  * import { setMask } from 'simple-mask-money';
- * 
+ *
  * function InputMoney() {
  *    useEffect(() => setMask('#my-input'), []);
- * 
+ *
  *    return <input id="my-input" />;
  * }
  * ```
@@ -66,6 +66,7 @@ function setMask(
     prefix,
     suffix,
     cursor,
+    allowEmpty,
   } = currentConfiguration;
 
   if (typeof document === 'undefined') return () => void 0;
@@ -114,7 +115,7 @@ function setMask(
       [actionName] = action;
       const [, actionParams] = action;
       const [start, end] = actionParams;
-      
+
       // Add or remove characters
       const characteresRemoved = characteres.splice(...(actionParams as [number, number]));
 
@@ -132,9 +133,9 @@ function setMask(
     let isNegative = false;
 
     for (let character; (character = characteres.pop()); ) {
-      if (character === '-') { 
+      if (character === '-') {
         isNegative = true;
-        continue; 
+        continue;
       }
 
       if (character === decimalSeparator && decimalSeparatorAdded && trimExtraDecimals) {
@@ -145,7 +146,7 @@ function setMask(
 
         if (fractionDigitsNumbers.length < result.length)
           thousandsCounter += result.length - fractionDigitsNumbers.length;
-        
+
         result = [
           decimalSeparator,
           ...fractionDigitsNumbers,
@@ -169,9 +170,9 @@ function setMask(
       }
 
       result.unshift(character);
-      
+
       if (result.length !== fractionDigits || decimalSeparatorAdded) continue;
-      
+
       result.unshift(decimalSeparator);
       decimalSeparatorAdded = true;
     }
@@ -186,7 +187,7 @@ function setMask(
       result = [completer, decimalSeparator, result.join('').padStart(fractionDigits, completer)];
     else if (result.length === fractionDigits + decimalSeparator.length) // ,00
       result.unshift(completer);
-    
+
     if (isNegative)
       result[negativeSignAfter ? 'push' : 'unshift']('-');
 
@@ -200,12 +201,12 @@ function setMask(
     let position = positionDefault;
 
     if (cursor === 'move' && force)
-      position = typeof force[1] === 'number' 
+      position = typeof force[1] === 'number'
         ? [force[0], force[1]] as const
         : [force[0], force[0]] as const;
 
     element.setSelectionRange(...position);
-    
+
     return position;
   };
 
@@ -214,11 +215,11 @@ function setMask(
   const initialValue = formatToMask(element.value.split(''), true);
 
   let lastValue = initialValue;
-  
+
   const onKeyDown = (e: KeyboardEvent) => {
     beforeFormat?.(element.value);
     const lastPositionToNumber = getLastPositionToNumber();
-    
+
     let start = element.selectionStart ?? lastPositionToNumber;
     let end = element.selectionEnd ?? lastPositionToNumber;
 
@@ -230,12 +231,12 @@ function setMask(
 
     // Undo to first value
     if (e.ctrlKey && e.key === 'z') return triggerInputChanges(initialValue);
-    
+
     // Allow move caret after or before the prefix or suffix
     if (cursor === 'move' && (
       (e.key === 'ArrowLeft' && start > firstPositionToNumber) ||
       (e.key === 'ArrowRight' && start < lastPositionToNumber)
-    )) return; 
+    )) return;
 
     e.preventDefault();
 
@@ -253,6 +254,11 @@ function setMask(
 
     // No allow erase the prefix
     if (isBackspace && start === 0) return;
+
+    if (allowEmpty && isBackspace && element.value.length <= prefix.length + 1) {
+      triggerInputChanges(prefix);
+      return;
+    }
 
     const characteres = element.value.split('');
 
@@ -278,7 +284,7 @@ function setMask(
       start = start - characteresRemoved <= firstPositionToNumber ? firstPositionToNumber : start - characteresRemoved;
       end = end - characteresRemoved <= firstPositionToNumber ? firstPositionToNumber : end - characteresRemoved;
     }
-  
+
     triggerInputChanges(newValue, [start, end]);
   };
 
@@ -305,11 +311,15 @@ function setMask(
 
     // Only set position if is on prefix or suffix
     if (!position) return;
-    
+
     setCaretPosition(position);
   };
 
-  triggerInputChanges(initialValue);
+  if (allowEmpty && initialValue === `${prefix}0`) {
+    triggerInputChanges('');
+  } else {
+    triggerInputChanges(initialValue);
+  }
 
   if (element.hasAttribute('readonly') || element.hasAttribute('disabled')) return () => void 0;
 
@@ -335,7 +345,7 @@ function setMask(
 export default setMask;
 /**
  * Check the {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.setMask | SimpleMaskMoney.setMask} method to get more information about this type
- * 
+ *
  * @remarks
  * This type is part of the {@link https://github.com/codermarcos/simple-mask-money/ | SimpleMaskMoney} to see the full documentation check {@link https://github.com/codermarcos/simple-mask-money/tree/main/examples/4.x.x#SimpleMaskMoney.setMask | SimpleMaskMoney.setMask}
  */
