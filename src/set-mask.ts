@@ -320,7 +320,7 @@ function setMask(
   } else {
     triggerInputChanges(initialValue);
   }
-
+  
   if (element.hasAttribute('readonly') || element.hasAttribute('disabled')) return () => void 0;
 
   element.addEventListener('keydown', onKeyDown);
