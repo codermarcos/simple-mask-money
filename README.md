@@ -157,7 +157,7 @@ export class InputMoneyComponent implements AfterViewInit, OnDestroy {
 
 Read the [docs](docs/) or chose your implementation to check an example:
 
-* [JavaScript](examples/4.x.x/javascript)
+* [JavaScript](examples/4.x.x/vanilla)
 * [Angular](examples/4.x.x/angular)
 * [React](examples/4.x.x/react)
 * [Node](examples/4.x.x/node)
