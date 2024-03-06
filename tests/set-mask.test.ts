@@ -199,6 +199,17 @@ describe(
             expect(input.value).toBe('R$0,69BRL');
           },
         );
+
+        it(
+          'should format when type cents only and prefix has space', 
+          () => {
+            clear = setMask(input, { prefix: 'R$ ', suffix: ' BRL' });
+    
+            write('69');
+    
+            expect(input.value).toBe('R$ 0,69 BRL');
+          },
+        );
         
         it(
           'should format when type cents and dozens', 
@@ -208,6 +219,17 @@ describe(
             write('666');
     
             expect(input.value).toBe('R$6,66BRL');
+          },
+        );
+
+        it(
+          'should format when type cents and dozens and prefix has space', 
+          () => {
+            clear = setMask(input, { prefix: 'R$ ', suffix: ' BRL' });
+    
+            write('666');
+    
+            expect(input.value).toBe('R$ 6,66 BRL');
           },
         );
         
@@ -221,6 +243,17 @@ describe(
             expect(input.value).toBe('R$6.669,99BRL');
           },
         );
+
+        it(
+          'should format when type thousands', 
+          () => {
+            clear = setMask(input, { prefix: 'R$ ', suffix: ' BRL' });
+    
+            write('666999');
+    
+            expect(input.value).toBe('R$ 6.669,99 BRL');
+          },
+        );
         
         it(
           'should format when type number sequentialy', 
@@ -230,6 +263,17 @@ describe(
             write('1234567');
     
             expect(input.value).toBe('R$12.345,67BRL');
+          },
+        );
+        
+        it(
+          'should format when type number sequentialy', 
+          () => {
+            clear = setMask(input, { prefix: 'R$ ', suffix: ' BRL' });
+    
+            write('1234567');
+    
+            expect(input.value).toBe('R$ 12.345,67 BRL');
           },
         );
       }
