@@ -257,80 +257,167 @@ describe(
 describe(
   'prefix and suffix',
   () => {
-    beforeEach(
+    describe(
+      'common behaviour',
       () => {
-        cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }));
-        cy.reload();
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }));
+            cy.reload();
+          }
+        );
+    
+        it(
+          'should format when input was created',
+          () => {
+            cy.get('input').should('have.value', '$0,00CAD');
+          }
+        );
+    
+        it(
+          'shouldn\'t allow type a letter',
+          () => {
+            cy.get('input').type('abc');
+            cy.get('input').should('have.value', '$0,00CAD');
+          }
+        );
+    
+        it(
+          'should format when type only cents',
+          () => {
+            cy.get('input').type('1');
+            cy.get('input').should('have.value', '$0,01CAD');
+    
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '$0,00CAD');
+    
+            cy.get('input').type('12');
+            cy.get('input').should('have.value', '$0,12CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(2));
+            cy.get('input').should('have.value', '$0,00CAD');
+    
+            cy.get('input').type('66');
+            cy.get('input').should('have.value', '$0,66CAD');
+          }
+        );
+    
+        it(
+          'should format dozens',
+          () => {
+            cy.get('input').type('123');
+            cy.get('input').should('have.value', '$1,23CAD');
+    
+    
+            cy.get('input').type('{backspace}'.repeat(3));
+            cy.get('input').should('have.value', '$0,00CAD');
+    
+            cy.get('input').type('1234');
+            cy.get('input').should('have.value', '$12,34CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(4));
+            cy.get('input').should('have.value', '$0,00CAD');
+    
+            cy.get('input').type('6666');
+            cy.get('input').should('have.value', '$66,66CAD');
+          }
+        );
+    
+        it(
+          'should format hundreds',
+          () => {
+            cy.get('input').type('12345');
+            cy.get('input').should('have.value', '$123,45CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(5));
+            cy.get('input').should('have.value', '$0,00CAD');
+    
+            cy.get('input').type('66699');
+            cy.get('input').should('have.value', '$666,99CAD');
+          }
+        );
       }
     );
-
-    it(
-      'should format when input was created',
-      () => {
-        cy.get('input').should('have.value', '$0,00CAD');
-      }
-    );
-
-    it(
-      'shouldn\'t allow type a letter',
-      () => {
-        cy.get('input').type('abc');
-        cy.get('input').should('have.value', '$0,00CAD');
-      }
-    );
-
-    it(
-      'should format when type only cents',
-      () => {
-        cy.get('input').type('1');
-        cy.get('input').should('have.value', '$0,01CAD');
-
-        cy.get('input').type('{backspace}');
-        cy.get('input').should('have.value', '$0,00CAD');
-
-        cy.get('input').type('12');
-        cy.get('input').should('have.value', '$0,12CAD');
-
-        cy.get('input').type('{backspace}'.repeat(2));
-        cy.get('input').should('have.value', '$0,00CAD');
-
-        cy.get('input').type('66');
-        cy.get('input').should('have.value', '$0,66CAD');
-      }
-    );
-
-    it(
-      'should format dozens',
-      () => {
-        cy.get('input').type('123');
-        cy.get('input').should('have.value', '$1,23CAD');
-
-
-        cy.get('input').type('{backspace}'.repeat(3));
-        cy.get('input').should('have.value', '$0,00CAD');
-
-        cy.get('input').type('1234');
-        cy.get('input').should('have.value', '$12,34CAD');
-
-        cy.get('input').type('{backspace}'.repeat(4));
-        cy.get('input').should('have.value', '$0,00CAD');
-
-        cy.get('input').type('6666');
-        cy.get('input').should('have.value', '$66,66CAD');
-      }
-    );
-
-    it(
-      'should format hundreds',
-      () => {
-        cy.get('input').type('12345');
-        cy.get('input').should('have.value', '$123,45CAD');
-
-        cy.get('input').type('{backspace}'.repeat(5));
-        cy.get('input').should('have.value', '$0,00CAD');
-
-        cy.get('input').type('66699');
-        cy.get('input').should('have.value', '$666,99CAD');
+    
+    describe(
+      'wrong behaviour prefix and suffix with space',
+      () => {	
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$ ', suffix: ' CAD' }));
+            cy.reload();
+          }
+        );
+    
+        it(
+          'should format when input was created',
+          () => {
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+          }
+        );
+    
+        it(
+          'shouldn\'t allow type a letter',
+          () => {
+            cy.get('input').type('abc');
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+          }
+        );
+    
+        it(
+          'should format when type only cents',
+          () => {
+            cy.get('input').type('1');
+            cy.get('input').should('have.value', '$ 0,01 CAD');
+    
+            cy.get('input').type('{backspace}');
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+    
+            cy.get('input').type('12');
+            cy.get('input').should('have.value', '$ 0,12 CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(2));
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+    
+            cy.get('input').type('66');
+            cy.get('input').should('have.value', '$ 0,66 CAD');
+          }
+        );
+    
+        it(
+          'should format dozens',
+          () => {
+            cy.get('input').type('123');
+            cy.get('input').should('have.value', '$ 1,23 CAD');
+    
+    
+            cy.get('input').type('{backspace}'.repeat(3));
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+    
+            cy.get('input').type('1234');
+            cy.get('input').should('have.value', '$ 12,34 CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(4));
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+    
+            cy.get('input').type('6666');
+            cy.get('input').should('have.value', '$ 66,66 CAD');
+          }
+        );
+    
+        it(
+          'should format hundreds',
+          () => {
+            cy.get('input').type('12345');
+            cy.get('input').should('have.value', '$ 123,45 CAD');
+    
+            cy.get('input').type('{backspace}'.repeat(5));
+            cy.get('input').should('have.value', '$ 0,00 CAD');
+    
+            cy.get('input').type('66699');
+            cy.get('input').should('have.value', '$ 666,99 CAD');
+          }
+        );
       }
     );
   }
