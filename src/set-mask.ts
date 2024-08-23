@@ -240,9 +240,6 @@ function setMask(
 
     e.preventDefault();
 
-    // Select all
-    if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
-
     // Allow only number
     if (!allowedKeys.includes(e.key)) return;
 
