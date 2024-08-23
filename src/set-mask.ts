@@ -315,11 +315,7 @@ function setMask(
     setCaretPosition(position);
   };
 
-  if (allowEmpty && initialValue === `${prefix}0`) {
-    triggerInputChanges('');
-  } else {
-    triggerInputChanges(initialValue);
-  }
+  triggerInputChanges(allowEmpty && initialValue === `${prefix}0` ? '' : initialValue);
   
   if (element.hasAttribute('readonly') || element.hasAttribute('disabled')) return () => void 0;
 
@@ -332,12 +328,7 @@ function setMask(
     delete (element as HTMLInputElementMasked).removeMask;
   };
 
-  Object.defineProperty(element, 'removeMask', {
-    value: removeMask,
-    configurable: true,
-    enumerable: true,
-    writable: true,
-  });
+  (element as HTMLInputElementMasked).removeMask = removeMask;
 
   return removeMask;
 }
