@@ -223,8 +223,8 @@ function setMask(
     let start = element.selectionStart ?? lastPositionToNumber;
     let end = element.selectionEnd ?? lastPositionToNumber;
 
-    // Trigger input submit
-    if (e.key === 'Enter') return;
+    // Allow some input behaviours like submit, focus etc...
+    if (['Enter', 'Tab', 'Shift'].includes(e.key)) return;
 
     // Select all
     if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
@@ -232,7 +232,7 @@ function setMask(
     // Undo to first value
     if (e.ctrlKey && e.key === 'z') return triggerInputChanges(initialValue);
 
-    // Allow move caret after or before the prefix or suffix
+    // Allow move caret between the prefix and suffix
     if (cursor === 'move' && (
       (e.key === 'ArrowLeft' && start > firstPositionToNumber) ||
       (e.key === 'ArrowRight' && start < lastPositionToNumber)
