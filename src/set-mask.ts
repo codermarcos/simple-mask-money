@@ -226,6 +226,9 @@ function setMask(
     // Trigger input submit
     if (e.key === 'Enter') return;
 
+    // Allow focus change
+    if (e.key === 'Tab') return;
+
     // Select all
     if (e.ctrlKey && e.key === 'a') return setCaretPosition([firstPositionToNumber, lastPositionToNumber]);
 
