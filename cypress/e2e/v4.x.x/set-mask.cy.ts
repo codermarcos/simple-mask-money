@@ -117,6 +117,26 @@ describe(
         );
       }
     );
+
+    describe(
+      'focus change',
+      () => {
+        beforeEach(
+          () => {
+            cy.visit(getUrl({ prefix: '$', suffix: 'CAD' }, '6.66'));
+          }
+        );
+
+        it(
+          'should allow focus change',
+          () => {
+            cy.get('input').focus().should("be.focused");
+            cy.focused().tab()
+            cy.get('input').should("not.be.focused")
+          },
+        );
+      }
+    );
   }
 );
 
